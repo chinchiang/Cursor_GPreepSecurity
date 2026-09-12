@@ -399,7 +399,7 @@ git push -u gpreep cursor/preemptive-cybersecurity-128d
 git ls-remote gpreep
 ```
 
-預期 `ls-remote` 出現本節提交後的完整 SHA（功能樹含 QA 驗收 `c3f354c782a5e9ffb01186f73818610e7cdef4d4` 及其祖先）。授權成功後再設 Pages（來源此分支或合併後 `main`；`SITE_BASE=/Cursor_GPreepSecurity/`）。本代理未改 Pages。
+預期 `ls-remote` 出現 `a3cd16edb80658db5867c4e9260f581b94f6eed7`（本節紀錄；功能樹含 QA 驗收 `c3f354c782a5e9ffb01186f73818610e7cdef4d4`）。若其後僅再補 SHA 一行，hash 會再前進一顆。授權成功後再設 Pages（來源此分支或合併後 `main`；`SITE_BASE=/Cursor_GPreepSecurity/`）。本代理未改 Pages。
 
 ### 12.6 本節未做／未假裝
 
