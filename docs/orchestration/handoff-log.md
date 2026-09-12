@@ -597,3 +597,106 @@ git push -u gpreep cursor/preemptive-cybersecurity-128d
 ```
 
 預期本機 HEAD / 遠端 SHA = `9ec72fb3c491868b5fd4fa0f141f11d26eb81a0e`（若本節稍後另 commit 本檔，以新 HEAD 為準）。不要 force、不要推 `main`、不要改 Pages。
+
+## 15. 2026-09-12 使用者稱「這次應沒錯了」：再查並試推 gpreep（仍 403）
+
+| 項目 | 值 |
+| --- | --- |
+| 檢查／push 時間（UTC） | 2026-09-12T07:36Z |
+| 本機 HEAD（push 前） | `2e7325fd3b53d591340c49465bab47827dfc8be4`（`記錄重新授權後再推：gpreep 仍 403，origin 中轉成功`） |
+| 工作區 | `/workspace` |
+| 分支 | `cursor/preemptive-cybersecurity-128d`（SetActiveBranch 已設） |
+| 交付目標 | `gpreep` = `https://github.com/chinchiang/Cursor_GPreepSecurity.git` |
+| `origin` | `https://github.com/chinchiang/Cursor_MultiAgent.git` |
+| gpreep 是否已有該分支 | **否**（`git ls-remote gpreep` 與 HTTPS URL 皆無任何 ref） |
+| gpreep push | **失敗**（HTTP 403；未指數重試） |
+| force / 推 main / `gh` 開 PR | **皆未做** |
+
+### 15.1 installation 庫清單
+
+```
+$ gh api /installation/repositories --paginate --jq '.repositories[].full_name'
+chinchiang/Cursor_MultiAgent
+```
+
+`total_count=1`。**沒有** `chinchiang/Cursor_GPreepSecurity`。相對第 14 節未變。
+
+`gh api /installation` → HTTP **404** `Not Found`。
+
+### 15.2 目標庫 REST
+
+```
+$ gh api repos/chinchiang/Cursor_GPreepSecurity --jq '{permissions,size,default_branch}'
+{"default_branch":"main","permissions":{"admin":false,"maintain":false,"pull":false,"push":false,"triage":false},"size":0}
+```
+
+補充：`private=false`／`visibility=public`；`has_pages=false`；`pushed_at=2026-09-12T01:57:21Z`（建庫後仍無內容）。
+
+### 15.3 `git ls-remote`（push 前與 403 後皆同）
+
+```
+$ git ls-remote gpreep
+# （空；exit 0）
+
+$ git ls-remote https://github.com/chinchiang/Cursor_GPreepSecurity.git
+# （空；exit 0）
+```
+
+`gh api repos/chinchiang/Cursor_GPreepSecurity/branches` → `[]`  
+`contents/` → `This repository is empty.`（404）  
+`git/refs` → `Git Repository is empty.`（409）
+
+`origin` 本分支 SHA：`2e7325fd3b53d591340c49465bab47827dfc8be4`（與本機 HEAD 對齊）。遠端 GPreep **沒有** `cursor/preemptive-cybersecurity-128d`，無 SHA 可對齊。
+
+### 15.4 實際 push（遠端仍空；REST `push:false` 但依「這次應沒錯了」試一次）
+
+REST 對 MultiAgent 也曾回 `push:false` 卻可寫，故對空庫試一次普通 push（非 dry-run、非 force）：
+
+```
+$ git push -u gpreep cursor/preemptive-cybersecurity-128d
+remote: Permission to chinchiang/Cursor_GPreepSecurity.git denied to cursor[bot].
+fatal: unable to access 'https://github.com/chinchiang/Cursor_GPreepSecurity.git/': The requested URL returned error: 403
+```
+
+exit **128**。這是 **403 權限拒絕**，不是網路逾時。依任務：指數重試（4s／8s／16s／32s）只用於網路失敗；**403 即停**。未對 `origin` 的 `main` 執行 push。未 `--force`。未用 `gh` 開 PR。
+
+### 15.5 Pages（可讀）
+
+| 查詢 | 結果 |
+| --- | --- |
+| `gh api repos/chinchiang/Cursor_GPreepSecurity/pages` | HTTP **404** `Not Found`（`has_pages=false`；公開空庫、無 Pages 站台） |
+
+未改 Pages 設定。不得宣稱已公開。
+
+### 15.6 主代理能否對 Cursor_GPreepSecurity 開 PR
+
+**不能。** 條件未滿足：
+
+1. 遠端 **沒有** `cursor/preemptive-cybersecurity-128d`（空庫、無 refs）。
+2. 本身分 `cursor[bot]` 對該庫 **沒有 write**（installation 未含該庫；push 403）。
+3. ManagePullRequest／`gh pr create` 都需要遠端已有該分支（或可推上去再建 PR）。本節兩者皆無。
+
+中轉庫 `chinchiang/Cursor_MultiAgent` **有** 此分支（SHA `2e7325fd3b53d591340c49465bab47827dfc8be4`）。對 MultiAgent 開 PR **不是**本專案交付目標，且不得把成果併進該庫 `main`。
+
+### 15.7 給使用者的下一步
+
+`cursor[bot]` 對 `chinchiang/Cursor_GPreepSecurity` 仍無 Write。請擇一：
+
+1. 把 `chinchiang/Cursor_GPreepSecurity` 加入 **Cursor GitHub App 安裝範圍**（目前 `repository_selection` 僅 MultiAgent）並給 Contents: Write；**或**
+2. 在 <https://github.com/chinchiang/Cursor_GPreepSecurity/settings/access> 把 **`cursor[bot]`** 加成 collaborator（Write 以上）。
+
+授權後再：
+
+```
+git checkout cursor/preemptive-cybersecurity-128d
+git push -u gpreep cursor/preemptive-cybersecurity-128d
+```
+
+預期 `ls-remote` 出現本節紀錄前 HEAD `2e7325fd3b53d591340c49465bab47827dfc8be4`（若再 commit 本檔，以新 HEAD 為準）。不要 force、不要推 `main`。授權並有內容後再設 Pages（`SITE_BASE=/Cursor_GPreepSecurity/`）。
+
+### 15.8 本節未做／未假裝
+
+- 未把程式碼推上 `Cursor_GPreepSecurity`（遠端仍為空）。
+- 未 `git push origin main`、未 `--force`、未用 `gh` 開 PR。
+- 未改 GitHub Pages／協作者設定。
+- 未指數重試 403。
