@@ -1,0 +1,253 @@
+{
+  "schemaVersion": "1.0.0-project-framework",
+  "classification": "project-framework",
+  "notGartnerOfficial": true,
+  "sourceId": "SRC-2026-900",
+  "retrievedDate": "2026-09-12",
+  "contractNote": "GAC 輸出目錄。契約 SharedOutput 見 shared-output.examples.json。",
+  "confidenceEnum": ["low", "medium", "high"],
+  "validationStatusEnum": ["unvalidated", "simulation-supported", "human-test-supported", "contradicted", "stale"],
+  "dTagEnum": ["deny", "deceive", "disrupt"],
+  "envelopeFields": [
+    "output_id",
+    "object_id",
+    "classification",
+    "synthetic",
+    "generated_at",
+    "schema_version",
+    "input_trace",
+    "judgment_basis",
+    "confidence",
+    "confidence_rationale",
+    "validation_status",
+    "audiences",
+    "source_ids_for_narrative"
+  ],
+  "confidenceRules": {
+    "note": "本專案模型，不是 Gartner 成熟度。",
+    "low": "缺資產鍵，或只有二手敘事，或來源互斥未解。只允許問卷、資料請求、監控建議。",
+    "medium": "資產已連結，至少兩個獨立證據一致，無驗證。Deny／Deceive 草案，預設需人審。",
+    "high": "medium 條件加＜90 日驗證支持，或 KEV＋確認的網際網路暴露＋擁有者確認。仍不可自動下線核心系統。",
+    "downgradeTriggers": ["未解矛盾", "資產＞14 日", "驗證＞90 日", "不可信文件污染", "範圍未簽署"]
+  },
+  "outputs": [
+    {
+      "id": "OUT-001",
+      "name": "ScopeProfile",
+      "purpose": "記錄本輪包含／排除、不可接受後果與授權",
+      "producedIn": ["S0"],
+      "audiences": ["business-owner", "ciso"],
+      "inputTraceTypical": ["INP-001"],
+      "judgmentBasisTypical": ["簽署聲明", "RULE-KEV-DEFAULT-IN-SCOPE"],
+      "verification": "簽署人確認",
+      "requiredFields": ["scope_id", "in_scope", "out_of_scope", "unacceptable_outcomes", "authorizer", "kev_internet_default"],
+      "example": {
+        "synthetic": true,
+        "scope_id": "scope-northwind-2026q3",
+        "in_scope": ["e-commerce-checkout", "identity-idp", "ot-dmz-jump"],
+        "out_of_scope": ["employee-byod"],
+        "unacceptable_outcomes": ["ransom-of-ot-cell", "mass-customer-pii-exfil"],
+        "authorizer": "CISO (synthetic)",
+        "kev_internet_default": true,
+        "confidence": "high",
+        "input_trace": ["INP-001"]
+      }
+    },
+    {
+      "id": "OUT-002",
+      "name": "EvidenceBundle",
+      "purpose": "帶雜湊與旗標的證據物件集合",
+      "producedIn": ["S1"],
+      "audiences": ["analyst", "qa"],
+      "inputTraceTypical": ["INP-001", "INP-014"],
+      "judgmentBasisTypical": ["S1 分類規則"],
+      "verification": "雜湊與來源系統",
+      "requiredFields": ["items"],
+      "itemFields": ["evidence_id", "input_id", "hash", "trust", "sensitivity", "flags"],
+      "example": {
+        "synthetic": true,
+        "items": [
+          {
+            "evidence_id": "ev-001",
+            "input_id": "INP-003",
+            "hash": "sha256:synthetic",
+            "trust": "medium",
+            "sensitivity": "internal",
+            "flags": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "OUT-003",
+      "name": "ThreatContext",
+      "purpose": "對手假設、KEV 命中、敘事與觀測分離",
+      "producedIn": ["S2"],
+      "audiences": ["cti", "soc"],
+      "inputTraceTypical": ["INP-005", "INP-007", "INP-010"],
+      "judgmentBasisTypical": ["cve in KEV AND product matches asset"],
+      "verification": "對回官方 KEV 日期與 STIX valid_until",
+      "requiredFields": ["kev_hits", "narrative_hypotheses"],
+      "example": {
+        "synthetic": true,
+        "kev_hits": [
+          {
+            "cve": "CVE-2026-19490",
+            "note": "公開 KEV 教學引用，非環境證實",
+            "public_catalog_teaching_only": true
+          }
+        ],
+        "narrative_hypotheses": [
+          {
+            "claim": "同業可能在假期窗口打 VPN",
+            "type": "unverified-hypothesis"
+          }
+        ]
+      }
+    },
+    {
+      "id": "OUT-004",
+      "name": "ExposureInventory",
+      "purpose": "資產 × 暴露面 × 發現",
+      "producedIn": ["S3"],
+      "audiences": ["vuln-owner", "cloud-owner"],
+      "inputTraceTypical": ["INP-002", "INP-003", "INP-004", "INP-009"],
+      "judgmentBasisTypical": ["資產合併規則"],
+      "verification": "擁有者認領與複掃",
+      "requiredFields": ["assets"],
+      "example": {
+        "synthetic": true,
+        "assets": [
+          {
+            "asset_id": "vpn-edge-tw",
+            "exposure": "internet",
+            "claimed": true,
+            "findings": ["version-match-unverified"]
+          },
+          {
+            "asset_id": "unclaimed-devvpn",
+            "hostname": "devvpn.northwind-synth.test",
+            "exposure": "internet",
+            "claimed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "OUT-005",
+      "name": "AttackPathSet",
+      "purpose": "從入口到不可接受資產的候選路徑（推論）",
+      "producedIn": ["S4", "S5"],
+      "audiences": ["architect", "red-blue"],
+      "inputTraceTypical": ["OUT-004", "INP-006", "INP-007"],
+      "judgmentBasisTypical": ["圖遍歷；每邊必有假設句"],
+      "verification": "S5 對帳",
+      "requiredFields": ["paths"],
+      "notes": "不是 Gartner 官方輸出格式。",
+      "example": {
+        "synthetic": true,
+        "path_id": "path-ot-01",
+        "nodes": ["inet", "vpn-edge-tw", "jump-ot-01", "hmi-cell-b"],
+        "techniques": ["T1190", "T1021"],
+        "validation_status": "simulation-supported",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "OUT-006",
+      "name": "PreemptiveRecommendationSet",
+      "purpose": "Deny／Deceive／Disrupt 建議草案",
+      "producedIn": ["S6"],
+      "audiences": ["ciso", "control-owner"],
+      "inputTraceTypical": ["OUT-005", "INP-012", "INP-001"],
+      "judgmentBasisTypical": ["RULE-KEV-INTERNET-DENY", "RULE-NO-HACKBACK"],
+      "verification": "S8 複測",
+      "requiredFields": ["recommendations"],
+      "dTagSourceNote": "d_tag 借用 Gartner 公開 3 Ds 標籤（SRC-2025-001）；建議內容為本專案產生。",
+      "example": {
+        "synthetic": true,
+        "recommendation_id": "rec-deny-001",
+        "d_tag": "deny",
+        "title": "修補或補償控制網際網路暴露的 VPN／ADC 面",
+        "path_id": "path-ot-01",
+        "impact": "high",
+        "reversible": false,
+        "default_gate": "ciso-or-business-owner",
+        "confidence": "medium",
+        "validation_status": "unvalidated"
+      }
+    },
+    {
+      "id": "OUT-007",
+      "name": "ReviewDecision",
+      "purpose": "人類接受／修改／拒絕／補證",
+      "producedIn": ["S7"],
+      "audiences": ["auditor", "ciso"],
+      "inputTraceTypical": ["OUT-006"],
+      "judgmentBasisTypical": ["人類陳述（必填）"],
+      "verification": "身分與時間戳；不可由模型代簽",
+      "requiredFields": ["accepted", "modified", "rejected", "need_more_evidence", "reviewer", "reviewed_at"],
+      "example": {
+        "synthetic": true,
+        "accepted": ["rec-deny-001", "rec-deny-002"],
+        "modified": ["rec-deceive-001"],
+        "rejected": [],
+        "need_more_evidence": ["devvpn-owner"],
+        "reviewer": "林可薇 (synthetic)",
+        "reviewed_at": "2026-09-12T04:00:00Z"
+      }
+    },
+    {
+      "id": "OUT-008",
+      "name": "TrackingRecord",
+      "purpose": "已核准行動是否真的降低可達性",
+      "producedIn": ["S8"],
+      "audiences": ["pmo", "soc"],
+      "inputTraceTypical": ["OUT-007", "INP-008"],
+      "judgmentBasisTypical": ["關閉工單且複掃未再見暴露才得 closed-verified"],
+      "verification": "新的 EvidenceItem",
+      "requiredFields": ["items"],
+      "statusEnum": ["open", "closed-verified", "open-unverified", "accepted-risk"],
+      "example": {
+        "synthetic": true,
+        "items": [
+          {
+            "recommendation_id": "rec-deny-002",
+            "status": "closed-verified",
+            "verification_method": "easm-rescan"
+          }
+        ]
+      }
+    },
+    {
+      "id": "OUT-009",
+      "name": "AnalysisNarrative",
+      "purpose": "給網站／簡報的正體中文短文",
+      "producedIn": ["aggregate"],
+      "audiences": ["executive", "site"],
+      "inputTraceTypical": ["OUT-001", "OUT-006", "OUT-010"],
+      "judgmentBasisTypical": ["敘事模板"],
+      "verification": "抽查每句能否指回 ID",
+      "requiredFields": ["markdown", "separates_fact_gartner_inference"],
+      "notes": "不得單獨作為執行依據。"
+    },
+    {
+      "id": "OUT-010",
+      "name": "GapConflictWarning",
+      "purpose": "缺漏、矛盾、不可信文件、過期",
+      "producedIn": ["S1", "S5", "S7"],
+      "audiences": ["analyst", "skills-ui"],
+      "inputTraceTypical": ["OUT-002"],
+      "judgmentBasisTypical": ["S1／S5 規則"],
+      "verification": "人類確認是否誤報",
+      "requiredFields": ["kind", "blocking", "affected_outputs"],
+      "kindEnum": ["gap", "conflict", "untrusted-document", "stale"],
+      "example": {
+        "synthetic": true,
+        "kind": "gap",
+        "blocking": true,
+        "affected_outputs": ["OUT-005", "OUT-006"]
+      }
+    }
+  ]
+}

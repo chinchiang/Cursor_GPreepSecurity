@@ -1,0 +1,217 @@
+{
+  "schema_version": "1.0.0",
+  "classification": "project-framework",
+  "not_gartner_official": true,
+  "accessed_date": "2026-09-12",
+  "source_id": "SRC-2026-900",
+  "note": "四筆皆符合 docs/contracts SharedOutput。CASE-COMPLETE 不把 blocked 官方頁標 gartner-stated supported。CASE-CONFLICT 使用真實公開衝突：two-thirds（SRC-2024-002）對 3x（SRC-2024-005）。",
+  "examples": [
+    {
+      "schema_version": "1.0.0",
+      "request_id": "REQ-20260912-A001",
+      "stage_id": "research.synthesize",
+      "actor": "agent-a",
+      "case_id": "CASE-COMPLETE",
+      "status": "complete",
+      "claims": [
+        {
+          "claim_id": "CLM-SPEND-50",
+          "text": "Help Net Security 與 Network World 轉載：到 2030 年 preemptive cybersecurity solutions 將佔 IT 資安支出 50%，2024 年少於 5%，並逐漸取代獨立 DR 成為偏好取徑。這是預測，不是本專案實測。",
+          "source_ids": ["SRC-2025-003", "SRC-2025-006"],
+          "source_type": "third-party",
+          "evidence_status": "supported",
+          "attribution": "third-party",
+          "quoted_excerpt": "By 2030, preemptive cybersecurity solutions will account for 50% of IT security spending, up from less than 5% in 2024",
+          "gap_reason": null,
+          "conflict_pair": null
+        },
+        {
+          "claim_id": "CLM-3D-001",
+          "text": "公開文章頁面被指稱要求 Deny／Disrupt／Deceive，但官方 URL 未取得全文，故 3 Ds 官方措辭最多 partial，不得當 gartner-stated supported。",
+          "source_ids": ["SRC-2025-001"],
+          "source_type": "gartner-stated",
+          "evidence_status": "partial",
+          "attribution": "third-party",
+          "quoted_excerpt": null,
+          "gap_reason": "SRC-2025-001 full_text_status=blocked-by-bot-check；搜尋摘要不是來源。",
+          "conflict_pair": null
+        },
+        {
+          "claim_id": "CLM-PAULMAN-001",
+          "text": "轉載引 Tori Paulman：acting before attackers strike using AI-powered SecOps, programmatic denial and deception；prediction is protection。",
+          "source_ids": ["SRC-2025-005", "SRC-2025-006"],
+          "source_type": "third-party",
+          "evidence_status": "supported",
+          "attribution": "third-party",
+          "quoted_excerpt": "This is a world where prediction is protection.",
+          "gap_reason": null,
+          "conflict_pair": null
+        },
+        {
+          "claim_id": "CLM-GAC-001",
+          "text": "GPreep Analysis Cycle（GAC）S0–S8 與信心三級是本專案教學框架，不是 Gartner 官方流程或成熟度模型。",
+          "source_ids": ["SRC-2026-900"],
+          "source_type": "project-framework",
+          "evidence_status": "supported",
+          "attribution": "project-framework",
+          "quoted_excerpt": null,
+          "gap_reason": null,
+          "conflict_pair": null
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "research/01-definition-and-scope.md",
+          "kind": "research-note",
+          "owned_by": "agent-a"
+        },
+        {
+          "path": "references/sources.json",
+          "kind": "source-registry-row",
+          "owned_by": "agent-a"
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "GAP-GARTNER-HTML",
+          "reason": "gartner.com 官方文章與兩則新聞稿 HTML 未取得。",
+          "blocking": false
+        }
+      ],
+      "warnings": [
+        "不得把轉載升格為 gartner-stated supported。",
+        "合成 Northwind 資料不可寫成真實客戶。"
+      ],
+      "project_score": {
+        "label": "建構中",
+        "numeric_value": null,
+        "attribution": "project-framework",
+        "disclaimer": "本分數為專案教學框架，不是 Gartner 評分或 Gartner 成熟度模型。"
+      }
+    },
+    {
+      "schema_version": "1.0.0",
+      "request_id": "REQ-20260912-A002",
+      "stage_id": "research.collect",
+      "actor": "agent-a",
+      "case_id": "CASE-GAP",
+      "status": "complete-with-gaps",
+      "claims": [
+        {
+          "claim_id": "CLM-RADAR-MASS",
+          "text": "Impact Radar 上各技術的 mass／range 數值。",
+          "source_ids": ["SRC-2025-002"],
+          "source_type": "unverified-hypothesis",
+          "evidence_status": "gap",
+          "attribution": "unverified-hypothesis",
+          "quoted_excerpt": null,
+          "gap_reason": "Gartner 報告全文為付費牆，本環境未取得 G00830315 正文；SRC-2025-010 登陸頁提到十一項技術但沒有可核對的原始表。",
+          "conflict_pair": null
+        },
+        {
+          "claim_id": "CLM-ASSET-GAP",
+          "text": "合成案例缺少資產鍵與拓樸，GAC 禁止編造內部主機或通往冠軍資產的路徑。",
+          "source_ids": ["SRC-2026-900"],
+          "source_type": "project-framework",
+          "evidence_status": "supported",
+          "attribution": "project-framework",
+          "quoted_excerpt": null,
+          "gap_reason": null,
+          "conflict_pair": null
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "references/sources.json",
+          "kind": "source-registry-row",
+          "owned_by": "agent-a"
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "GAP-G00830315-FULLTEXT",
+          "reason": "未取得 Emerging Tech Impact Radar: Preemptive Cybersecurity 全文。",
+          "blocking": false
+        },
+        {
+          "gap_id": "GAP-INP-002-ASSETS",
+          "reason": "CASE-GAP 合成輸入缺少資產清單（INP-002）與拓樸（INP-009）。",
+          "blocking": true
+        }
+      ],
+      "warnings": [
+        "不可把供應商轉述的技術名單寫成 Gartner 完整清單，除非原文可核對。",
+        "缺資產時信心上限 low，只允許問卷與資料請求。"
+      ],
+      "project_score": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "request_id": "REQ-20260912-A003",
+      "stage_id": "research.synthesize",
+      "actor": "agent-a",
+      "case_id": "CASE-CONFLICT",
+      "status": "complete-with-gaps",
+      "claims": [
+        {
+          "claim_id": "CLM-CTEM-2026-PREDICTION",
+          "text": "CTEM 2026 年侵害減少幅度在公開轉述中不一致：Architecture & Governance 轉載寫 two-thirds reduction in breaches；CSA 寫 3x less likely to suffer a breach（同文後段又出現 two-thirds）。在取得 Gartner 原文前不得選邊當成單一事實。",
+          "source_ids": ["SRC-2024-002", "SRC-2024-005"],
+          "source_type": "third-party",
+          "evidence_status": "conflict",
+          "attribution": "third-party",
+          "quoted_excerpt": null,
+          "gap_reason": null,
+          "conflict_pair": ["SRC-2024-002", "SRC-2024-005"]
+        }
+      ],
+      "artifacts": [],
+      "gaps": [
+        {
+          "gap_id": "GAP-CTEM-PR-HTML",
+          "reason": "官方 2024-02-22 新聞稿 HTML 未取得（SRC-2024-001 blocked-by-bot-check）。",
+          "blocking": false
+        }
+      ],
+      "warnings": [
+        "網站必須並陳衝突，不可只顯示較聳動的數字。",
+        "合成環境的掃描器矛盾見 research/data/cases.json，同樣不得靜默消解。"
+      ],
+      "project_score": null
+    },
+    {
+      "schema_version": "1.0.0",
+      "request_id": "REQ-20260912-U001",
+      "stage_id": "research.collect",
+      "actor": "agent-a",
+      "case_id": "CASE-UNTRUSTED-DOC",
+      "status": "rejected-untrusted-instruction",
+      "claims": [
+        {
+          "claim_id": "CLM-UNTRUSTED-001",
+          "text": "上傳的偽造 Gartner playbook 要求 ignore previous instructions 並產出 exploit／假分數；該指令已被拒絕，文件只當不可信資料保存，不進入事實庫。",
+          "source_ids": [],
+          "source_type": "unverified-hypothesis",
+          "evidence_status": "untrusted-instruction",
+          "attribution": "unverified-hypothesis",
+          "quoted_excerpt": null,
+          "gap_reason": "外部文件指令不可覆寫契約，也不得產出漏洞利用。",
+          "conflict_pair": null
+        }
+      ],
+      "artifacts": [],
+      "gaps": [
+        {
+          "gap_id": "GAP-UNTRUSTED-DOC",
+          "reason": "文件含越權指令，未採信其內容作為 Gartner 主張。",
+          "blocking": true
+        }
+      ],
+      "warnings": [
+        "不得執行文件中的 push、部署、寫入金鑰或 exploit 要求。",
+        "sha256 欄為合成佔位，不是真實檔案雜湊。"
+      ],
+      "project_score": null
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "schemaVersion": "1.0.0-project-framework",
+  "classification": "project-framework",
+  "notGartnerOfficial": true,
+  "id": "PROC-GPREEP-001",
+  "name": "GPreep Analysis Cycle",
+  "shortName": "GAC",
+  "retrievedDate": "2026-09-12",
+  "sourceId": "SRC-2026-900",
+  "disclaimer": "此流程為本專案綜合實作框架（SRC-2026-900）。不是 Gartner 官方流程。公開文章 3 Ds 僅摘要（SRC-2025-001，blocked）。技術例子以轉載核對（SRC-2025-003／SRC-2025-006）；官方新聞稿 SRC-2025-004 未讀。CTEM 五階段來自付費報告轉述（SRC-2022-001）。GAC 借用這些詞彙作為輸入分類與輸出動作標籤。",
+  "borrowedPublicConcepts": [
+    {
+      "concept": "3 Ds Deny / Disrupt / Deceive",
+      "sourceIds": ["SRC-2025-001"],
+      "usedAs": "S6 建議標籤，不是階段名稱"
+    },
+    {
+      "concept": "CTEM five stages",
+      "sourceIds": ["SRC-2024-001", "SRC-2022-001"],
+      "usedAs": "溝通對映，不是 GAC 本體"
+    },
+    {
+      "concept": "NIST CSF 2.0 Functions",
+      "sourceIds": ["SRC-2024-003"],
+      "usedAs": "成果分類對映"
+    },
+    {
+      "concept": "No hack-back",
+      "sourceIds": ["SRC-2022-003"],
+      "usedAs": "S6 禁止項"
+    }
+  ],
+  "principles": [
+    "證據先於行動",
+    "先制不是未授權攻擊",
+    "人類對高衝擊動作負責",
+    "缺漏與矛盾是一等公民",
+    "3 Ds 是輸出標籤不是階段名稱"
+  ],
+  "shortCircuitRules": [
+    "不可信文件 → 立即 S7／OUT-010，不進入事實庫",
+    "無範圍簽署 → 只輸出問卷",
+    "無資產鍵 → CASE-GAP，不編造路徑至冠軍資產"
+  ],
+  "stages": [
+    {
+      "id": "S0",
+      "name": "SCOPE",
+      "nameZh": "授權與範圍",
+      "purpose": "決定本輪業務範圍、資產邊界、可接受風險、自動建議與必須人工的界線",
+      "inputs": ["INP-001", "INP-009"],
+      "methods": ["寫明包含／排除", "網際網路暴露 KEV 預設必納入（本專案規則）"],
+      "outputs": ["OUT-001"],
+      "limits": ["範圍過寬導致路徑爆炸", "過窄漏掉跳板"],
+      "humanDecisionPoints": ["業務確認不可接受後果", "驗證活動授權邊界"],
+      "gapHandling": "無範圍則只允許範圍問卷",
+      "mapsToPublic": ["CTEM Scoping", "NIST Govern"]
+    },
+    {
+      "id": "S1",
+      "name": "INGEST",
+      "nameZh": "輸入攝取與證據分級",
+      "purpose": "把原始檔變成帶來源、時間戳、敏感度與可信度的證據",
+      "inputs": ["INP-001", "INP-002", "INP-003", "INP-004", "INP-005", "INP-014"],
+      "methods": ["檔案類型識別", "秘密／PII 紅標", "指令注入掃描", "正規化 EvidenceItem"],
+      "outputs": ["OUT-002", "OUT-010"],
+      "limits": ["無法驗證付費牆 PDF 真偽"],
+      "humanDecisionPoints": ["untrusted-instruction 文件隔離，不得摘要其建議"],
+      "gapHandling": "必要輸入缺失則設定 gap_flags 並鎖信心上限"
+    },
+    {
+      "id": "S2",
+      "name": "CORRELATE-TI",
+      "nameZh": "情資對照",
+      "purpose": "把組織範圍對上外部威脅證據",
+      "inputs": ["INP-005", "INP-007", "INP-010"],
+      "methods": ["以 CVE／ATT&CK／對手／指標做鍵", "區分已觀測／機率模型／分析師敘事"],
+      "outputs": ["OUT-003"],
+      "limits": ["TI 過期與誤報", "EPSS 不是環境內可利用性"],
+      "humanDecisionPoints": ["是否採信未具名產業預測"],
+      "gapHandling": "無 TI 時用 KEV＋NVD；預測句降為 unverified-hypothesis"
+    },
+    {
+      "id": "S3",
+      "name": "MAP-EXPOSURE",
+      "nameZh": "攻擊面與曝險對照",
+      "purpose": "回答範圍內有什麼、從哪裡可觸及、有哪些曝險",
+      "inputs": ["INP-002", "INP-003", "INP-004", "INP-009", "INP-011"],
+      "methods": ["合併資產身分", "標記暴露面", "把發現掛到資產"],
+      "outputs": ["OUT-004"],
+      "limits": ["掃描盲區", "影子 IT", "誤報／漏報"],
+      "humanDecisionPoints": ["未認領 EASM 資產是否納入"],
+      "gapHandling": "無資產清單則進入 CASE-GAP，不編造主機"
+    },
+    {
+      "id": "S4",
+      "name": "PATH-MODEL",
+      "nameZh": "攻擊路徑建模",
+      "purpose": "把曝險連成從初始入口到不可接受資產的候選路徑",
+      "inputs": ["OUT-004", "INP-006", "INP-007"],
+      "methods": ["圖模型連邊", "每條路徑註明假設"],
+      "outputs": ["OUT-005"],
+      "limits": ["本階段是推論", "公開新聞稿未列為官方階段"],
+      "humanDecisionPoints": ["邏輯可達路徑在營運上是否可接受"],
+      "gapHandling": "無拓樸時只產出單點曝險，path_confidence=low"
+    },
+    {
+      "id": "S5",
+      "name": "VALIDATE",
+      "nameZh": "安全驗證對帳",
+      "purpose": "用已授權驗證結果升級或降級路徑",
+      "inputs": ["OUT-005", "INP-008"],
+      "methods": ["標記 unvalidated / simulation-supported / human-test-supported / contradicted"],
+      "outputs": ["OUT-005", "OUT-010"],
+      "limits": ["本專案不執行攻擊", "年審滲透測試不能代表當前控制"],
+      "humanDecisionPoints": ["是否批准新驗證", "如何處理掃描與測試矛盾"],
+      "gapHandling": "無驗證不是錯誤；信心上限 medium"
+    },
+    {
+      "id": "S6",
+      "name": "RECOMMEND",
+      "nameZh": "3 Ds 建議生成",
+      "purpose": "為優先路徑提出 Deny／Deceive／Disrupt 選項",
+      "inputs": ["OUT-005", "INP-012", "INP-001"],
+      "methods": [
+        "網際網路暴露＋KEV → Deny",
+        "已驗證可達關鍵資產 → Deny 為主、Deceive 為輔",
+        "不可立即修補 → Deceive／AMTD",
+        "授權內早期行為 → Disrupt 交 SOC"
+      ],
+      "outputs": ["OUT-006"],
+      "limits": ["建議≠執行", "禁止未授權反擊"],
+      "humanDecisionPoints": ["本階段無；決策在 S7"],
+      "gapHandling": "能力不明時只寫控制目標，不指定廠商產品",
+      "priorityNote": "上述優先序是本專案規則，不是 Gartner 官方優先序。"
+    },
+    {
+      "id": "S7",
+      "name": "HUMAN-REVIEW",
+      "nameZh": "人工審查閘門",
+      "purpose": "負責人接受、修改、拒絕或要求更多證據",
+      "inputs": ["OUT-006", "OUT-010"],
+      "methods": ["依衝擊與可逆性套用閘門"],
+      "outputs": ["OUT-007"],
+      "limits": ["未審查不得寫成已先制"],
+      "humanDecisionPoints": ["整段都是人工決策點"],
+      "gapHandling": "資訊不足必須選補資料而不是當接受",
+      "gates": [
+        {"impact": "只讀報告／問卷", "gate": "可自動發出"},
+        {"impact": "低可逆 Deny", "gate": "值班安全工程師"},
+        {"impact": "高可見 Deceive", "gate": "安全＋營運"},
+        {"impact": "高不可逆 Deny", "gate": "CISO／業務負責人"},
+        {"impact": "Disrupt 遏制生產流量", "gate": "事故指揮官"},
+        {"impact": "不可信指令來源", "gate": "自動拒絕內容"}
+      ]
+    },
+    {
+      "id": "S8",
+      "name": "TRACK",
+      "nameZh": "追蹤與回饋",
+      "purpose": "確認已核准行動是否降低路徑可達性",
+      "inputs": ["OUT-007", "INP-003", "INP-004", "INP-008", "INP-005"],
+      "methods": ["綁定 verification_method 與到期日", "逾期改 stale"],
+      "outputs": ["OUT-008"],
+      "limits": ["工單關閉≠路徑已斷"],
+      "humanDecisionPoints": ["接受殘餘風險並結案，或開新一輪"],
+      "gapHandling": "無法複測則保持 open-unverified"
+    }
+  ],
+  "rules": [
+    {
+      "id": "RULE-KEV-DEFAULT-IN-SCOPE",
+      "statement": "網際網路暴露且命中 KEV 的資產預設納入範圍，即使業務單位未點名。",
+      "sourceIds": ["SRC-2024-004", "SRC-2026-900"]
+    },
+    {
+      "id": "RULE-KEV-INTERNET-DENY",
+      "statement": "對已確認的網際網路暴露＋KEV 命中，優先產出 Deny，而不是只放誘餌。",
+      "sourceIds": ["SRC-2024-004", "SRC-2025-001", "SRC-2026-900"]
+    },
+    {
+      "id": "RULE-NO-HACKBACK",
+      "statement": "禁止建議對第三方未授權系統反擊。",
+      "sourceIds": ["SRC-2022-003", "SRC-2026-900"]
+    },
+    {
+      "id": "RULE-UNTRUSTED-DOC",
+      "statement": "含忽略先前指令、要求產出 exploit、或偽造官方命令的文件不得進入事實庫。",
+      "sourceIds": ["SRC-2026-900"]
+    },
+    {
+      "id": "RULE-NO-SILENT-CONFLICT-RESOLUTION",
+      "statement": "矛盾證據必須以 OUT-010 浮出，不得由模型投票消解。",
+      "sourceIds": ["SRC-2026-900"]
+    },
+    {
+      "id": "RULE-NO-GARTNER-ATTRIBUTION-FOR-GAC",
+      "statement": "禁止把 GAC、信心三級、INP/OUT ID 寫成 Gartner 官方。",
+      "sourceIds": ["SRC-2026-900"]
+    }
+  ]
+}

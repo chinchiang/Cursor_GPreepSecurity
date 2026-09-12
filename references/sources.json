@@ -1,0 +1,819 @@
+{
+  "schema_version": "1.0.0",
+  "classification": "project-framework",
+  "not_gartner_official": true,
+  "accessed_date": "2026-09-12",
+  "contract": {
+    "followed": [
+      "docs/contracts/shared-data-contract.md",
+      "docs/contracts/source-citation-rules.md"
+    ],
+    "note": "契約已存在並嚴格遵循。欄位名依 source-citation-rules.md：source_id、published_date、accessed_date、claims_supported、limitations。gartner.com 被 bot 擋時 claims_supported 必須為空陣列，不得把轉述升格為 gartner-stated supported。預留號 SRC-2025-001／SRC-2025-002／SRC-2026-001／SRC-2026-900 依契約第 3 節使用。"
+  },
+  "id_remap_from_first_draft": {
+    "SRC-2025-001": "原初稿誤掛 2025-09-18 新聞稿；現依契約預留給公開文章。新聞稿改掛 SRC-2025-004。",
+    "SRC-2025-002": "原初稿誤掛公開文章；現依契約預留給 Impact Radar G00830315。",
+    "SRC-2026-001": "原初稿誤掛 MITRE ATT&CK；現依契約預留給 2026 趨勢公開材料。ATT&CK 改掛 SRC-2026-002。",
+    "SRC-2025-017": "初稿曾把 Impact Radar 發此號；現 superseded_by SRC-2025-002，不再改指其他文件。",
+    "SRC-PF-001": "初稿專案框架號；現改掛契約內建 SRC-2026-900。"
+  },
+  "sources": [
+    {
+      "source_id": "SRC-2025-001",
+      "title": "Preemptive Cybersecurity Solutions: A Must in Modern Tech Products",
+      "title_zh": "先制型資安解決方案：現代科技產品的必要能力",
+      "publisher": "Gartner",
+      "url": "https://www.gartner.com/en/articles/preemptive-cybersecurity-solutions",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "gartner-stated",
+      "full_text_status": "blocked-by-bot-check",
+      "document_id": null,
+      "claims_supported": [],
+      "limitations": [
+        "2026-09-12 抓取僅得到 Cloudflare／Enable JavaScript 驗證頁（Ray ID a39b6f744dbbea3a），未讀到正文。claims_supported 必須為空。",
+        "搜尋引擎摘要與廠商轉述提到定義（before they can launch or succeed）與 Deny／Disrupt／Deceive，但摘要本身不是來源；在人工打開該頁並補登錄前，禁止 gartner-stated supported。",
+        "published_date 未知，不可臆造。頁面亦被其他來源稱為 Don’t Delay in Building Preemptive Cybersecurity Solutions。",
+        "不得用訓練資料補長引號或頁碼。"
+      ],
+      "license_notes": "Gartner 公開文章可作短摘引用；不得整篇重製。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-002",
+      "title": "Emerging Tech Impact Radar: Preemptive Cybersecurity",
+      "title_zh": "新興科技影響雷達：先制型資安",
+      "publisher": "Gartner",
+      "url": null,
+      "published_date": "2025-10-07",
+      "accessed_date": "2026-09-12",
+      "source_type": "unverified-hypothesis",
+      "full_text_status": "paywalled",
+      "document_id": "G00830315",
+      "claims_supported": [],
+      "limitations": [
+        "客戶報告全文未取得，不得標 retrieved，亦不得把十一項技術或 mass／range 數值寫成已核對。",
+        "文件編號、日期、35 頁、1–3 年環技術名稱僅見於 SRC-2025-010 行銷登陸頁，屬第三方轉述。",
+        "url 為客戶入口，本環境無穩定公開全文 URL。",
+        "初稿曾發 SRC-2025-017 給同一報告；該號已 retired，見該列 superseded_by。"
+      ],
+      "license_notes": "Gartner 客戶報告，禁止重製。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-003",
+      "title": "Gartner: Preemptive cybersecurity to dominate 50% of security spend by 2030",
+      "title_zh": "Gartner：先制型資安將在 2030 年佔資安支出 50%",
+      "publisher": "Help Net Security",
+      "url": "https://www.helpnetsecurity.com/2025/09/23/preemptive-cybersecurity-solutions-shift/",
+      "published_date": "2025-09-23",
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "轉載：By 2030, preemptive cybersecurity solutions will account for 50% of IT security spending, up from less than 5% in 2024, replacing standalone detection and response (DR) solutions as the preferred approach.",
+        "轉載：Preemptive cybersecurity technologies use advanced AI and ML to anticipate and neutralize threats before they materialize; capabilities include predictive threat intelligence, advanced deception and automated moving target defense.",
+        "轉載 Carl Manion：new gold standard … global attack surface grid (GASG)；DR-based cybersecurity will no longer be enough；countermeasures that act preemptively and independently of humans.",
+        "轉載：by 2030 over 1 million documented cybersecurity CVEs, up 300% from about 277,000 in 2025.",
+        "轉載：shift toward agentic AI and DSLMs；vertical／application／threat-actor specialization；product leaders who fail to invest risk incidents and market-share losses within two to four years.",
+        "轉載 ACIS 為 GASG 先制的下一步，以及第二段 Manion 引言。"
+      ],
+      "limitations": [
+        "產業媒體轉載，不是 Gartner 官網 HTML。可支持 third-party supported，不得升格為 gartner-stated supported。",
+        "官方對應 URL 見 SRC-2025-004（blocked-by-bot-check）。"
+      ],
+      "license_notes": "公開新聞網站；短摘引用。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-004",
+      "title": "Gartner Says that in the Age of GenAI, Preemptive Capabilities, not Detection and Response, are the Future of Cybersecurity",
+      "title_zh": "Gartner 稱在 GenAI 時代，先制能力而非偵測回應才是資安未來",
+      "publisher": "Gartner",
+      "url": "https://www.gartner.com/en/newsroom/press-releases/2025-09-18-gartner-says-that-in-the-age-of-genai-preemptive-capabilities-not-detection-and-response-are-the-future-of-cybersecurity",
+      "published_date": "2025-09-18",
+      "accessed_date": "2026-09-12",
+      "source_type": "gartner-stated",
+      "full_text_status": "blocked-by-bot-check",
+      "document_id": null,
+      "claims_supported": [],
+      "limitations": [
+        "2026-09-12 直接抓取 gartner.com Newsroom 失敗（bot／JavaScript 驗證）。claims_supported 為空。",
+        "可讀轉載見 SRC-2025-003 與 SRC-2025-006；轉載不得升格為本列的 gartner-stated supported。",
+        "新聞稿點名的客戶報告與 webinar 另見 SRC-2025-012、SRC-2025-013，全文未得。"
+      ],
+      "license_notes": "Gartner 新聞稿可短摘；不得整篇重製。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-005",
+      "title": "Gartner predicts the technologies set to transform 2026",
+      "title_zh": "Gartner 預測將形塑 2026 的科技",
+      "publisher": "Help Net Security",
+      "url": "https://www.helpnetsecurity.com/2025/10/23/gartner-2026-technology-trends/",
+      "published_date": "2025-10-23",
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "轉載：Preemptive cybersecurity 列為 2026 top strategic technology trends 之一。",
+        "轉載：By 2030, preemptive solutions will account for half of all security spending.",
+        "轉載 Tori Paulman：acting before attackers strike using AI-powered SecOps, programmatic denial and deception；This is a world where prediction is protection.",
+        "相鄰 2026 趨勢清單（AI security platforms、confidential computing、digital provenance 等）僅供脈絡，不是先制本體。"
+      ],
+      "limitations": [
+        "第三方轉載 2026-10-20 新聞稿／研討會材料，不是官網 HTML。",
+        "官方對應 URL 見 SRC-2026-001（blocked-by-bot-check）。"
+      ],
+      "license_notes": "公開新聞網站；短摘引用。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-006",
+      "title": "AI dominates Gartner's top strategic technology trends for 2026",
+      "title_zh": "AI 主導 Gartner 2026 策略科技趨勢",
+      "publisher": "Network World",
+      "url": "https://www.networkworld.com/article/4076316/ai-dominates-gartners-top-strategic-technology-trends-for-2026.html",
+      "published_date": "2025-10-21",
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "轉載：By 2030, preemptive cybersecurity solutions will account for half of all security spending, up from less than 5% in 2024.",
+        "轉載：technologies use advanced AI and machine learning to anticipate and neutralize threats before they materialize；predictive threat intelligence、advanced deception、automated moving target defense.",
+        "轉載 Paulman：acting before attackers strike using AI-powered SecOps, programmatic denial and deception；prediction is protection.",
+        "轉載 Manion GASG gold-standard 引言，並標為 coming from a recent report。",
+        "轉載：preemptive solutions will increasingly replace standalone detection and response solutions as the preferred approach."
+      ],
+      "limitations": [
+        "產業媒體轉載／研討會報導，不是 Gartner 官網 HTML。",
+        "Manion 引言被標為 recent report，本環境未打開該報告。"
+      ],
+      "license_notes": "公開新聞網站；短摘引用。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-007",
+      "title": "What Is Preemptive Security? The Future of Cyber Defense",
+      "title_zh": "何謂先制安全？網路防禦的未來",
+      "publisher": "Picus Security",
+      "url": "https://www.picussecurity.com/resource/blog/what-is-preemptive-security-the-future-of-cyber-defense",
+      "published_date": "2026-01-22",
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "廠商區分 proactive 與 preemptive，並主張 validation 是轉折點。",
+        "文末列出其聲稱的 Gartner Doc 5951239、6664234、6764634。",
+        "引述其聲稱的 5951239 短句：Preemptive cybersecurity focuses on preventing, stopping or deterring attacks before they can launch an effective assault。"
+      ],
+      "limitations": [
+        "供應商分析，有產品利益。其中 Gartner 客戶文件引句不得升格為已讀原文。",
+        "對應付費文件見 SRC-2025-014 至 SRC-2025-016，那些列的 claims_supported 為空。"
+      ],
+      "license_notes": "廠商部落格；短摘。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-008",
+      "title": "Deceive, Disrupt, and Deny: The 3 D’s of Preemptive Cybersecurity",
+      "title_zh": "欺騙、干擾與拒絕：先制資安的 3 Ds",
+      "publisher": "IONIX",
+      "url": "https://www.ionix.io/guides/what-is-preemptive-cybersecurity/deceive-disrupt-and-deny-the-3-ds-of-preemptive-cybersecurity/",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "廠商將 AMTD 與 advanced cyber deception 對到 Deceive；predictive TI 對到 Disrupt；obfuscation 與 preemptive exposure management 對到 Deny。",
+        "3 Ds 書寫順序為 Deceive、Disrupt、Deny，與公開文章摘要常見的 Deny、Disrupt、Deceive 不同。"
+      ],
+      "limitations": [
+        "廠商展開，不是 Gartner 官方技術分配表。",
+        "published_date 未知。"
+      ],
+      "license_notes": "廠商指南；短摘。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-009",
+      "title": "Preemptive Cybersecurity: What Gartner Means and Why It Matters",
+      "title_zh": "先制型資安：Gartner 所指為何",
+      "publisher": "Zynap",
+      "url": "https://www.zynap.com/blog/preemptive-cybersecurity/",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "廠商四象限：Reactive／Proactive／Predictive／Preemptive。",
+        "廠商五能力清單與 MSSP 相關數字。",
+        "文中點名若干 Gartner 文件編號，但未附全文。"
+      ],
+      "limitations": [
+        "供應商詮釋。MTRER 等 KPI 為廠商用語，不是本環境讀過的 Gartner 官方 KPI。",
+        "published_date 未知。"
+      ],
+      "license_notes": "廠商部落格；短摘。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-010",
+      "title": "Gartner Emerging Tech Impact Radar: Preemptive Cybersecurity (landing page)",
+      "title_zh": "Gartner 新興科技影響雷達：先制型資安（行銷登陸頁）",
+      "publisher": "SimSpace",
+      "url": "https://simspace.com/reports-and-white-papers/gartner-emerging-tech-impact-radar-preemptive-cybersecurity/",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "summary-only",
+      "document_id": "G00830315",
+      "claims_supported": [
+        "登陸頁聲稱報告編號 G00830315、出版 2025-10-07、35 頁、描繪十一項新興技術。",
+        "登陸頁聲稱 1–3 年環包含 advanced cyber deception、automated security control assessment、predictive threat intelligence、preemptive exposure management。"
+      ],
+      "limitations": [
+        "只讀到行銷登陸頁，不是報告原文。不得把十一項技術寫成已核對的 Gartner 完整清單。",
+        "與 SRC-2025-002 成對：後者 claims_supported 為空。"
+      ],
+      "license_notes": "廠商登陸頁；短摘。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-011",
+      "title": "Gartner Names Deception Core to Preemptive Cybersecurity",
+      "title_zh": "Gartner 點名欺敵為先制資安核心",
+      "publisher": "CounterCraft",
+      "url": "https://www.countercraftsec.com/blog/gartner-preemptive-cybersecurity-deception-technology/",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "summary-only",
+      "document_id": null,
+      "claims_supported": [
+        "搜尋摘要層：將 deception 視為 2025 年 9 月分析點名的核心能力之一。"
+      ],
+      "limitations": [
+        "本輪未完整保存頁面正文，僅摘要。待覆核。",
+        "供應商行銷頁。"
+      ],
+      "license_notes": "廠商部落格。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-012",
+      "title": "Tech FutureSight: Preemptive Cybersecurity Is the Only Way to Secure Emerging AI Attack Surfaces",
+      "title_zh": "Tech FutureSight：先制資安是保護新興 AI 攻擊面的唯一途徑",
+      "publisher": "Gartner",
+      "url": null,
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "unverified-hypothesis",
+      "full_text_status": "paywalled",
+      "document_id": null,
+      "claims_supported": [],
+      "limitations": [
+        "僅知標題，來自新聞稿轉載（SRC-2025-003）提及。全文未得，不得發明發現或頁碼。",
+        "出版日未知。"
+      ],
+      "license_notes": "Gartner 客戶報告。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-013",
+      "title": "Preemptive Cybersecurity – A Top 5 Disruptive Trend in Cybersecurity for 2025",
+      "title_zh": "先制型資安——2025 資安五大顛覆趨勢之一（webinar）",
+      "publisher": "Gartner",
+      "url": null,
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "unverified-hypothesis",
+      "full_text_status": "unavailable",
+      "document_id": null,
+      "claims_supported": [],
+      "limitations": [
+        "新聞稿轉載稱 complimentary on-demand。本環境無逐字稿或投影片。",
+        "不得用標題推論 webinar 內容。"
+      ],
+      "license_notes": "Gartner webinar。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-014",
+      "title": "Quick Answer: How Does Exposure Management Support Preemptive Cybersecurity?",
+      "title_zh": "快速解答：曝險管理如何支援先制型資安？",
+      "publisher": "Gartner",
+      "url": "https://www.gartner.com/en/documents/5951239",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "unverified-hypothesis",
+      "full_text_status": "paywalled",
+      "document_id": "5951239",
+      "claims_supported": [],
+      "limitations": [
+        "付費牆。Picus 引句登錄在 SRC-2025-007，不得寫進本列 claims_supported。",
+        "published_date 未知。"
+      ],
+      "license_notes": "Gartner 客戶文件。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-015",
+      "title": "Exposure Management Vendors Must Get Preemptive or Perish",
+      "title_zh": "曝險管理廠商必須走向先制否則淘汰",
+      "publisher": "Gartner",
+      "url": "https://www.gartner.com/en/documents/6664234",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "unverified-hypothesis",
+      "full_text_status": "paywalled",
+      "document_id": "6664234",
+      "claims_supported": [],
+      "limitations": [
+        "僅標題與 Picus 書目。正文未讀。"
+      ],
+      "license_notes": "Gartner 客戶文件。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-016",
+      "title": "Emerging Tech: Pivot to Preemptive Exposure Management Services to Grow Revenue",
+      "title_zh": "新興科技：轉向先制曝險管理服務以成長營收",
+      "publisher": "Gartner",
+      "url": "https://www.gartner.com/en/documents/6764634",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "unverified-hypothesis",
+      "full_text_status": "paywalled",
+      "document_id": "6764634",
+      "claims_supported": [],
+      "limitations": [
+        "僅標題。Picus 稱 2025 研究並列 Picus 為 UEMP 樣本廠商，屬利益相關轉述。"
+      ],
+      "license_notes": "Gartner 客戶文件。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2025-017",
+      "title": "Emerging Tech Impact Radar: Preemptive Cybersecurity (retired first-draft ID)",
+      "title_zh": "（已作廢初稿編號）新興科技影響雷達：先制型資安",
+      "publisher": "Gartner",
+      "url": null,
+      "published_date": "2025-10-07",
+      "accessed_date": "2026-09-12",
+      "source_type": "unverified-hypothesis",
+      "full_text_status": "paywalled",
+      "document_id": "G00830315",
+      "claims_supported": [],
+      "limitations": [
+        "已發號不得改指另一份文件。本列保留作廢紀錄，現用 ID 為 SRC-2025-002。",
+        "研究正文不應再引用本 ID。"
+      ],
+      "license_notes": "同 SRC-2025-002。",
+      "superseded_by": "SRC-2025-002"
+    },
+    {
+      "source_id": "SRC-2025-018",
+      "title": "Top Strategic Technology Trends for 2026 (client special report)",
+      "title_zh": "2026 年十大策略科技趨勢（客戶特別報告）",
+      "publisher": "Gartner",
+      "url": null,
+      "published_date": "2025-10-18",
+      "accessed_date": "2026-09-12",
+      "source_type": "unverified-hypothesis",
+      "full_text_status": "paywalled",
+      "document_id": "G00829643",
+      "claims_supported": [],
+      "limitations": [
+        "二手可見封面元資料與文件編號。正文未讀。公開可核對句子以 SRC-2025-005／SRC-2025-006 為準。",
+        "日期依二手，待原文覆核。"
+      ],
+      "license_notes": "Gartner 客戶報告。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2026-001",
+      "title": "Gartner Identifies the Top Strategic Technology Trends for 2026",
+      "title_zh": "Gartner 公布 2026 年十大策略科技趨勢",
+      "publisher": "Gartner",
+      "url": "https://www.gartner.com/en/newsroom/press-releases/2025-10-20-gartner-identifies-the-top-strategic-technology-trends-for-2026",
+      "published_date": "2025-10-20",
+      "accessed_date": "2026-09-12",
+      "source_type": "gartner-stated",
+      "full_text_status": "blocked-by-bot-check",
+      "document_id": null,
+      "claims_supported": [],
+      "limitations": [
+        "契約預留號。官方 Newsroom URL 於 2026-09-12 被 bot 擋下，claims_supported 為空。",
+        "可讀轉載見 SRC-2025-005、SRC-2025-006。",
+        "出版年為 2025，但契約預留 SRC-2026-001 給「2026 趨勢公開材料」，故採預留號而非 SRC-2025-xxx。"
+      ],
+      "license_notes": "Gartner 新聞稿。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2026-002",
+      "title": "ATT&CK Data & Tools",
+      "title_zh": "ATT&CK 資料與工具",
+      "publisher": "MITRE ATT&CK",
+      "url": "https://attack.mitre.org/resources/attack-data-and-tools/",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "ATT&CK 資料集以 STIX 2.0／2.1 發布，並可經 TAXII 取得。",
+        "2026-09-12 所見公開頁提到含 v19.2 的 Excel 版本。"
+      ],
+      "limitations": [
+        "不是 Gartner 文件。出版日持續更新。",
+        "初稿曾誤用 SRC-2026-001 掛本頁；現已改號。"
+      ],
+      "license_notes": "MITRE 公開資料。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2026-003",
+      "title": "EPSS data and API",
+      "title_zh": "EPSS 資料與 API",
+      "publisher": "FIRST.org",
+      "url": "https://www.first.org/epss/data",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "FIRST EPSS 每日發布 CVE 在未來一段時間被野外利用的機率分數，並提供 API／CSV。"
+      ],
+      "limitations": [
+        "分數每日變動；本專案不把 EPSS 當成已驗證攻擊。",
+        "初稿號曾為 SRC-2026-004。"
+      ],
+      "license_notes": "FIRST 公開資料。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2026-004",
+      "title": "NVD Vulnerability APIs",
+      "title_zh": "NVD 漏洞 API",
+      "publisher": "NIST NVD",
+      "url": "https://nvd.nist.gov/developers/vulnerabilities",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "CVE API 2.0 位於 https://services.nvd.nist.gov/rest/json/cves/2.0"
+      ],
+      "limitations": [
+        "API 配額與欄位會變。初稿號曾為 SRC-2026-005。"
+      ],
+      "license_notes": "NIST 公開 API 說明。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2026-005",
+      "title": "BOD 26-04 Prioritizing Security Updates Based on Risk",
+      "title_zh": "BOD 26-04 依風險排定資安更新優先順序",
+      "publisher": "CISA",
+      "url": "https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "unavailable",
+      "document_id": "BOD-26-04",
+      "claims_supported": [],
+      "limitations": [
+        "本輪僅見 KEV 頁引用，未讀指令全文，故 claims_supported 為空。",
+        "聯邦 binding directive，不自動約束所有民營企業。",
+        "初稿號曾為 SRC-2026-006。"
+      ],
+      "license_notes": "美國政府公開指令。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2026-900",
+      "title": "GPreep Analysis Cycle and research data contracts",
+      "title_zh": "GPreep 分析循環與研究資料契約",
+      "publisher": "本專案",
+      "url": null,
+      "published_date": "2026-09-12",
+      "accessed_date": "2026-09-12",
+      "source_type": "project-framework",
+      "full_text_status": "retrieved",
+      "document_id": "PROC-GPREEP-001",
+      "claims_supported": [
+        "GAC 階段 S0–S8 為本專案設計，不是 Gartner 官方流程。",
+        "INP／OUT／CASE ID、信心 high／medium／low、專案燈號皆為教學框架。",
+        "3 Ds 僅借用為建議標籤；CTEM 五階段僅作溝通對映。"
+      ],
+      "limitations": [
+        "契約內建 project-framework 號。初稿曾用 SRC-PF-001，現改掛本號。",
+        "不得寫成 Gartner 成熟度模型或 Gartner 分數。"
+      ],
+      "license_notes": "本儲存庫 research／references。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2024-001",
+      "title": "Gartner Identifies the Top Cybersecurity Trends for 2024",
+      "title_zh": "Gartner 公布 2024 年資安趨勢",
+      "publisher": "Gartner",
+      "url": "https://www.gartner.com/en/newsroom/press-releases/2024-02-22-gartner-identifies-top-cybersecurity-trends-for-2024",
+      "published_date": "2024-02-22",
+      "accessed_date": "2026-09-12",
+      "source_type": "gartner-stated",
+      "full_text_status": "blocked-by-bot-check",
+      "document_id": null,
+      "claims_supported": [],
+      "limitations": [
+        "官方 Newsroom 2026-09-12 被 bot 擋下。claims_supported 為空。",
+        "可讀轉載見 SRC-2024-002。",
+        "CTEM「2026 年侵害減少三分之二」為預測；查閱日已過預測窗，本環境無公開事後驗證。"
+      ],
+      "license_notes": "Gartner 新聞稿。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2024-002",
+      "title": "Gartner Identifies the Top Cybersecurity Trends for 2024 (reprint)",
+      "title_zh": "Gartner 公布 2024 年資安趨勢（轉載）",
+      "publisher": "Architecture & Governance Magazine",
+      "url": "https://www.architectureandgovernance.com/security/gartner-identifies-the-top-cybersecurity-trends-for-2024/",
+      "published_date": "2024-02-26",
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "轉載：CTEM is a pragmatic and systemic approach organizations can use to continually evaluate the accessibility, exposure and exploitability of digital and physical assets.",
+        "轉載：Aligning assessment and remediation scopes with threat vectors or business projects rather than an infrastructure component, highlights vulnerabilities and unpatchable threats.",
+        "轉載：By 2026, Gartner predicts that organizations prioritizing their security investments based on a CTEM program will realize a two-thirds reduction in breaches."
+      ],
+      "limitations": [
+        "新聞稿轉載，不是官網 HTML。與 SRC-2024-005 的「3x less likely」措辭衝突，見 CASE-CONFLICT。",
+        "不得把 two-thirds 寫成 2026-09-12 已驗證的實測。"
+      ],
+      "license_notes": "公開產業媒體；短摘。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2024-003",
+      "title": "The NIST Cybersecurity Framework (CSF) 2.0",
+      "title_zh": "NIST 網路安全框架 2.0",
+      "publisher": "NIST",
+      "url": "https://doi.org/10.6028/NIST.CSWP.29",
+      "published_date": "2024-02-26",
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": "NIST CSWP 29",
+      "claims_supported": [
+        "CSF Core Functions：Govern、Identify、Protect、Detect、Respond、Recover。",
+        "CSF 不規定如何達成成果。"
+      ],
+      "limitations": [
+        "不是先制專文，也不是「先制取代 CSF」的聲明。",
+        "PDF 另見 https://nvlpubs.nist.gov/nistpubs/cswp/nist.cswp.29.pdf"
+      ],
+      "license_notes": "NIST 公開標準。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2024-004",
+      "title": "Known Exploited Vulnerabilities Catalog",
+      "title_zh": "已知被利用漏洞目錄",
+      "publisher": "CISA",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": "KEV",
+      "claims_supported": [
+        "CISA 維護野外已利用漏洞的權威清單。",
+        "組織應把 KEV catalog 當作漏洞管理優先順序框架的輸入。"
+      ],
+      "limitations": [
+        "即時目錄，條目每日可能變更。",
+        "把 KEV 當 GAC 預設納入範圍是 SRC-2026-900 規則，不是 Gartner 命令。"
+      ],
+      "license_notes": "美國政府公開目錄。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2024-005",
+      "title": "The Transformative Power of Continuous Threat Exposure Management (Myth or Reality?)",
+      "title_zh": "持續威脅曝險管理的轉型力量（迷思或現實？）",
+      "publisher": "Cloud Security Alliance",
+      "url": "https://cloudsecurityalliance.org/blog/2024/05/24/the-transformative-power-of-continuous-threat-exposure-management-myth-or-reality",
+      "published_date": "2024-05-24",
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "CSA 將 2026 預測寫成：organizations … will be 3x less likely to suffer a breach。",
+        "同文後段又寫 two-thirds reduction in the number of incidents over three years。",
+        "提供 CTEM 五步驟科普（Scope／Discovery／Prioritization／Validation／Mobilization）與 attack trajectory analysis 等手段。"
+      ],
+      "limitations": [
+        "「3x less likely」與 SRC-2024-002 轉載的「two-thirds reduction」衝突，必須標 conflict，不得靜默選邊。",
+        "作者為外部撰稿，不是 Gartner。"
+      ],
+      "license_notes": "CSA 公開部落格；短摘。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2024-006",
+      "title": "The state of continuous threat exposure management",
+      "title_zh": "持續威脅曝險管理現況",
+      "publisher": "SC Media",
+      "url": "https://www.scworld.com/feature/the-state-of-continuous-threat-exposure-management",
+      "published_date": "2024-06-11",
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "Jeremy D'Hoinne：組織無法修補一切，也無法完全確定掌握哪些修復可以安全延後。",
+        "Pete Shoard 關於把既有流程延伸、以及 validation 依攻擊者會做的事過濾清單的引言。",
+        "引述導入白皮書目標句：曝險管理不是修補每一個已識別問題。"
+      ],
+      "limitations": [
+        "產業特寫，含「three times less likely」等轉述，與 two-thirds 並列時視為衝突／轉述誤差。"
+      ],
+      "license_notes": "公開產業媒體；短摘。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2024-007",
+      "title": "What’s New in the 2024 Gartner Innovation Insight: Attack Surface Management",
+      "title_zh": "2024 Gartner 攻擊面管理創新洞察有何新意",
+      "publisher": "Security Boulevard",
+      "url": "https://securityboulevard.com/2024/05/whats-new-in-the-2024-gartner-innovation-insight-attack-surface-management/",
+      "published_date": "2024-05-01",
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "blocked-by-bot-check",
+      "document_id": null,
+      "claims_supported": [],
+      "limitations": [
+        "本環境 Cloudflare／bot 阻擋，僅有搜尋摘要。claims_supported 為空。",
+        "摘要提到 Gartner 偏好 assessment 而非 management、以及 CAASM／DRPS／EASM 家族，待覆核後才能列入 claims。",
+        "published_date 依 URL 月份近似，待頁面覆核。"
+      ],
+      "license_notes": "公開產業媒體。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2024-008",
+      "title": "Gartner on External Attack Surface Management",
+      "title_zh": "Gartner 看外部攻擊面管理（NetSpi 解讀）",
+      "publisher": "NetSpi",
+      "url": "https://www.netspi.com/blog/executive-blog/attack-surface-management/netspi-view-on-2023-gartner-competitive-landscape-external-attack-surface-management-report/",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "summary-only",
+      "document_id": null,
+      "claims_supported": [
+        "搜尋摘要層：EASM 被描述為支援 CTEM 的 scoping、discovery、prioritization。"
+      ],
+      "limitations": [
+        "本輪未完整重抓全文。屬廠商對 2023 競爭格局報告的解讀，不是報告原文。"
+      ],
+      "license_notes": "廠商部落格。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2024-009",
+      "title": "NIST Cybersecurity Framework FAQs",
+      "title_zh": "NIST 網路安全框架常見問題",
+      "publisher": "NIST",
+      "url": "https://www.nist.gov/cyberframework/faqs",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "列出六個並行 Functions：Govern、Identify、Protect、Detect、Respond、Recover。"
+      ],
+      "limitations": [
+        "FAQ 會更新；與 SRC-2024-003 交叉使用。"
+      ],
+      "license_notes": "NIST 公開頁。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2024-010",
+      "title": "Innovation Insight: Attack Surface Management",
+      "title_zh": "創新洞察：攻擊面管理",
+      "publisher": "Gartner",
+      "url": "https://www.gartner.com/en/documents/5341663",
+      "published_date": "2024-04",
+      "accessed_date": "2026-09-12",
+      "source_type": "unverified-hypothesis",
+      "full_text_status": "paywalled",
+      "document_id": "5341663",
+      "claims_supported": [],
+      "limitations": [
+        "僅公開摘要卡與二手引句。月份依轉述。作者據二手：Mitchell Schneider、John Watts、Pete Shoard。"
+      ],
+      "license_notes": "Gartner 客戶文件。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2022-001",
+      "title": "Implement a Continuous Threat Exposure Management (CTEM) Program",
+      "title_zh": "實施持續威脅曝險管理（CTEM）計畫",
+      "publisher": "Gartner",
+      "url": null,
+      "published_date": "2022-07-21",
+      "accessed_date": "2026-09-12",
+      "source_type": "unverified-hypothesis",
+      "full_text_status": "paywalled",
+      "document_id": "G00763954",
+      "claims_supported": [],
+      "limitations": [
+        "全文未讀。五階段與定義句見標明出處的轉述 SRC-2022-004、SRC-2024-006，不得寫入本列 claims_supported。",
+        "因此不標 gartner-stated supported。分析師據轉述：Jeremy D'Hoinne、Pete Shoard、Mitchell Schneider。"
+      ],
+      "license_notes": "Gartner 客戶報告。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2022-002",
+      "title": "MITRE Engage Handbook v1.0",
+      "title_zh": "MITRE Engage 手冊 v1.0",
+      "publisher": "MITRE",
+      "url": "https://engage.mitre.org/wp-content/uploads/2022/04/EngageHandbook-v1.0.pdf",
+      "published_date": "2022-04",
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "Engage Matrix 用於對手交戰、欺敵與拒止規劃。",
+        "循環包含把原始資料對照既有 CTI（例如 ATT&CK）。"
+      ],
+      "limitations": [
+        "不是 Gartner 文件。版本為 v1.0（2022-04）。"
+      ],
+      "license_notes": "MITRE 公開 PDF。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2022-003",
+      "title": "MITRE Engage: A Framework and Community for Cyber Deception",
+      "title_zh": "MITRE Engage：網路欺敵框架與社群",
+      "publisher": "MITRE",
+      "url": "https://www.mitre.org/news-insights/impact-story/mitre-engage-framework-and-community-cyber-deception",
+      "published_date": "2022-02-28",
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "retrieved",
+      "document_id": null,
+      "claims_supported": [
+        "Engage 聚焦 denial、deception 與 adversary engagement。",
+        "建議交戰但避免 hack-back。",
+        "矩陣欄：Prepare、Expose、Affect、Elicit、Understand。"
+      ],
+      "limitations": [
+        "不是 Gartner 授權反擊的依據；相反，它禁止 hack-back。"
+      ],
+      "license_notes": "MITRE 公開文章。",
+      "superseded_by": null
+    },
+    {
+      "source_id": "SRC-2022-004",
+      "title": "A Practical Guide to Getting Started With CTEM",
+      "title_zh": "CTEM 入門實務指南",
+      "publisher": "XM Cyber",
+      "url": "https://info.xmcyber.com/hubfs/A%20Practical%20Guide%20to%20CTEM%20v.6.0.pdf",
+      "published_date": null,
+      "accessed_date": "2026-09-12",
+      "source_type": "third-party",
+      "full_text_status": "summary-only",
+      "document_id": null,
+      "claims_supported": [
+        "搜尋／摘要層：標明 Gartner 授權的 CTEM 定義與 validation 措辭（accessibility／exposure／exploitability；五步循環）。"
+      ],
+      "limitations": [
+        "本輪未完整保存 PDF 每一頁。供應商指南，即使標授權也不是 Gartner 原文檔。"
+      ],
+      "license_notes": "廠商 PDF。",
+      "superseded_by": null
+    }
+  ]
+}
