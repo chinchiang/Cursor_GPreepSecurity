@@ -147,3 +147,77 @@ GitHub MCP namespace：`error`（工具探索失敗）。
 - `git push`、`gh pr create`、Pages 部署
 - 瀏覽器 E2E
 - 在 `/Cursor_GPreepSecurity/` 子路徑重掛靜態伺服器
+
+---
+
+## 10. 重驗回合（ISS-001／ISS-002，同一日稍後）
+
+**HEAD：** `3c626a6`（其前 `434e774` Skills、`7d4dde9` 契約）  
+**分支：** `cursor/preemptive-cybersecurity-128d`（未切走、未 push）  
+**範圍：** 只重驗 ISS-001／002 與網站同步；不重跑機敏掃描、Pages API、gartner.com curl、本機 preview。
+
+### 10.1 登錄表核對
+
+```text
+SRC-2025-001  gartner-stated          blocked-by-bot-check  claims_supported=[]
+SRC-2025-002  unverified-hypothesis   paywalled             claims_supported=[]
+SRC-2025-003  third-party             retrieved             50% 轉載
+SRC-2025-006  third-party             retrieved             50% 轉載
+```
+
+### 10.2 Skills／examples 殘留舊主張
+
+掃 `skills/`、`examples/`（排除 `validate_contract.py` 偵測字串本身）：
+
+- 「公開文章要求 … SRC-2025-002」：**0**
+- 「50% 與 SRC-2025-001 同行且無 003／006」且非禁令句：**0**
+- 「可引用的 gartner-stated 句子」僅出現在「不得寫／禁止」句（允許）
+
+契約 6.1 `CLM-3D-001`：`gartner-stated` + **`partial`**（不再是 supported）。`CLM-SPEND-50`：third-party + supported + 003／006。
+
+### 10.3 網站
+
+`site/src/pages/*.html`：無 `SRC-2025-002`、無「50% + SRC-2025-001」、無正向 gartner-stated 舊主張。  
+`site/content/generated`：無「公開文章要求 + 002」舊句；內容為同步後的 third-party／partial／禁令。
+
+### 10.4 回歸
+
+```text
+$ python3 examples/validate_contract.py
+OK: contract, four baseline expected outputs, skill frontmatter, research alignment
+Note: no live ChatGPT/Claude/Grok/GLM/DeepSeek account test was run.
+EXIT:0
+```
+
+```text
+$ cd site && npm test
+synced research=8 (repo:research/) skills=5 docs=48
+built /workspace/site/dist
+check passed: 71 html, 5 skills, 8 research
+EXIT:0
+```
+
+副作用：改寫 `site/content/generated/site-data.json`、`version.json` 時間戳（各 4 行）。已執行：
+
+```text
+git checkout -- site/content/generated/site-data.json site/content/generated/version.json
+```
+
+**未**把 generated 變更提交。working tree 在寫入 `qa/` 前乾淨。
+
+### 10.5 誤傷抽查
+
+| 檢查 | 結果 |
+| --- | --- |
+| ChatGPT `SKILL.md`／`gpt-instructions.md`／`project-instructions.md` | 在 |
+| Claude `SKILL.md`／`project-instructions.md` | 在 |
+| Grok `SKILL.md` | 在 |
+| GLM `agent-system-prompt.md` | 在 |
+| DeepSeek `system-prompt.md` | 在 |
+| `CASE-COMPLETE`／`GAP`／`CONFLICT`／`UNTRUSTED-DOC` 的 md＋json＋expected | 皆在 |
+| GAC 標成 Gartner 官方 | 未發現；命中皆為「GAC **不是** Gartner 官方流程」 |
+
+### 10.6 刻意沒有重跑
+
+- 機敏掃描、Pages API、gartner.com、本機 preview／curl
+- 平台 API／帳號、瀏覽器 E2E、`git push`

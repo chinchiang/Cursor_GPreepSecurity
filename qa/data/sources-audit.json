@@ -22,7 +22,11 @@
   "md_json_id_sync": true,
   "skill_id_remap_bug": {
     "issue": "ISS-001",
-    "skills_treat_SRC-2025-002_as": "public article + 3 Ds",
+    "status": "fixed",
+    "reverify": "2026-09-12",
+    "skills_now_treat_SRC-2025-002_as": "paywalled Impact Radar; do not hang 3 Ds here",
+    "skills_now_treat_3ds_as": "third-party / partial on SRC-2025-001",
+    "skills_now_treat_50pct_as": "third-party / supported on SRC-2025-003 and SRC-2025-006",
     "registry_SRC-2025-002": "Emerging Tech Impact Radar (paywalled, unverified-hypothesis)",
     "registry_SRC-2025-001": "public Gartner article (blocked-by-bot-check)"
   }

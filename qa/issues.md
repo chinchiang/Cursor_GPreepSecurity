@@ -6,7 +6,7 @@
 
 ---
 
-## ISS-001（高）Skills 把 SRC-2025-001／002 對到舊號，並升格為 gartner-stated
+## ISS-001（高）Skills 把 SRC-2025-001／002 對到舊號，並升格為 gartner-stated — **已修復**（2026-09-12 重驗）
 
 - **位置：**
   - `skills/_shared/core-instructions.md`、`skills/_shared/task-spec.md`
@@ -15,23 +15,33 @@
   - `skills/grok/preemptive-cyber-review/SKILL.md` 與 `references/`
   - `skills/glm/agent-system-prompt.md`
   - `skills/deepseek/system-prompt.md`
-- **重現：**
+- **重現（第一輪失敗）：**
   1. `python3 -c "import json; from pathlib import Path; s=json.loads(Path('references/sources.json').read_text());
 print([(x['source_id'], x['source_type'], x['full_text_status'], x['title'][:50]) for x in s['sources'] if x['source_id'] in ('SRC-2025-001','SRC-2025-002','SRC-2025-003')])"`
   2. `rg -n "SRC-2025-002" skills --glob '*.md'`
 - **期望：** 登錄表為唯一發號。`SRC-2025-001`＝公開文章（blocked，`claims_supported=[]`）。`SRC-2025-002`＝Impact Radar（paywalled）。3 Ds／「發動或成功前」最多標 third-party／partial，且不得寫成「可引用的 gartner-stated 句子」。50% 支出等已讀轉載應掛 `SRC-2025-003`／`SRC-2025-006`，類型 `third-party`。
-- **實際：** Skills 寫「公開文章要求 Deny/Disrupt/Deceive [SRC-2025-002]」，把 50%／AI-ML 掛 `[SRC-2025-001][SRC-2025-003]`。ChatGPT `project-instructions.md` 第 6 點把 `SRC-2025-001` 至 `006` 與 `SRC-2022-001` 全部當成可引用 gartner-stated。這是 `sources.json` 的 `id_remap_from_first_draft` 未同步到 B。等於在 gartner.com 被擋時仍提供「可引用官方句子」。
-- **建議責任：** Agent B（改 Skills／副本）；Agent A 協助對照表。主代理合併前應擋。
+- **第一輪實際：** Skills 寫「公開文章要求 Deny/Disrupt/Deceive [SRC-2025-002]」，把 50%／AI-ML 掛 `[SRC-2025-001][SRC-2025-003]`。ChatGPT `project-instructions.md` 第 6 點把 `SRC-2025-001` 至 `006` 與 `SRC-2022-001` 全部當成可引用 gartner-stated。
+- **重驗實際（已修復）：**
+  1. 登錄表仍為 `001`＝公開文章 `gartner-stated`／`blocked-by-bot-check`／`claims_supported=[]`；`002`＝Impact Radar `unverified-hypothesis`／`paywalled`；`003`／`006`＝已讀轉載 `third-party`／`retrieved`。
+  2. Skills／examples 已改為：3 Ds 標 **[third-party；partial]** 並掛 `[SRC-2025-001]`，並寫「不要／禁止把 3 Ds 掛到 [SRC-2025-002]」。50% 支出標 **[third-party；supported]** 並掛 `[SRC-2025-003][SRC-2025-006]`。
+  3. 掃 `skills/`、`examples/`：無「公開文章要求 … SRC-2025-002」；無「50% 與 SRC-2025-001 同行且缺少 003／006」的正向主張。殘留的「可引用的 gartner-stated 句子」皆在**禁令**句（「不得寫」），允許存在。
+  4. 對應 commit：`434e774`（Skills）、`3c626a6`（網站 generated 同步）。
+- **建議責任：** 原為 Agent B。本輪無需再改 Skills。
 
 ---
 
-## ISS-002（中）契約 SharedOutput 範例仍標 gartner-stated + supported
+## ISS-002（中）契約 SharedOutput 範例仍標 gartner-stated + supported — **已修復**（2026-09-12 重驗）
 
-- **位置：** `docs/contracts/shared-data-contract.md` 第 6.1 節 CASE-COMPLETE 範例（`source_ids: ["SRC-2025-001"]`，`source_type: gartner-stated`，`evidence_status: supported`，並有 quote excerpt）
-- **重現：** 搜尋該檔 `evidence_status": "supported"` 與 `SRC-2025-001` 的同一 claim 物件。
+- **位置：** `docs/contracts/shared-data-contract.md` 第 6.1 節 CASE-COMPLETE 範例
+- **重現（第一輪失敗）：** 搜尋該檔 `evidence_status": "supported"` 與 `SRC-2025-001` 的同一 claim 物件。
 - **期望：** 官方 URL `full_text_status=blocked-by-bot-check` 時，不得出現 `gartner-stated` + `supported`。Agent A 的 `research/data/shared-output.examples.json` 已改為 `partial`，契約範例應一致。
-- **實際：** 契約範例仍是舊的 supported + 摘錄，與 `source-citation-rules.md`、`sources.json` 衝突。後續代理可能照抄。
-- **建議責任：** 主代理（擁有 `docs/contracts/`）。
+- **第一輪實際：** 契約範例仍是舊的 supported + 摘錄，與 `source-citation-rules.md`、`sources.json` 衝突。
+- **重驗實際（已修復）：** 6.1 現為三筆 claim：
+  - `CLM-SPEND-50`：`source_ids=["SRC-2025-003","SRC-2025-006"]`，`source_type=third-party`，`evidence_status=supported`（已讀轉載，合法）。
+  - `CLM-3D-001`：`source_ids=["SRC-2025-001"]`，`source_type=gartner-stated`，**`evidence_status=partial`**，`quoted_excerpt=null`，`gap_reason` 寫 blocked-by-bot-check。**不再**是 `gartner-stated` + `supported`。
+  - `CLM-SCORE-001`：`project-framework` + `supported`（SRC-2026-900），燈號聲明非 Gartner。
+  - 對應 commit：`7d4dde9`。
+- **建議責任：** 原為主代理。本輪無需再改契約。
 
 ---
 
@@ -111,7 +121,6 @@ print([(x['source_id'], x['source_type'], x['full_text_status'], x['title'][:50]
 
 ## 必須先修（整合前）
 
-1. **ISS-001** — 五平台 Skills／共用指令與 `references/sources.json` 發號對齊，並停止把 blocked／third-party 寫成可引用 gartner-stated。
-2. **ISS-002** — 契約 6.1 範例改為與登錄表相同的 `partial`／空 `claims_supported` 規則。
+**本輪無剩餘必須先修項。** ISS-001、ISS-002 已修復（重驗通過）。
 
-其餘可在同一整合週期處理，但不單獨構成「看起來完整即可過關」。
+其餘仍開放、**不單獨阻擋**本輪有條件通過：ISS-003（兩套 I／O）、ISS-004（Pages／workflow 未上線）、ISS-005（研究多段未行內掛 SRC-2026-900）。平台帳號、瀏覽器互動仍 `尚未驗證`。

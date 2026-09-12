@@ -4,13 +4,17 @@
   "date": "2026-09-12",
   "branch": "cursor/preemptive-cybersecurity-128d",
   "base_commit": "cfc9f0fcd9e12b1c0539c044ed534c8aedd606c6",
-  "verdict": "fail",
-  "must_fix": ["ISS-001", "ISS-002"],
+  "reverify_head": "3c626a6",
+  "verdict": "conditional_pass",
+  "verdict_zh": "有條件通過（平台帳號／Pages／瀏覽器互動仍尚未驗證）",
+  "must_fix": [],
+  "must_fix_resolved": ["ISS-001", "ISS-002"],
+  "open_non_blocking": ["ISS-003", "ISS-004", "ISS-005", "ISS-006", "ISS-007", "ISS-008", "ISS-009"],
   "scopes": {
-    "source_attribution": "fail",
+    "source_attribution": "pass_reverify_iss001_002",
     "platform_capabilities_docs": "pass_with_limits",
     "platform_e2e": "not_verified",
-    "skills_operability": "fail",
+    "skills_operability": "pass_offline_iss003_open",
     "website_static": "pass_with_limits",
     "website_browser": "not_verified",
     "secrets": "pass",
@@ -18,13 +22,13 @@
     "pages_live": "not_verified"
   },
   "commands": {
-    "validate_contract": {"exit": 0, "note": "offline only"},
-    "site_npm_test": {"exit": 0, "html": 71, "skills": 5, "research": 8},
-    "preview_curl": {"index": 200, "unknown_path": 404},
-    "gartner_article": {"http": 403},
-    "deepseek_api_docs": {"http": 200},
-    "openai_skills_help": {"http": 403},
-    "pages_api": {"http": 404}
+    "validate_contract": {"exit": 0, "note": "offline only; rerun on reverify"},
+    "site_npm_test": {"exit": 0, "html": 71, "skills": 5, "research": 8, "rerun": true},
+    "preview_curl": {"index": 200, "unknown_path": 404, "note": "first round only; not rerun"},
+    "gartner_article": {"http": 403, "note": "first round only; not rerun"},
+    "deepseek_api_docs": {"http": 200, "note": "first round only; not rerun"},
+    "openai_skills_help": {"http": 403, "note": "first round only; not rerun"},
+    "pages_api": {"http": 404, "note": "first round only; not rerun"}
   },
   "accounts_used": [],
   "browser_used": false
