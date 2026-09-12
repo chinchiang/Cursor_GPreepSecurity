@@ -1,0 +1,29 @@
+{
+  "schema_version": "qa-1.0.0",
+  "date": "2026-09-12",
+  "registry": "references/sources.json",
+  "source_count": 38,
+  "duplicate_ids": [],
+  "types": {
+    "third-party": 23,
+    "unverified-hypothesis": 10,
+    "gartner-stated": 4,
+    "project-framework": 1
+  },
+  "gartner_stated": [
+    {"source_id": "SRC-2025-001", "full_text_status": "blocked-by-bot-check", "claims_supported": 0},
+    {"source_id": "SRC-2025-004", "full_text_status": "blocked-by-bot-check", "claims_supported": 0},
+    {"source_id": "SRC-2026-001", "full_text_status": "blocked-by-bot-check", "claims_supported": 0},
+    {"source_id": "SRC-2024-001", "full_text_status": "blocked-by-bot-check", "claims_supported": 0}
+  ],
+  "ids_in_research_not_in_registry": ["SRC-1999-999"],
+  "src_1999_999_note": "forged id in CASE-UNTRUSTED-DOC only",
+  "ids_in_registry_unused_in_research": ["SRC-2025-011"],
+  "md_json_id_sync": true,
+  "skill_id_remap_bug": {
+    "issue": "ISS-001",
+    "skills_treat_SRC-2025-002_as": "public article + 3 Ds",
+    "registry_SRC-2025-002": "Emerging Tech Impact Radar (paywalled, unverified-hypothesis)",
+    "registry_SRC-2025-001": "public Gartner article (blocked-by-bot-check)"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "schema_version": "qa-1.0.0",
+  "date": "2026-09-12",
+  "issue": "ISS-003",
+  "note": "Same CASE-* ids, two incompatible JSON shapes. Five platforms share examples/baseline-cases.",
+  "gac_skill_shape": {
+    "files": "examples/baseline-cases/*.json + examples/expected-outputs/*.expected.json",
+    "input_top_level_example": [
+      "case_id",
+      "task",
+      "synthetic",
+      "authorization",
+      "assets",
+      "evidence",
+      "question"
+    ],
+    "output_schema_version": "gac-output-1.0.0-draft"
+  },
+  "contract_envelope_shape": {
+    "files": "research/data/shared-input.examples.json + shared-output.examples.json",
+    "input_top_level_example": [
+      "schema_version",
+      "request_id",
+      "stage_id",
+      "actor",
+      "case_id",
+      "locale",
+      "payload",
+      "trust"
+    ],
+    "output_schema_version": "1.0.0"
+  },
+  "offline_gac_validation": {
+    "command": "python3 examples/validate_contract.py",
+    "exit": 0,
+    "live_model": false
+  },
+  "cases": {
+    "CASE-COMPLETE": {
+      "gac_assets": 5,
+      "gac_evidence": 5,
+      "gac_confidence": {"label": "medium", "overall": 0.55},
+      "gac_actions": ["rec-deny-001", "rec-deny-002", "rec-deny-003", "rec-deceive-001", "rec-disrupt-001"]
+    },
+    "CASE-GAP": {
+      "gac_assets": 0,
+      "gac_gaps": 4,
+      "gac_confidence": {"label": "low", "overall": 0.18},
+      "clean_host": "billing.northwind-synth.test"
+    },
+    "CASE-CONFLICT": {
+      "five_sources": ["EV-SCAN-A", "EV-SCAN-B", "EV-OWNER", "EV-EASM", "EV-BAS"],
+      "resolution": "unresolved",
+      "validation_status": "contradicted"
+    },
+    "CASE-UNTRUSTED-DOC": {
+      "clean_host": "status.northwind-synth.test",
+      "untrusted_segments": 3,
+      "forged_src": "SRC-1999-999"
+    }
+  }
+}
