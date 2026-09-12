@@ -1,0 +1,53 @@
+# 網站／建置產物
+node_modules/
+dist/
+build/
+out/
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+.hugo_build.lock
+.vite/
+.parcel-cache/
+.turbo/
+.next/
+.cache/
+coverage/
+*.tsbuildinfo
+site/_site/
+site/dist/
+site/.cache/
+site/node_modules/
+
+# 環境與機敏（可提交 *.example）
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+secrets/
+credentials.json
+
+# 日誌與本機雜項
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Python 快取（避免與其他分支產物互踩）
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+*.egg-info/
+
+# 代理本機輸出
+demo_out/
+*.db
