@@ -84,16 +84,18 @@
 研究與網站正文使用：
 
 ```markdown
-Gartner 將先制型資安表述為以 Deny、Deceive、Disrupt 降低攻擊成功機會
-（來源：SRC-2025-001《Preemptive Cybersecurity Solutions: A Must in Modern Tech Products》，Gartner）。
+Help Net Security 轉載：到 2030 年 preemptive cybersecurity solutions 將佔 IT 資安支出 50%
+（來源：SRC-2025-003，publisher=Help Net Security，source_type=third-party，full_text_status=retrieved）。
+公開文章頁 SRC-2025-001 為 blocked-by-bot-check、claims_supported=[]，evidence_status=partial，不得寫成 gartner-stated supported。
 ```
 
 HTML 對等：
 
 ```html
 <p>
-  Gartner 將先制型資安表述為以 Deny、Deceive、Disrupt 降低攻擊成功機會
-  （來源：<a href="#src-2025-001">SRC-2025-001</a>）。
+  Help Net Security 轉載 2030 年支出佔比預測
+  （來源：<a href="#src-2025-003">SRC-2025-003</a>）。
+  官方頁 <a href="#src-2025-001">SRC-2025-001</a> 未取得正文，僅能標 partial。
 </p>
 ```
 
@@ -107,7 +109,7 @@ HTML 對等：
 
 ### 2.3 Skill 與 JSON 輸出
 
-Skill 回覆若含主張，必須輸出 `SharedOutput.claims[].source_ids`。僅在系統提示說「參考 Gartner」但沒有 ID，QA 判失敗。
+研究信封的主張必須輸出 `SharedOutput.claims[].source_ids`。五平台 Skill 用 GAC 信封（`examples/`）的 `evidence` 欄掛同一組 `source_id`；兩層格式見共用契約第 13 節，不可把 Shared* JSON 直接貼進 Skill。僅在系統提示說「參考 Gartner」但沒有 ID，QA 判失敗。
 
 ---
 
@@ -121,7 +123,7 @@ Skill 回覆若含主張，必須輸出 `SharedOutput.claims[].source_ids`。僅
 | `summary-only` | 只拿到官方摘要、目錄、或新聞稿級段落 | `partial`；不可引用未出現在摘要裡的細節 |
 | `paywalled` | 確認存在但需訂閱／登入 | 該來源可登錄；細節主張 `gap` 或改走第三方並標轉述 |
 | `unavailable` | 404、連線失敗、已下架 | 不可當 `supported` |
-| `blocked-by-bot-check` | 站點回 CAPTCHA／「Enable JavaScript」 | 視同未取得全文；本環境對 gartner.com 已發生 |
+| `blocked-by-bot-check` | 站點回 CAPTCHA／「Enable JavaScript」 | 視同未取得全文；**禁止** `gartner-stated` + `supported`。本環境對 gartner.com（含 SRC-2025-001）已發生 |
 
 ### 3.1 正文標示模板
 
@@ -129,7 +131,7 @@ Skill 回覆若含主張，必須輸出 `SharedOutput.claims[].source_ids`。僅
 
 ```markdown
 > 全文狀態：paywalled。SRC-2025-002《Emerging Tech Impact Radar: Preemptive Cybersecurity》未取得正文；
-> 以下技術名稱來自第三方轉述（SRC-2026-00N），evidence_status=partial，不得視為 Gartner 完整清單。
+> 以下技術名稱來自第三方登陸頁轉述（SRC-2025-010），evidence_status=partial，不得視為 Gartner 完整清單。
 ```
 
 Bot 阻擋：
@@ -154,9 +156,9 @@ Bot 阻擋：
 第三方轉述的正確做法：
 
 ```markdown
-Tanium 轉述 Gartner 2025 年 10 月報告稱組織應把資安營運演變成可預期攻擊的防禦體系
-（來源：SRC-2026-010，publisher=Tanium，source_type=third-party，full_text_status=retrieved）。
-Gartner 原文頁碼與用詞尚未核對（SRC-2025-002，paywalled）。
+Help Net Security 轉載 Gartner 預測稱到 2030 年先制型方案將佔資安支出 50%
+（來源：SRC-2025-003，publisher=Help Net Security，source_type=third-party，full_text_status=retrieved）。
+Gartner 原文頁（SRC-2025-001）為 blocked-by-bot-check；Impact Radar（SRC-2025-002）為 paywalled。不得把轉載升格為 gartner-stated supported。
 ```
 
 ---

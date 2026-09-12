@@ -205,3 +205,19 @@ git push -u gpreep cursor/preemptive-cybersecurity-128d
 3. 在 GitHub 設定該庫的 Pages（來源指向上述分支或後續合併的 `main`；靜態根目錄依 Agent C 的 `site/` 產出）。不要對 `Cursor_MultiAgent` 的 `main` 做同等推送。
 4. 確認公開 URL 形如 `https://chinchiang.github.io/Cursor_GPreepSecurity/`，且網站 `SITE_BASE` 為 `/Cursor_GPreepSecurity/`。
 
+---
+
+## 10. ISS-002 契約示範修正（2026-09-12）
+
+獨立驗證（Agent D）判定契約 6.1 把 `SRC-2025-001` 標成 `gartner-stated` + `supported`，與 `references/sources.json`（`blocked-by-bot-check`，`claims_supported=[]`）衝突。
+
+已改：
+
+- `docs/contracts/shared-data-contract.md`：6.1 改為轉載 `supported`（SRC-2025-003／006）＋官方頁 `partial`（SRC-2025-001，無摘錄）；6.2 的 SRC-2025-002 對齊 `unverified-hypothesis`；6.3／9.3 衝突改用已讀的 SRC-2024-002 vs SRC-2024-005（不再誤用現為 ATT&CK 的 SRC-2026-002）；9.1 通過條件禁止 `gartner-stated` + `supported`。新增第 13 節說明 ISS-003：契約 Shared* 與 GAC Skill 是兩層格式、案例 ID 相同。
+- `docs/contracts/source-citation-rules.md`：行內範例不再把 3 Ds 寫成已讀 Gartner 原文。
+
+未改／未假裝解決：
+
+- ISS-001（Skills 發號錯置）— 不在本目錄。
+- ISS-004（Pages 未設定、`cursor[bot]` 對 `gpreep` 無 push）— **部署權未解決**，見第 9 節。
+
