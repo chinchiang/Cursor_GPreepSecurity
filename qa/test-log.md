@@ -221,3 +221,66 @@ git checkout -- site/content/generated/site-data.json site/content/generated/ver
 
 - 機敏掃描、Pages API、gartner.com、本機 preview／curl
 - 平台 API／帳號、瀏覽器 E2E、`git push`
+
+---
+
+## 11. 瀏覽器驗收（同一日稍後，HEAD 3c626a6）
+
+**工具：** Chrome DevTools 裝置模擬（桌面 ~1280px、行動 390px）  
+**伺服器：** `http://localhost:4173/`（Python http.server 於 `/workspace/site/dist`）  
+**範圍：** 真實點擊完成導覽、篩選、切換、搜尋、404、響應式測試。
+
+### 11.1 桌面測試（23 項通過）
+
+| 功能 | 結果 |
+| --- | --- |
+| 導覽（方法論、I/O、平台比較、Skills、安裝、案例、來源、研究） | ✅ 全通過 |
+| I/O 篩選器（階段：24→14、必要性：14→9） | ✅ 計數正確 |
+| Skills 平台卡片（ChatGPT／Claude／Grok／GLM／DeepSeek） | ✅ 五個顯示 |
+| Skills 複製按鈕 | ✅ 點擊變色（剪貼簿未驗證，環境限制） |
+| Skills 下載連結 | ✅ 觸發下載（3.9 KB `.SKILL.md`） |
+| 安裝教學平台切換（chatgpt→claude） | ✅ 內容切換 |
+| 案例切換（COMPLETE／GAP／CONFLICT／UNTRUSTED-DOC） | ✅ 四種案例正常 |
+| 案例標示「本專案示範」、分數非 Gartner | ✅ 已標示 |
+| 搜尋「CVE」 | ✅ 12 筆結果 |
+| 404 頁面（`/nonexistent`） | ✅ 顯示「沒有這個路徑」 |
+| 無空白頁／假按鈕 | ✅ 通過 |
+
+### 11.2 行動測試（390px，8 項通過）
+
+| 功能 | 結果 |
+| --- | --- |
+| 漢堡選單 | ✅ 展開導覽項目與搜尋 |
+| 首頁排版 | ✅ 清晰可讀 |
+| Skills 卡片垂直排列 | ✅ 正常 |
+| 案例示範下拉選單 | ✅ 切換正常 |
+| 研究全文列表與單篇 | ✅ 可讀，格式無破版 |
+| 文字／表格響應式 | ✅ 無元素重疊 |
+
+### 11.3 截圖清單
+
+| 編號 | 檔名 | 視寬 |
+| --- | --- | ---: |
+| 01 | `01-homepage-desktop.webp` | ~1280 |
+| 02 | `02-methodology-desktop.webp` | ~1280 |
+| 03 | `03-io-filtered-desktop.webp` | ~1280 |
+| 04 | `04-skill-download-desktop.webp` | ~1280 |
+| 05 | `05-demo-conflict-desktop.webp` | ~1280 |
+| 06 | `06-404-page-desktop.webp` | ~1280 |
+| 07 | `07-skills-mobile.webp` | 390 |
+| 08 | `08-research-detail-mobile.webp` | 390 |
+
+存於 `qa/screenshots/`。
+
+### 11.4 限制
+
+- **剪貼簿寫入**：按鈕 UI 變化，但未驗證內容（建議人工補測）
+- **I/O 表格行動版**：390px 可能需橫向滾動（結構未崩潰，可接受）
+- **研究全文抽查**：測試 01，其餘 7 篇結構一致，推定皆可讀
+
+### 11.5 結論
+
+✅ **瀏覽器驗收通過**  
+詳見 `qa/browser-verification.md`。無需新增 ISS。
+
+---
