@@ -42,7 +42,7 @@
 | Issues／PR／workflows | 皆空 |
 | `has_pages` | `false` |
 
-**假設（主代理必須裁決）：** 本波雲端代理被掛在 `Cursor_MultiAgent`，但產品目標名稱指向 `Cursor_GPreepSecurity`。子代理只在目前工作區寫檔。若要公開 Pages，公開空庫較合理；私有庫 Pages 可能要付費方案。
+**裁決（主代理，2026-09-12）：** 交付儲存庫是 `https://github.com/chinchiang/Cursor_GPreepSecurity`。工作區 clone 的 `Cursor_MultiAgent` 是另一個產品，不得把本專案成果推進該庫 `main`，也不得混入 `cursor/security-review-core-4044` 或既有 Draft PR。Pages 目標為 `chinchiang/Cursor_GPreepSecurity`。本地遠端名稱：`gpreep`。
 
 ### 1.3 既有分支與 PR（另一個產品，不要混進來）
 
@@ -125,7 +125,7 @@ PR 皆為 **draft／open**。那套樹含 `AGENTS.md`（審查器權限約束）
 2. 四個基準案例 ID 由本契約鎖定，其他代理不得改名。
 3. 子代理會在**同一個**工作區慣例下寫檔；若他們各自開分支，主代理負責合併。本代理依指示不 push，因此遠端在本回合結束時可能仍看不到這些檔。
 4. 「3 D’s」（Deny／Deceive／Disrupt）與「2030 年支出佔比」等句子在公開轉述中常見，但本環境未讀到 Gartner 正文，故契約範例裡的 `gartner-stated` 只是**格式示範**。Agent A 必須重新取證。
-5. 若主代理要把檔案放到 `Cursor_GPreepSecurity`，需要另外的 remote／權限；目前 token 對該空庫的寫入能力未測（也不准測寫入）。
+5. ~~若主代理要把檔案放到 `Cursor_GPreepSecurity`，需要另外的 remote／權限；目前 token 對該空庫的寫入能力未測。~~ **已裁決並已測：** 本地遠端 `gpreep` 已指向該庫；目前身分 `cursor[bot]` **沒有 push 權**（見第 9 節）。
 
 ---
 
@@ -153,3 +153,55 @@ PR 皆為 **draft／open**。那套樹含 `AGENTS.md`（審查器權限約束）
 - 其他子代理在同一 `/workspace` 建立了 `research/`、`skills/`、`site/` 等目錄，並一度把 HEAD 切到 `cursor/cross-platform-skills-924d`。本代理已切回 `cursor/preemptive-cybersecurity-128d`，**沒有刪除或覆寫**那些目錄。
 - 本環境 `Write` 初次落地為 UTF-16 LE。已轉成 **UTF-8（無 BOM）**。其他代理的檔案編碼未改。
 - 本代理暫存／提交範圍僅限契約、協調檔與根文件初稿，不含 `research/`、`references/`、`skills/`、`examples/`、`site/`、`qa/`。
+
+---
+
+## 9. 主代理裁決落地（遠端 `gpreep`）
+
+檢查時間：2026-09-12。本代理**沒有**真正 `git push`、沒有建 PR、沒有改 GitHub Pages／協作者設定。權限探測使用 `git push --dry-run`（遠端仍為空，`git ls-remote gpreep` 無 refs）。
+
+### 9.1 裁決摘要
+
+| 項目 | 裁決 |
+| --- | --- |
+| 交付儲存庫 | `https://github.com/chinchiang/Cursor_GPreepSecurity` |
+| 工作區 clone | `https://github.com/chinchiang/Cursor_MultiAgent`（另一個產品） |
+| 禁止 | 把本專案推進 MultiAgent 的 `main`；混入 `cursor/security-review-core-4044` 或 Draft PR #1／#2 |
+| Pages 目標 | `chinchiang/Cursor_GPreepSecurity`（專案子路徑預設 `/Cursor_GPreepSecurity/`） |
+| 本地遠端名稱 | `gpreep`（`origin` 保持 MultiAgent，未改） |
+
+### 9.2 遠端設定（本地已完成）
+
+```text
+origin  https://github.com/chinchiang/Cursor_MultiAgent
+gpreep  https://github.com/chinchiang/Cursor_GPreepSecurity.git
+分支    cursor/preemptive-cybersecurity-128d
+```
+
+### 9.3 唯讀／權限檢查結果
+
+| 檢查 | 結果 |
+| --- | --- |
+| `git ls-remote gpreep` | 空（無任何 ref） |
+| `gh api .../contents/` | `This repository is empty`（404） |
+| `has_pages` | `false` |
+| Pages API | `404 Not Found`（尚未設定 GitHub Pages） |
+| repo `permissions` | `admin/maintain/pull/push/triage` 皆 `false` |
+| `git push --dry-run gpreep cursor/preemptive-cybersecurity-128d` | **403** `Permission to chinchiang/Cursor_GPreepSecurity.git denied to cursor[bot]` |
+| 協作者權限 API | 403 `Resource not accessible by integration` |
+| 真正 push／開 PR／改 GitHub 設定 | **未執行** |
+
+### 9.4 後續主代理應執行
+
+本環境的 `cursor[bot]` 整合權杖對 `Cursor_GPreepSecurity` **沒有寫入權**，因此無法由子代理或本機此身分完成交付。最少人工操作：
+
+1. 用對該庫有 `push` 的身分（儲存庫擁有者 `chinchiang`，或把 `cursor[bot]`／部署金鑰加成 collaborator／grant）。
+2. 在本工作區（或同等提交）執行：
+
+```bash
+git push -u gpreep cursor/preemptive-cybersecurity-128d
+```
+
+3. 在 GitHub 設定該庫的 Pages（來源指向上述分支或後續合併的 `main`；靜態根目錄依 Agent C 的 `site/` 產出）。不要對 `Cursor_MultiAgent` 的 `main` 做同等推送。
+4. 確認公開 URL 形如 `https://chinchiang.github.io/Cursor_GPreepSecurity/`，且網站 `SITE_BASE` 為 `/Cursor_GPreepSecurity/`。
+

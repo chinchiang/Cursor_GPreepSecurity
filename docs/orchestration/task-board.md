@@ -1,9 +1,10 @@
 # 任務看板
 
-更新：2026-09-12  
+更新：2026-09-12（主代理裁決落地）  
 分支：`cursor/preemptive-cybersecurity-128d`  
-工作區遠端：`https://github.com/chinchiang/Cursor_MultiAgent`  
-使用者指定目標庫：`https://github.com/chinchiang/Cursor_GPreepSecurity`（目前空庫；見 handoff-log）
+工作區 clone 遠端 `origin`：`https://github.com/chinchiang/Cursor_MultiAgent`（另一個產品，不要推本專案進其 `main`）  
+**交付儲存庫／Pages 目標：** `https://github.com/chinchiang/Cursor_GPreepSecurity`  
+本地交付遠端名稱：`gpreep`（詳見 handoff-log 第 9 節）
 
 ## 強制治理（所有子代理）
 
@@ -31,10 +32,11 @@
 
 **任務**
 
-1. 收斂子代理檔案到同一功能分支（名稱需符合本波約定時優先 `cursor/preemptive-cybersecurity-128d`）。
-2. 決定公開網站要落在 `Cursor_MultiAgent` 還是 `Cursor_GPreepSecurity`。
-3. 在人工確認後才 push、開 PR、設定 GitHub Pages。
-4. 保持 `AGENTS.md` 與契約不被後到的子代理覆蓋掉責任分工。
+1. 收斂子代理檔案到同一功能分支 `cursor/preemptive-cybersecurity-128d`。
+2. **交付目標已裁決為 `Cursor_GPreepSecurity`。** 使用遠端 `gpreep`，執行 `git push -u gpreep cursor/preemptive-cybersecurity-128d`（目前 `cursor[bot]` 無寫入權，需擁有者授權後再推）。
+3. 不要把本專案推進 `origin`（`Cursor_MultiAgent`）的 `main`，不要混入 `cursor/security-review-core-4044` 或既有 Draft PR。
+4. 在 `chinchiang/Cursor_GPreepSecurity` 設定 GitHub Pages；`SITE_BASE` 用 `/Cursor_GPreepSecurity/`。
+5. 保持 `AGENTS.md` 與契約不被後到的子代理覆蓋掉責任分工。
 
 **依賴**：A／B／C 至少交出可整合草稿；D 交出案例結果（可標缺口）。
 
@@ -161,4 +163,5 @@
 - [x] 契約五檔與根文件初稿在工作區
 - [x] 分支名正確
 - [x] 未 push／未部署
-- [ ] 主代理整合與 Pages：不是本代理的完成條件
+- [x] 交付目標改為 GPreepSecurity；本地遠端 `gpreep` 已設定
+- [ ] 主代理對 `gpreep` push 與 Pages：受 403 阻擋，見 handoff-log 第 9 節
