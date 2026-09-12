@@ -221,3 +221,107 @@ git push -u gpreep cursor/preemptive-cybersecurity-128d
 - ISS-001（Skills 發號錯置）— 不在本目錄。
 - ISS-004（Pages 未設定、`cursor[bot]` 對 `gpreep` 無 push）— **部署權未解決**，見第 9 節。
 
+
+---
+
+## 11. 交付嘗試（GitHub push → `gpreep`）
+
+| 欄位 | 值 |
+| --- | --- |
+| 時間（UTC） | 2026-09-12T03:00:05Z（push）；檢查延伸至 2026-09-12T03:00:16Z |
+| 代理 | GitHub 交付嘗試（本節） |
+| 雲端 run | `bc-7a31d972-275d-5121-b91f-a25ec8990877`（名稱：嘗試推送與 Pages 交付） |
+| 工作區 | `/workspace` |
+| 分支 | `cursor/preemptive-cybersecurity-128d`（`SetActiveBranch` 已登記） |
+| 嘗試的遠端 | **僅** `gpreep` → `https://github.com/chinchiang/Cursor_GPreepSecurity.git` |
+| 未執行 | `git push origin`、對 MultiAgent 開／改 PR、`--force`、改 Pages 設定、改 research／skills／site 功能 |
+
+**結果：push 失敗。遠端沒有任何新 commit。Pages 未上線。不要把本節解讀成已上傳。**
+
+### 11.1 本機分支確認（push 前）
+
+工作樹在第一次 `git status` 時乾淨。本分支含契約、研究、skills、site、QA 與後續修正，全部都在 `cursor/preemptive-cybersecurity-128d`，未切走。
+
+| 短 hash | 完整 hash | 說明 |
+| --- | --- | --- |
+| `645241e` | `645241ea3828b7a0472814ad1b6af58cd9a73d0c` | 記錄 Agent D 重驗：ISS-001／002 已修復，改為有條件通過（**當時 HEAD**） |
+| `3c626a6` | `3c626a6a280f8f335aaf46418863c7f5c8b97165` | 同步 site 生成內容：對齊 ISS-001／ISS-002 倉庫正文 |
+| `434e774` | `434e774fd6572bcd66bccb349735963c8a8464c2` | 修正 ISS-001：Skills 引用對齊 sources.json |
+| `7d4dde9` | `7d4dde988c61c89d98f74300e588d2f190457054` | 修正契約示範：blocked 官方頁不得標 supported |
+| `89288cd` | `89288cda7681d862775fbd2e2e6e0a74ae9044f2` | 記錄 Agent D 獨立驗收：失敗與可重現證據 |
+| `cfc9f0f` | `cfc9f0fcd9e12b1c0539c044ed534c8aedd606c6` | 整合 Agent C 網站並對齊五平台與基準案例 |
+| `6aa096b` | `6aa096b3f42ad2af2f910c929f6a90afdaec8887` | 對齊契約的先制資安研究檔與來源登錄表 |
+| `d2aa3ea` | `d2aa3ea1c78d88bcba855f70b8bcbef7af959a9a` | 新增五平台 GAC skills 與 Northwind 基準案例 |
+| `88730d7` | `88730d7e399cd92b57b636d718659d4cc602f888` | 記錄 GPreepSecurity 交付裁決與 gpreep 遠端 |
+| `7147532` | `71475324ab19c31c1d7a89a5758816ed84d6e8fa` | 建立先制型資安平台共用契約與倉庫檢查紀錄 |
+| `8b4fa0c` | `8b4fa0c8fd56697e15cafdcbb38f5cf0a7eac91f` | first commit（作者 chinchiang；MultiAgent 空庫起點） |
+
+### 11.2 實際執行的指令
+
+```text
+$ git push -u gpreep cursor/preemptive-cybersecurity-128d
+remote: Permission to chinchiang/Cursor_GPreepSecurity.git denied to cursor[bot].
+fatal: unable to access 'https://github.com/chinchiang/Cursor_GPreepSecurity.git/': The requested URL returned error: 403
+EXIT:128
+```
+
+這是 **403 權限拒絕**，不是網路逾時或 DNS 失敗。依任務規定，指數重試（4s／8s／16s／32s）只用於網路失敗，**未重試**。未對 `origin`（`Cursor_MultiAgent`）執行 push。未建立或更新 PR。
+
+### 11.3 目前身分
+
+| 管道 | 結果 |
+| --- | --- |
+| `gh auth status` | `Logged in to github.com account cursor`；協定 HTTPS；token 類型 `ghs_`（GitHub App／整合權杖） |
+| `gh api user` | **403** `Resource not accessible by integration`（文件：REST `GET /user`） |
+| git 遠端錯誤身分 | **`cursor[bot]`**（`Permission to chinchiang/Cursor_GPreepSecurity.git denied to cursor[bot]`） |
+| 本機 `user.name` / `user.email` | `Cursor Agent` / `cursoragent@cursor.com`（僅影響 commit 作者欄，不是 GitHub 寫入身分） |
+| 雲端 run 擁有者 | Chin-Chiang Pan（`chinchiang.ccp@gmail.com`）；run 綁定的 clone 仍是 `Cursor_MultiAgent` |
+
+### 11.4 唯讀檢查（push 失敗後仍成立）
+
+| 檢查 | 結果 |
+| --- | --- |
+| `git ls-remote gpreep` | 成功（HTTP 200）但 **無任何 ref**（空庫） |
+| `gh api .../contents/` | `This repository is empty`（404） |
+| `gh api .../branches` | `[]` |
+| repo JSON | public；`size=0`；`pushed_at=2026-09-12T01:57:21Z`（建庫時，其後無 push） |
+| `permissions` | `admin/maintain/pull/push/triage` 皆 `false` |
+| `has_pages` | `false` |
+| Pages API | **404** `Not Found`（尚未設定 GitHub Pages） |
+| 協作者 API | 403 `Resource not accessible by integration`（無寫入、也無法由本身分授權自己） |
+
+**Pages 未上線。** 沒有公開網站 URL 可宣告。
+
+### 11.5 最少人工操作（請 `chinchiang` 執行）
+
+本環境的 `cursor[bot]` 對 `chinchiang/Cursor_GPreepSecurity` **沒有 push 權**。子代理無法自行授權。請儲存庫擁有者擇一：
+
+1. 在 GitHub：`https://github.com/chinchiang/Cursor_GPreepSecurity/settings/access` 把 **`cursor[bot]`** 加成 collaborator（Write 以上），或對 Cursor GitHub App 授予該庫寫入；**或**
+2. 用 `chinchiang` 自己的權杖／SSH，在本工作區（或同等 11 顆 commit 的樹）執行：
+
+```bash
+# 確認遠端（不要 push origin）
+git remote -v
+# 應見：
+# origin  https://github.com/chinchiang/Cursor_MultiAgent
+# gpreep  https://github.com/chinchiang/Cursor_GPreepSecurity.git
+
+git checkout cursor/preemptive-cybersecurity-128d
+git push -u gpreep cursor/preemptive-cybersecurity-128d
+git ls-remote gpreep
+```
+
+預期 `ls-remote` 出現 `645241ea3828b7a0472814ad1b6af58cd9a73d0c`（若其後僅追加本協調紀錄，hash 會再前進一顆；功能內容仍在上述 11 顆）。
+
+授權或 push 成功後，再由擁有者設定 Pages（來源指向此分支或合併後的 `main`；靜態根目錄依 `site/` 產出）。公開 URL 形如 `https://chinchiang.github.io/Cursor_GPreepSecurity/`。**本代理未改 Pages 設定。**
+
+PR 仍由主代理用 ManagePullRequest 處理；本代理不開 PR。
+
+### 11.6 本節未做／未假裝
+
+- 未把程式碼推上 `Cursor_GPreepSecurity`（遠端仍為空）。
+- 未 `git push origin`、未碰 MultiAgent `main`、未 `--force`。
+- 未建立或更新任何 GitHub PR。
+- 未開啟或修改 GitHub Pages。
+- 未改 `research/`、`skills/`、`site/` 功能內容。工作樹上曾出現 `site/content/generated/*.json` 時間戳髒檔，**未納入本節提交**。
+- 未寫入 `qa/test-log.md`（避免改動 Agent D 裁決敘事）。
