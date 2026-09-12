@@ -1,0 +1,174 @@
+{
+  "case_id": "CASE-COMPLETE",
+  "task": "preemptive-cyber-review",
+  "synthetic": true,
+  "notice": "SYNTHETIC Northwind Synth. Aligns with research/06-case-study.md CASE-NORTHWIND-E2E / CASE-COMPLETE.",
+  "question": "依 GAC S0–S6 整理暴露與路徑，提出 3 Ds 建議。不得自動執行，不得把 medium 標成 high。",
+  "authorization": {
+    "ticket_id": "INP-001-NW-2026-0910",
+    "statement": "合成 CISO 林可薇於 2026-09-10 簽署。允許建議 Deny/Deceive/Disrupt。禁止對外部 IP 反擊。禁止撰寫 exploit。",
+    "scope": "身分 IdP、電商結帳、OT DMZ 跳板。BYOD 排除。",
+    "expires_at": "2026-12-31T23:59:59Z",
+    "authorizer": "林可薇 (synthetic CISO)",
+    "allowed_actions": [
+      "document-review",
+      "recommend-3ds"
+    ],
+    "forbidden_actions": [
+      "hack-back",
+      "exploit-development",
+      "production-change-without-s7"
+    ]
+  },
+  "business_context": {
+    "org": "Northwind Synth 精密元件（虛構）",
+    "unacceptable_outcomes": [
+      "產線停擺超過 12 小時",
+      "客戶訂單與付款資料外洩"
+    ],
+    "sites": [
+      "台灣工廠",
+      "德國工廠",
+      "電商備品通路"
+    ]
+  },
+  "assets": [
+    {
+      "asset_id": "idp-01",
+      "name": "idp-01",
+      "type": "identity",
+      "environment": "prod-synth",
+      "owner": "iam",
+      "data_class": "identity",
+      "internet_facing": false,
+      "claimed": true
+    },
+    {
+      "asset_id": "shop-web-03",
+      "name": "shop-web-03",
+      "type": "application",
+      "environment": "prod-synth",
+      "owner": "ecommerce",
+      "data_class": "payment-adjacent",
+      "internet_facing": true,
+      "claimed": true
+    },
+    {
+      "asset_id": "vpn-edge-tw",
+      "name": "vpn.northwind-synth.test",
+      "type": "vpn",
+      "environment": "prod-synth",
+      "owner": "network",
+      "internet_facing": true,
+      "claimed": true
+    },
+    {
+      "asset_id": "jump-ot-01",
+      "name": "jump-ot-01",
+      "type": "jump-host",
+      "environment": "ot-dmz",
+      "owner": "ot",
+      "internet_facing": false,
+      "claimed": true
+    },
+    {
+      "asset_id": "hmi-cell-b",
+      "name": "hmi-cell-b",
+      "type": "ot-hmi",
+      "environment": "ot-cell-b",
+      "owner": "ot",
+      "internet_facing": false,
+      "claimed": true,
+      "notes": "冠軍資產：Cell B HMI"
+    }
+  ],
+  "exposures": [
+    {
+      "exposure_id": "X-VPN",
+      "asset_id": "vpn-edge-tw",
+      "type": "internet-service",
+      "summary": "EASM 見 vpn.northwind-synth.test:443；映像與某 ADC/VPN 產品版本字面相近（教學用，不重述利用）",
+      "discovered_at": "2026-09-09T00:00:00Z",
+      "source": "INP-003"
+    },
+    {
+      "exposure_id": "X-DEVVPN",
+      "asset_id": null,
+      "hostname": "devvpn.northwind-synth.test",
+      "type": "unclaimed-internet",
+      "summary": "EASM 發現、CMDB 未認領",
+      "discovered_at": "2026-09-09T00:00:00Z",
+      "source": "INP-003"
+    },
+    {
+      "exposure_id": "X-SHOP",
+      "asset_id": "shop-web-03",
+      "type": "misconfiguration",
+      "summary": "過期 TLS；管理埠 8443 對 10.20.0.0/16 開放",
+      "discovered_at": "2026-09-09T00:00:00Z",
+      "source": "INP-004"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "EV-EASM",
+      "source": "INP-003",
+      "collected_at": "2026-09-09T00:00:00Z",
+      "content": "vpn.northwind-synth.test:443 internet; devvpn.northwind-synth.test:443 unclaimed",
+      "trust": "scanner-untrusted",
+      "synthetic": true
+    },
+    {
+      "evidence_id": "EV-SCAN",
+      "source": "INP-004",
+      "collected_at": "2026-09-09T00:00:00Z",
+      "content": "vpn-edge-tw image version-match-unverified against vendor family (no exploit steps). shop-web-03 stale TLS; :8443 to 10.20.0.0/16",
+      "trust": "scanner-untrusted",
+      "synthetic": true
+    },
+    {
+      "evidence_id": "EV-TOPO",
+      "source": "INP-006",
+      "collected_at": "2026-09-01T00:00:00Z",
+      "content": "OT DMZ 與 IT 管理網存在未過期「維護時段放行」規則。IdP 對 VPN 只做密碼。",
+      "trust": "operator-supplied",
+      "synthetic": true
+    },
+    {
+      "evidence_id": "EV-BAS",
+      "source": "INP-008",
+      "collected_at": "2026-08-20T00:00:00Z",
+      "content": "BAS：從模擬外部進入後，到 jump-ot-01 的橫向移動未被微分割擋住。未測試真實漏洞利用。",
+      "trust": "operator-supplied",
+      "synthetic": true
+    },
+    {
+      "evidence_id": "EV-BIA",
+      "source": "INP-009",
+      "collected_at": "2026-07-01T00:00:00Z",
+      "content": "結帳=高；Cell B HMI=高；開發 VPN=中",
+      "trust": "operator-supplied",
+      "synthetic": true
+    }
+  ],
+  "intelligence": [
+    {
+      "intel_id": "INT-KEV",
+      "type": "kev-teaching",
+      "summary": "教學假設產品名稱與一則公開 KEV 條目字面相近，觸發 RULE-KEV-INTERNET-DENY。不重述利用方法。不表示真實客戶環境存在該 CVE。",
+      "source": "INP-005",
+      "synthetic": true
+    },
+    {
+      "intel_id": "INT-ISAC",
+      "type": "narrative-hypothesis",
+      "summary": "假期窗口針對製造業 VPN；ATT&CK T1190、T1021。unverified-hypothesis。",
+      "source": "INP-007",
+      "synthetic": true
+    }
+  ],
+  "constraints": {
+    "change_window": "synthetic lab/prod-synth window",
+    "contact": "林可薇 (synthetic)"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "case_id": "CASE-CONFLICT",
+  "task": "preemptive-cyber-review",
+  "synthetic": true,
+  "notice": "SYNTHETIC. Aligns with research/06-case-study.md CASE-CONFLICT. CVE-2026-00001 is a fake ID.",
+  "question": "vpn-edge-tw 是否存在該 CVE？請浮出矛盾，不要投票消解。",
+  "authorization": {
+    "statement": "允許文件審查。網際網路暴露不可接受。禁止未授權掃描。",
+    "scope": "vpn-edge-tw / *.northwind-synth.test",
+    "expires_at": "2026-12-31T23:59:59Z",
+    "allowed_actions": [
+      "document-review"
+    ]
+  },
+  "assets": [
+    {
+      "asset_id": "vpn-edge-tw",
+      "name": "vpn.northwind-synth.test",
+      "type": "vpn",
+      "internet_facing": true,
+      "claimed": true,
+      "owner": "network"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "EV-SCAN-A",
+      "source": "scanner-A",
+      "collected_at": "2026-09-11T00:00:00Z",
+      "content": "vpn-edge-tw EXISTS synthetic CVE-2026-00001",
+      "trust": "scanner-untrusted",
+      "synthetic": true
+    },
+    {
+      "evidence_id": "EV-SCAN-B",
+      "source": "scanner-B",
+      "collected_at": "2026-09-12T00:00:00Z",
+      "content": "vpn-edge-tw DOES NOT EXIST CVE-2026-00001",
+      "trust": "scanner-untrusted",
+      "synthetic": true
+    },
+    {
+      "evidence_id": "EV-OWNER",
+      "source": "asset-owner-email",
+      "collected_at": "2026-09-08T00:00:00Z",
+      "content": "上週已修補",
+      "trust": "operator-supplied",
+      "synthetic": true
+    },
+    {
+      "evidence_id": "EV-EASM",
+      "source": "INP-003",
+      "collected_at": "2026-09-12T00:00:00Z",
+      "content": "banner still shows old version string",
+      "trust": "scanner-untrusted",
+      "synthetic": true
+    },
+    {
+      "evidence_id": "EV-BAS",
+      "source": "INP-008",
+      "collected_at": "2026-08-20T00:00:00Z",
+      "content": "BAS did not test this CVE",
+      "trust": "operator-supplied",
+      "synthetic": true
+    }
+  ]
+}

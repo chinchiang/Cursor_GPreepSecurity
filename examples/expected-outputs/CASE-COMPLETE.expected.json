@@ -1,0 +1,211 @@
+{
+  "schema_version": "gac-output-1.0.0-draft",
+  "case_id": "CASE-COMPLETE",
+  "task": "preemptive-cyber-review",
+  "classification": "project-framework",
+  "source_classifications_used": [
+    "gartner-stated",
+    "project-framework",
+    "unverified-hypothesis"
+  ],
+  "input_trace": {
+    "received_fields": [
+      "case_id",
+      "task",
+      "authorization",
+      "business_context",
+      "assets",
+      "exposures",
+      "evidence",
+      "intelligence",
+      "constraints",
+      "question"
+    ],
+    "missing_required": [],
+    "authorization": {
+      "present": true,
+      "scope": "身分 IdP、電商結帳、OT DMZ 跳板。BYOD 排除。",
+      "allowed_actions": [
+        "document-review",
+        "recommend-3ds"
+      ],
+      "expired": false
+    },
+    "untrusted_segments": [],
+    "redactions": []
+  },
+  "rationale": "S0 範圍已簽署。RULE-KEV-DEFAULT-IN-SCOPE 將網際網路 VPN 納入。S3 見 vpn-edge-tw（已認領）、devvpn（未認領）、shop-web-03。S4 推論 path-ot-01：internet → vpn-edge-tw → jump-ot-01 → hmi-cell-b，假設維護放行與密碼-only VPN。S5 BAS 僅支持橫向段，不支持該環境必可利用，validation_status=simulation-supported，信心 medium。S6 依 RULE-KEV-INTERNET-DENY 以 Deny 為主。S7 不得代簽。ISAC 假期敘事為 unverified-hypothesis。3 Ds 是建議標籤 [SRC-2025-002]。",
+  "confidence": {
+    "overall": 0.55,
+    "label": "medium",
+    "scale": "0-1",
+    "notes": "資產已連、多份證據一致，但無完整驗證。依 research 規則不得標 high。",
+    "not_a_gartner_score": true
+  },
+  "evidence_type": [
+    "scanner-summary",
+    "operator-config",
+    "architecture-note",
+    "threat-intel"
+  ],
+  "gaps": [
+    {
+      "gap_id": "GAP-001",
+      "field": "INP-010",
+      "reason": "尚無欺敵遙測",
+      "impact_on_analysis": "不阻斷；S6 Deceive 只能給草案",
+      "blocking": false
+    }
+  ],
+  "human_approval_required": true,
+  "gac_stages_completed": [
+    "S0",
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "scope_statement": "納入 IdP、電商結帳、OT DMZ 跳板與網際網路 VPN。排除 BYOD。禁止 hack-back。",
+  "candidate_findings": [
+    {
+      "finding_id": "CF-001",
+      "title": "網際網路 VPN 與 KEV 產品字面相近（未驗證可利用）",
+      "location": "vpn-edge-tw / vpn.northwind-synth.test",
+      "premises": [
+        "EV-EASM 顯示 :443 對網際網路",
+        "EV-SCAN 版本字面相近",
+        "INT-KEV 教學觸發 RULE-KEV-INTERNET-DENY"
+      ],
+      "impact": "若可達且版本確實受影響，可能成為進入 OT 路徑的入口。本輸出不重述利用方法，也不宣稱此環境必可利用。",
+      "evidence_refs": [
+        "EV-EASM",
+        "EV-SCAN",
+        "INT-KEV"
+      ],
+      "counter_evidence": [
+        "未提供實際利用或人類測試"
+      ],
+      "unknowns": [
+        "精確 CVE 對應",
+        "是否已虛擬修補"
+      ],
+      "suggested_evidence_level": "E1",
+      "keyword_only": false,
+      "suggested_3d": "deny",
+      "verification_status": "pending"
+    },
+    {
+      "finding_id": "CF-002",
+      "title": "未認領 devvpn 對網際網路暴露",
+      "location": "devvpn.northwind-synth.test",
+      "premises": [
+        "EV-EASM 標 unclaimed"
+      ],
+      "impact": "影子入口可能繞過正式 VPN 控制。節點不完整，不得連到冠軍資產當已證實路徑。",
+      "evidence_refs": [
+        "EV-EASM",
+        "X-DEVVPN"
+      ],
+      "counter_evidence": [
+        "可能是廢棄測試主機"
+      ],
+      "unknowns": [
+        "擁有者",
+        "是否仍轉發至內部"
+      ],
+      "suggested_evidence_level": "E1",
+      "keyword_only": false,
+      "suggested_3d": "deny",
+      "verification_status": "pending"
+    },
+    {
+      "finding_id": "CF-003",
+      "title": "候選路徑 path-ot-01（推論）",
+      "location": "internet → vpn-edge-tw → jump-ot-01 → hmi-cell-b",
+      "premises": [
+        "EV-TOPO 維護放行未過期",
+        "EV-BAS 橫向未被微分割擋住",
+        "EV-BIA 標 Cell B 為高影響"
+      ],
+      "impact": "邏輯上可達不可接受後果（產線停擺）。S5 僅 simulation-supported 於橫向段。",
+      "evidence_refs": [
+        "EV-TOPO",
+        "EV-BAS",
+        "EV-BIA"
+      ],
+      "counter_evidence": [
+        "BAS 未測真實漏洞利用",
+        "IdP 其他控制未知"
+      ],
+      "unknowns": [
+        "維護窗口實際是否常開",
+        "HMI 身分隔離"
+      ],
+      "suggested_evidence_level": "E2",
+      "keyword_only": false,
+      "suggested_3d": "deny",
+      "verification_status": "pending"
+    }
+  ],
+  "conflicts": [],
+  "recommended_3d_actions": [
+    {
+      "action_id": "rec-deny-001",
+      "class": "deny",
+      "title": "依原廠指引修補或對 vpn-edge-tw 管理／VPN 面做補償控制並準備回滾",
+      "target": "vpn-edge-tw",
+      "human_approval_required": true,
+      "authorization_ok": true,
+      "do_not_execute": true,
+      "notes": "閘門：CISO。不寫利用步驟。"
+    },
+    {
+      "action_id": "rec-deny-002",
+      "class": "deny",
+      "title": "下線或強制認領 devvpn；未認領不得繼續暴露",
+      "target": "devvpn.northwind-synth.test",
+      "human_approval_required": true,
+      "authorization_ok": true,
+      "do_not_execute": true,
+      "notes": "值班工程師可先擋 DNS／憑證，仍須 S7。"
+    },
+    {
+      "action_id": "rec-deny-003",
+      "class": "deny",
+      "title": "廢除過期 OT 維護放行或改為即時核准",
+      "target": "jump-ot-01",
+      "human_approval_required": true,
+      "authorization_ok": true,
+      "do_not_execute": true,
+      "notes": "閘門：營運＋安全。"
+    },
+    {
+      "action_id": "rec-deceive-001",
+      "class": "deceive",
+      "title": "在 OT DMZ 評估誘餌 jump 與假工程師憑證",
+      "target": "ot-dmz",
+      "human_approval_required": true,
+      "authorization_ok": true,
+      "do_not_execute": true,
+      "notes": "誘餌不得使用真實製程畫面。閘門：安全＋營運。"
+    },
+    {
+      "action_id": "rec-disrupt-001",
+      "class": "disrupt",
+      "title": "建議 SOC 對 VPN 異常會話提高遏制權限（授權範圍內 playbook）",
+      "target": "vpn-edge-tw",
+      "human_approval_required": true,
+      "authorization_ok": true,
+      "do_not_execute": true,
+      "notes": "閘門：事故指揮官。禁止對外部 IP 反擊。"
+    }
+  ],
+  "limitations": [
+    "語言模型不能證實實際曝險，也不能保證阻止攻擊。",
+    "GAC 與信心分數為 project-framework，不是 Gartner 官方流程或公式。",
+    "本案例為 SYNTHETIC Northwind Synth。",
+    "S7/S8 需人類與後續複測；模型不代簽、不把工單關閉當成路徑已斷。"
+  ]
+}

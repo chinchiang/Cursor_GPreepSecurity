@@ -1,0 +1,42 @@
+{
+  "case_id": "CASE-GAP",
+  "task": "preemptive-cyber-review",
+  "synthetic": true,
+  "notice": "SYNTHETIC. Aligns with research/06-case-study.md CASE-GAP.",
+  "question": "請分析曝險。資料不足必須標缺漏，禁止編造內部主機或到冠軍資產的完整路徑。",
+  "authorization": {
+    "statement": "範圍＝「全部雲端」但未列系統。允許文件審查。",
+    "scope": "全部雲端（未列系統）",
+    "expires_at": "2026-12-31T23:59:59Z",
+    "allowed_actions": [
+      "document-review"
+    ]
+  },
+  "assets": [],
+  "exposures": [
+    {
+      "exposure_id": "X-BILL",
+      "hostname": "billing.northwind-synth.test",
+      "type": "easm-unlinked",
+      "summary": "EASM 發現；無 CMDB 資產鍵",
+      "source": "INP-003",
+      "discovered_at": "2026-09-10T00:00:00Z"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "EV-EASM",
+      "source": "INP-003",
+      "content": "billing.northwind-synth.test:443",
+      "trust": "scanner-untrusted",
+      "synthetic": true
+    }
+  ],
+  "intelligence": [
+    {
+      "intel_id": "INT-KEV-FEED",
+      "summary": "KEV feed 已載入（教學），但無法連到未認領資產",
+      "source": "INP-005"
+    }
+  ]
+}

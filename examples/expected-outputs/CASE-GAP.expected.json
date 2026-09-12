@@ -1,0 +1,142 @@
+{
+  "schema_version": "gac-output-1.0.0-draft",
+  "case_id": "CASE-GAP",
+  "task": "preemptive-cyber-review",
+  "classification": "project-framework",
+  "source_classifications_used": [
+    "project-framework"
+  ],
+  "input_trace": {
+    "received_fields": [
+      "case_id",
+      "task",
+      "authorization",
+      "assets",
+      "exposures",
+      "evidence",
+      "intelligence",
+      "question"
+    ],
+    "missing_required": [
+      "INP-002",
+      "INP-004",
+      "INP-006",
+      "assets"
+    ],
+    "authorization": {
+      "present": true,
+      "scope": "全部雲端（未列系統）",
+      "allowed_actions": [
+        "document-review"
+      ],
+      "expired": false
+    },
+    "untrusted_segments": [],
+    "redactions": []
+  },
+  "rationale": "INP-001 範圍過寬且未列系統。僅有 EASM 主機 billing.northwind-synth.test，缺資產清單、內部掃描與拓樸。依 S3 缺漏處理進入 CASE-GAP：可列出未連結外部發現，禁止編造內部主機或到冠軍資產的 AttackPathSet。因為沒有資產鍵，無法判斷 billing 是否為正式結帳。",
+  "confidence": {
+    "overall": 0.18,
+    "label": "low",
+    "scale": "0-1",
+    "notes": "無資產鍵；research 規定信心不高於 low（除純問卷）。",
+    "not_a_gartner_score": true
+  },
+  "evidence_type": [
+    "scanner-summary",
+    "missing"
+  ],
+  "gaps": [
+    {
+      "gap_id": "GAP-001",
+      "field": "INP-002",
+      "reason": "資產清單為空",
+      "impact_on_analysis": "無法把 EASM 主機連到業務物件",
+      "blocking": true
+    },
+    {
+      "gap_id": "GAP-002",
+      "field": "INP-001.systems",
+      "reason": "範圍只寫全部雲端",
+      "impact_on_analysis": "無法做有意義的包含／排除",
+      "blocking": true
+    },
+    {
+      "gap_id": "GAP-003",
+      "field": "INP-004",
+      "reason": "無內部掃描",
+      "impact_on_analysis": "不能推內部暴露",
+      "blocking": true
+    },
+    {
+      "gap_id": "GAP-004",
+      "field": "INP-006",
+      "reason": "無拓樸",
+      "impact_on_analysis": "禁止產出到冠軍資產的完整路徑",
+      "blocking": true
+    }
+  ],
+  "human_approval_required": true,
+  "gac_stages_completed": [
+    "S0",
+    "S1",
+    "S3"
+  ],
+  "scope_statement": "僅能記錄未認領的 billing.northwind-synth.test。排除任何未提供的內部主機。",
+  "candidate_findings": [
+    {
+      "finding_id": "CF-001",
+      "title": "未認領 EASM 主機 billing.northwind-synth.test",
+      "location": "billing.northwind-synth.test",
+      "premises": [
+        "EV-EASM 見 :443"
+      ],
+      "impact": "可能是正式結帳或無關影子主機。沒有資產鍵，無法判斷。",
+      "evidence_refs": [
+        "EV-EASM",
+        "X-BILL"
+      ],
+      "counter_evidence": [
+        "無 CMDB 認領"
+      ],
+      "unknowns": [
+        "是否屬於本組織",
+        "是否為正式結帳"
+      ],
+      "suggested_evidence_level": "E1",
+      "keyword_only": false,
+      "suggested_3d": "deny",
+      "verification_status": "pending"
+    }
+  ],
+  "conflicts": [],
+  "recommended_3d_actions": [
+    {
+      "action_id": "ACT-001",
+      "class": "deny",
+      "title": "先擋再認領：對未認領主機做可逆的 DNS／憑證阻擋並發出認領問卷",
+      "target": "billing.northwind-synth.test",
+      "human_approval_required": true,
+      "authorization_ok": true,
+      "do_not_execute": true,
+      "notes": "confidence=low。不是高信心 Deny，也不是完整路徑修復。"
+    }
+  ],
+  "limitations": [
+    "語言模型不能證實實際曝險，也不能保證阻止攻擊。",
+    "GAC 與信心分數為 project-framework，不是 Gartner 官方流程或公式。",
+    "本案例為 SYNTHETIC Northwind Synth。",
+    "不含完整 AttackPathSet 至冠軍資產。禁止發明內部主機名。"
+  ],
+  "warnings": [
+    {
+      "kind": "gap",
+      "blocking": true,
+      "affected_outputs": [
+        "OUT-005",
+        "OUT-006"
+      ],
+      "message": "缺 INP-002／004／006。禁止完整 AttackPathSet 與高信心 Deny。"
+    }
+  ]
+}

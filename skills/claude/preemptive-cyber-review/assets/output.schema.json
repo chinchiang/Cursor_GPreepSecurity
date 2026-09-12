@@ -1,0 +1,483 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinchiang/Cursor_GPreepSecurity/skills/_shared/output.schema.json",
+  "title": "GACOutput",
+  "description": "project-framework draft schema for GPreep Analysis Cycle outputs. Not a Gartner artifact.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "task",
+    "classification",
+    "input_trace",
+    "rationale",
+    "confidence",
+    "evidence_type",
+    "gaps",
+    "human_approval_required",
+    "gac_stages_completed",
+    "candidate_findings",
+    "conflicts",
+    "recommended_3d_actions",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "gac-output-1.0.0-draft"
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task": {
+      "type": "string",
+      "const": "preemptive-cyber-review"
+    },
+    "classification": {
+      "type": "string",
+      "const": "project-framework"
+    },
+    "source_classifications_used": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "gartner-stated",
+          "third-party",
+          "project-framework",
+          "unverified-hypothesis"
+        ]
+      }
+    },
+    "input_trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "received_fields",
+        "missing_required",
+        "authorization",
+        "untrusted_segments",
+        "redactions"
+      ],
+      "properties": {
+        "received_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "missing_required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "present",
+            "scope",
+            "allowed_actions",
+            "expired"
+          ],
+          "properties": {
+            "present": {
+              "type": "boolean"
+            },
+            "scope": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "allowed_actions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "expired": {
+              "type": "boolean"
+            }
+          }
+        },
+        "untrusted_segments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source",
+              "reason",
+              "excerpt"
+            ],
+            "properties": {
+              "source": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "excerpt": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "redactions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall",
+        "scale",
+        "notes",
+        "not_a_gartner_score"
+      ],
+      "properties": {
+        "overall": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "scale": {
+          "type": "string",
+          "const": "0-1"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "not_a_gartner_score": {
+          "type": "boolean",
+          "const": true
+        },
+        "label": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        }
+      }
+    },
+    "evidence_type": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "operator-config",
+          "architecture-note",
+          "scanner-summary",
+          "threat-intel",
+          "control-inventory",
+          "untrusted-external-doc",
+          "keyword-only",
+          "conflicting-documents",
+          "missing"
+        ]
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "gap_id",
+          "field",
+          "reason",
+          "impact_on_analysis",
+          "blocking"
+        ],
+        "properties": {
+          "gap_id": {
+            "type": "string"
+          },
+          "field": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "impact_on_analysis": {
+            "type": "string"
+          },
+          "blocking": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "human_approval_required": {
+      "type": "boolean"
+    },
+    "gac_stages_completed": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "S0",
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5",
+          "S6",
+          "S7",
+          "S8"
+        ]
+      }
+    },
+    "scope_statement": {
+      "type": "string"
+    },
+    "candidate_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id",
+          "title",
+          "location",
+          "premises",
+          "impact",
+          "evidence_refs",
+          "counter_evidence",
+          "unknowns",
+          "suggested_evidence_level",
+          "keyword_only",
+          "suggested_3d",
+          "verification_status"
+        ],
+        "properties": {
+          "finding_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "premises": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "impact": {
+            "type": "string"
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "counter_evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "unknowns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "suggested_evidence_level": {
+            "type": "string",
+            "enum": [
+              "E0",
+              "E1",
+              "E2"
+            ]
+          },
+          "keyword_only": {
+            "type": "boolean"
+          },
+          "suggested_3d": {
+            "type": "string",
+            "enum": [
+              "deny",
+              "deceive",
+              "disrupt",
+              "none"
+            ]
+          },
+          "verification_status": {
+            "type": "string",
+            "const": "pending"
+          }
+        }
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "conflict_id",
+          "topic",
+          "claims",
+          "resolution",
+          "human_approval_required"
+        ],
+        "properties": {
+          "conflict_id": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "claims": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "source",
+                "claim"
+              ],
+              "properties": {
+                "source": {
+                  "type": "string"
+                },
+                "claim": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "resolution": {
+            "type": "string",
+            "const": "unresolved"
+          },
+          "human_approval_required": {
+            "type": "boolean",
+            "const": true
+          }
+        }
+      }
+    },
+    "recommended_3d_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action_id",
+          "class",
+          "title",
+          "target",
+          "human_approval_required",
+          "authorization_ok",
+          "do_not_execute",
+          "notes"
+        ],
+        "properties": {
+          "action_id": {
+            "type": "string"
+          },
+          "class": {
+            "type": "string",
+            "enum": [
+              "deny",
+              "deceive",
+              "disrupt"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "human_approval_required": {
+            "type": "boolean"
+          },
+          "authorization_ok": {
+            "type": "boolean"
+          },
+          "do_not_execute": {
+            "type": "boolean",
+            "const": true
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "description": "對齊 research/data/cases.json 的 OUT-010 警告。選填。",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "blocking"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "gap",
+              "conflict",
+              "untrusted-document"
+            ]
+          },
+          "blocking": {
+            "type": "boolean"
+          },
+          "affected_outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "validation_status": {
+      "type": "string",
+      "description": "S5 對帳狀態。矛盾案例應為 contradicted。選填。",
+      "enum": [
+        "pending",
+        "simulation-supported",
+        "contradicted",
+        "insufficient-evidence"
+      ]
+    }
+  }
+}

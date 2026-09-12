@@ -1,0 +1,170 @@
+{
+  "schema_version": "gac-output-1.0.0-draft",
+  "case_id": "CASE-CONFLICT",
+  "task": "preemptive-cyber-review",
+  "classification": "project-framework",
+  "source_classifications_used": [
+    "project-framework"
+  ],
+  "input_trace": {
+    "received_fields": [
+      "case_id",
+      "task",
+      "authorization",
+      "assets",
+      "evidence",
+      "question"
+    ],
+    "missing_required": [],
+    "authorization": {
+      "present": true,
+      "scope": "vpn-edge-tw / *.northwind-synth.test",
+      "allowed_actions": [
+        "document-review"
+      ],
+      "expired": false
+    },
+    "untrusted_segments": [
+      {
+        "source": "EV-SCAN-A",
+        "reason": "scanner-untrusted",
+        "excerpt": "EXISTS synthetic CVE-2026-00001"
+      },
+      {
+        "source": "EV-SCAN-B",
+        "reason": "scanner-untrusted",
+        "excerpt": "DOES NOT EXIST CVE-2026-00001"
+      }
+    ],
+    "redactions": []
+  },
+  "rationale": "五方證據互斥：掃描器 A 存在、掃描器 B 不存在、擁有者稱已修、EASM 橫幅仍舊、BAS 未測。RULE-NO-SILENT-CONFLICT-RESOLUTION。validation_status 概念上為 contradicted。建議改為取證式核對，而不是立刻宣告安全或立刻下線。可逆補償（限制來源 IP）是風險決策，不是已解決矛盾。CVE-2026-00001 為假編號。",
+  "confidence": {
+    "overall": 0.25,
+    "label": "low",
+    "scale": "0-1",
+    "notes": "未解矛盾觸發降級。",
+    "not_a_gartner_score": true
+  },
+  "evidence_type": [
+    "scanner-summary",
+    "operator-config",
+    "conflicting-documents"
+  ],
+  "gaps": [
+    {
+      "gap_id": "GAP-001",
+      "field": "image_hash",
+      "reason": "未提供映像雜湊與變更單",
+      "impact_on_analysis": "人類在 S7 仍缺對應鍵",
+      "blocking": false
+    }
+  ],
+  "human_approval_required": true,
+  "gac_stages_completed": [
+    "S0",
+    "S1",
+    "S3",
+    "S5"
+  ],
+  "scope_statement": "僅文件審查 vpn-edge-tw。不主動對外複掃，除非 S7 另授。",
+  "candidate_findings": [
+    {
+      "finding_id": "CF-001",
+      "title": "vpn-edge-tw 的合成 CVE 狀態矛盾（未裁決）",
+      "location": "vpn-edge-tw",
+      "premises": [
+        "五份證據同時存在且互斥"
+      ],
+      "impact": "若舊版仍開著則網際網路暴露不可接受；若已修則橫幅可能過期。兩者皆未證實。",
+      "evidence_refs": [
+        "EV-SCAN-A",
+        "EV-SCAN-B",
+        "EV-OWNER",
+        "EV-EASM",
+        "EV-BAS"
+      ],
+      "counter_evidence": [
+        "每份證據都是其他份的反證"
+      ],
+      "unknowns": [
+        "映像雜湊",
+        "變更單",
+        "橫幅快取"
+      ],
+      "suggested_evidence_level": "E1",
+      "keyword_only": false,
+      "suggested_3d": "deny",
+      "verification_status": "pending"
+    }
+  ],
+  "conflicts": [
+    {
+      "conflict_id": "CFL-001",
+      "topic": "synthetic CVE-2026-00001 on vpn-edge-tw（五方）",
+      "claims": [
+        {
+          "source": "EV-SCAN-A",
+          "claim": "2026-09-11 掃描器 A：存在"
+        },
+        {
+          "source": "EV-SCAN-B",
+          "claim": "2026-09-12 掃描器 B：不存在"
+        },
+        {
+          "source": "EV-OWNER",
+          "claim": "上週已修補"
+        },
+        {
+          "source": "EV-EASM",
+          "claim": "橫幅仍顯示舊版本字串"
+        },
+        {
+          "source": "EV-BAS",
+          "claim": "2026-08-20 BAS 未測試此 CVE"
+        }
+      ],
+      "resolution": "unresolved",
+      "human_approval_required": true
+    }
+  ],
+  "recommended_3d_actions": [
+    {
+      "action_id": "ACT-001",
+      "class": "deny",
+      "title": "取證式核對：映像雜湊、變更單、授權複測",
+      "target": "vpn-edge-tw",
+      "human_approval_required": true,
+      "authorization_ok": true,
+      "do_not_execute": true,
+      "notes": "S7 選擇核對方法。不是立刻下線或立刻宣告安全。"
+    },
+    {
+      "action_id": "ACT-002",
+      "class": "deny",
+      "title": "可逆補償：暫時限制 VPN 來源 IP（風險決策）",
+      "target": "vpn-edge-tw",
+      "human_approval_required": true,
+      "authorization_ok": true,
+      "do_not_execute": true,
+      "notes": "不表示矛盾已解決。"
+    }
+  ],
+  "limitations": [
+    "語言模型不能證實實際曝險，也不能保證阻止攻擊。",
+    "GAC 與信心分數為 project-framework，不是 Gartner 官方流程或公式。",
+    "本案例為 SYNTHETIC Northwind Synth。",
+    "矛盾未裁決；禁止模型投票。"
+  ],
+  "warnings": [
+    {
+      "kind": "conflict",
+      "blocking": true,
+      "affected_outputs": [
+        "OUT-006"
+      ],
+      "message": "五方證據未解。不得宣告修補完成，也不得把立刻下線當成已證實處置。"
+    }
+  ],
+  "validation_status": "contradicted"
+}
