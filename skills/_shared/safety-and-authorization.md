@@ -60,7 +60,7 @@
 | `suggested_evidence_level` = `E0` / `E1` / `E2` | 宣稱已證實可利用或保證緩解有效 |
 | 標註 `gaps`、`conflicts`、`unknowns` | 為填滿欄位而編造版本、IP、CVE、負責人 |
 | 建議 3D 動作與驗證方式 | 自動執行動員或對外驗證 |
-| 引用 `gartner-stated` 且附 `SRC-*` | 把專案分數寫成 Gartner 公式 |
+| 依登錄表引用：類型與 `full_text_status` 必須誠實；轉述標 `third-party` | 把 blocked／paywalled／轉述升格為 `gartner-stated` + `supported`；把專案分數寫成 Gartner 公式 |
 
 對齊既有安全審查用語（`security_review` CandidateFinding）：
 

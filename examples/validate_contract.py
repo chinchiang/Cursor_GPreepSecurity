@@ -71,6 +71,13 @@ def validate_output(data: dict, case_id: str, errors: list[str]) -> None:
     if case_id == "CASE-COMPLETE":
         if conf.get("label") == "high":
             fail("CASE-COMPLETE: must not label confidence high", errors)
+        used = data.get("source_classifications_used") or []
+        if "gartner-stated" in used:
+            fail("CASE-COMPLETE: must not list gartner-stated when official pages are blocked", errors)
+        if "third-party" not in used:
+            fail("CASE-COMPLETE: 3 Ds / spend claims must be typed third-party", errors)
+        if "[SRC-2025-002]" in json.dumps(data, ensure_ascii=False) and "paywalled" not in text and "不得" not in json.dumps(data, ensure_ascii=False):
+            fail("CASE-COMPLETE: must not treat SRC-2025-002 as public 3 Ds source", errors)
         rec_ids = {a.get("action_id") for a in data.get("recommended_3d_actions") or []}
         for rid in (
             "rec-deny-001",
@@ -205,6 +212,34 @@ def check_platform_files(errors: list[str]) -> None:
             fail(f"{rel}: must not treat CTEM Discover as a GAC stage", errors)
 
 
+def check_iss001_citations(errors: list[str]) -> None:
+    """ISS-001：不得把 blocked／paywalled／轉述寫成可引用 gartner-stated 原句。"""
+    banned_headings = (
+        "可引用的 gartner-stated 句子",
+        "可引用 gartner-stated（附 SRC）",
+        "僅限已標 `gartner-stated` 者",
+    )
+    roots = [ROOT / "skills", ROOT / "examples"]
+    for root in roots:
+        for path in root.rglob("*"):
+            if not path.is_file() or path.suffix not in {".md", ".json"}:
+                continue
+            if path.name.endswith(".schema.json"):
+                continue
+            text = path.read_text(encoding="utf-8")
+            rel = path.relative_to(ROOT).as_posix()
+            for heading in banned_headings:
+                for line in text.splitlines():
+                    if line.startswith("#") and heading in line:
+                        fail(f"{rel}: ISS-001 banned heading {heading!r}", errors)
+            for line in text.splitlines():
+                if "公開文章要求" in line and "SRC-2025-002" in line and "Deny" in line:
+                    fail(f"{rel}: ISS-001 treats SRC-2025-002 as public 3 Ds article", errors)
+                if "50%" in line and "SRC-2025-001" in line and "SRC-2025-003" not in line and "SRC-2025-006" not in line:
+                    if "blocked" not in line and "claims_supported" not in line:
+                        fail(f"{rel}: ISS-001 hangs 50% spend on SRC-2025-001 without third-party SRC", errors)
+
+
 def check_research_alignment(errors: list[str]) -> None:
     if not RESEARCH_CASES.is_file():
         print("NOTE: research/data/cases.json not present; skip research alignment")
@@ -234,6 +269,7 @@ def main() -> int:
     errors: list[str] = []
     check_platform_files(errors)
     check_skill_frontmatter(errors)
+    check_iss001_citations(errors)
     check_research_alignment(errors)
 
     for case in ("CASE-COMPLETE", "CASE-GAP", "CASE-CONFLICT", "CASE-UNTRUSTED-DOC"):

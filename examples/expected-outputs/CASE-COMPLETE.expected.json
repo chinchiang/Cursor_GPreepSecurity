@@ -4,7 +4,7 @@
   "task": "preemptive-cyber-review",
   "classification": "project-framework",
   "source_classifications_used": [
-    "gartner-stated",
+    "third-party",
     "project-framework",
     "unverified-hypothesis"
   ],
@@ -34,7 +34,7 @@
     "untrusted_segments": [],
     "redactions": []
   },
-  "rationale": "S0 範圍已簽署。RULE-KEV-DEFAULT-IN-SCOPE 將網際網路 VPN 納入。S3 見 vpn-edge-tw（已認領）、devvpn（未認領）、shop-web-03。S4 推論 path-ot-01：internet → vpn-edge-tw → jump-ot-01 → hmi-cell-b，假設維護放行與密碼-only VPN。S5 BAS 僅支持橫向段，不支持該環境必可利用，validation_status=simulation-supported，信心 medium。S6 依 RULE-KEV-INTERNET-DENY 以 Deny 為主。S7 不得代簽。ISAC 假期敘事為 unverified-hypothesis。3 Ds 是建議標籤 [SRC-2025-002]。",
+  "rationale": "S0 範圍已簽署。RULE-KEV-DEFAULT-IN-SCOPE 將網際網路 VPN 納入。S3 見 vpn-edge-tw（已認領）、devvpn（未認領）、shop-web-03。S4 推論 path-ot-01：internet → vpn-edge-tw → jump-ot-01 → hmi-cell-b，假設維護放行與密碼-only VPN。S5 BAS 僅支持橫向段，不支持該環境必可利用，validation_status=simulation-supported，信心 medium。S6 依 RULE-KEV-INTERNET-DENY 以 Deny 為主。S7 不得代簽。ISAC 假期敘事為 unverified-hypothesis。3 Ds 是建議標籤，官方公開文章 blocked，最多 third-party／partial [SRC-2025-001]，不得當 gartner-stated + supported，也不得掛 paywalled Impact Radar [SRC-2025-002]。",
   "confidence": {
     "overall": 0.55,
     "label": "medium",
@@ -54,6 +54,13 @@
       "field": "INP-010",
       "reason": "尚無欺敵遙測",
       "impact_on_analysis": "不阻斷；S6 Deceive 只能給草案",
+      "blocking": false
+    },
+    {
+      "gap_id": "GAP-SRC-001",
+      "field": "SRC-2025-001",
+      "reason": "官方公開文章 full_text_status=blocked-by-bot-check，claims_supported=[]",
+      "impact_on_analysis": "3 Ds 僅能當 third-party／partial 教學標籤，不得當 gartner-stated + supported",
       "blocking": false
     }
   ],

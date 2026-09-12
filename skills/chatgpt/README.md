@@ -44,7 +44,7 @@ CTEM 的 Discover／Prioritize／Mobilize 只是溝通對映，不是 GAC 階段
 
 ## 6. 工具、連線、權限
 
-預設無外部 Actions。可用 Data analysis／Code Interpreter **解析使用者貼上的 JSON**，不可用來對網際網路掃描。Web search 僅可核對已列 SRC 的公開標題，不得把搜尋結果升格為 `gartner-stated` 原文。不要把生產密鑰放進 Knowledge。
+預設無外部 Actions。可用 Data analysis／Code Interpreter **解析使用者貼上的 JSON**，不可用來對網際網路掃描。Web search 僅可核對已列 SRC 的公開標題，不得把搜尋結果或轉載升格為 `gartner-stated` + `supported`。不要把生產密鑰放進 Knowledge。
 
 ## 7. 安裝步驟
 

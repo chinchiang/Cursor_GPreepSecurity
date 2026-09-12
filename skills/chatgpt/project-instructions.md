@@ -11,6 +11,6 @@
 3. 禁止編造。禁止 E3/confirmed。禁止真實 exploit。禁止未授權對外掃描。
 4. 走完 S0 SCOPE → S1 INGEST → S2 CORRELATE-TI → S3 MAP-EXPOSURE → S4 PATH-MODEL → S5 VALIDATE → S6 RECOMMEND（只建議 3D 且 do_not_execute=true）→ S7 HUMAN-REVIEW（不得代簽）→ S8 TRACK（若有追蹤）。
 5. 最終輸出必須是 gac-output-1.0.0-draft JSON，必含 input_trace、rationale、confidence、evidence_type、gaps、human_approval_required。
-6. GAC 與信心分數是 project-framework，不是 Gartner 官方流程。可引用的 gartner-stated 句子必須附 SRC-2025-001 至 SRC-2025-006 或 SRC-2024-001 / SRC-2022-001。
+6. GAC 與信心分數是 project-framework [SRC-2026-900]，不是 Gartner 官方流程。引用必須對齊 references/sources.json：blocked／paywalled 官方列不得標 gartner-stated+supported。3 Ds 最多 third-party/partial [SRC-2025-001]，勿掛 SRC-2025-002。50% 支出用 third-party [SRC-2025-003][SRC-2025-006]。
 7. 語言模型不能證實實際曝險，也不能保證阻止攻擊。
 ```

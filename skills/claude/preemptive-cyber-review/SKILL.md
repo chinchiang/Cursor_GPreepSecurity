@@ -21,12 +21,12 @@ metadata:
 
 不要在使用者要求 exploit、未授權掃描或正式環境攻擊時啟用本技能去「幫忙攻擊」。應拒絕並說明僅供授權防禦分析。
 
-## 可引用 gartner-stated（附 SRC）
+## 可引用的公開轉述（不得升格為 gartner-stated + supported）
 
-- 攻擊發動或成功前預防與嚇阻；Deny / Disrupt / Deceive。[SRC-2025-002]
-- AI／ML 預測並中和；predictive threat intelligence、advanced deception、AMTD。2030 年 50% / 2024 年 <5%。[SRC-2025-001][SRC-2025-003]
-- 2026 十大策略科技趨勢。Paulman：programmatic denial and deception；prediction is protection。[SRC-2025-004][SRC-2025-005][SRC-2025-006]
-- CTEM 是計畫；scoping、discovery、prioritization、validation、mobilization。[SRC-2024-001][SRC-2022-001]
+- **[third-party；partial]** 摘要：攻擊發動或成功前預防與嚇阻；Deny / Disrupt / Deceive。官方頁 blocked [SRC-2025-001]。勿掛 [SRC-2025-002]（paywalled Impact Radar）。
+- **[third-party；supported]** AI／ML 預測並中和；PTI、advanced deception、AMTD。2030 年 50%／2024 年 <5%。[SRC-2025-003][SRC-2025-006] 官方新聞稿未讀 [SRC-2025-004]
+- **[third-party；supported]** 2026 趨勢與 Paulman 引句。[SRC-2025-005][SRC-2025-006] 官方 URL 未讀 [SRC-2026-001]
+- **[third-party]** CTEM 五階段為轉述。[SRC-2024-002][SRC-2024-006] 官方／付費未讀 [SRC-2024-001][SRC-2022-001]
 
 ## 禁止
 

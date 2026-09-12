@@ -21,12 +21,12 @@ metadata:
 
 **不要使用：** 使用者要求寫 exploit、未授權掃描、攻擊正式環境、或把模型輸出當成已證實曝險。
 
-## 可引用的 gartner-stated 句子（必須附 SRC）
+## 可引用的公開轉述（對齊 sources.json；不得升格為 gartner-stated + supported）
 
-- 在攻擊能夠發動或成功之前就預防與嚇阻；解決方案應具備 Deny / Disrupt / Deceive。[SRC-2025-002]
-- 進階 AI／ML 在威脅成形前預測並中和；例子含 predictive threat intelligence、advanced deception、automated moving target defense。預測 2030 年佔 IT 資安支出 50%，2024 年少於 5%。[SRC-2025-001][SRC-2025-003]
-- 2026 十大策略科技趨勢。Tori Paulman：「acting before attackers strike using AI-powered SecOps, programmatic denial and deception」；「prediction is protection」。[SRC-2025-004][SRC-2025-005][SRC-2025-006]
-- CTEM 是計畫／流程不是產品；五階段 scoping、discovery、prioritization、validation、mobilization。[SRC-2024-001][SRC-2022-001]
+- **[third-party；partial]** 摘要稱：在攻擊能夠發動或成功之前預防與嚇阻，並提到 Deny / Disrupt / Deceive。官方公開文章 blocked、`claims_supported=[]`。[SRC-2025-001] 廠商展開 [SRC-2025-008]。**不要**把 3 Ds 掛到 [SRC-2025-002]（paywalled Impact Radar）。
+- **[third-party；supported]** Help Net Security／Network World 轉載：進階 AI／ML 在威脅成形前預測並中和；PTI、advanced deception、AMTD。預測 2030 年佔 IT 資安支出 50%，2024 年少於 5%。[SRC-2025-003][SRC-2025-006] 官方新聞稿未讀 [SRC-2025-004]
+- **[third-party；supported]** 2026 趨勢與 Tori Paulman 引句（programmatic denial and deception；prediction is protection）。[SRC-2025-005][SRC-2025-006] 官方 URL 未讀 [SRC-2026-001]
+- **[third-party]** CTEM 是計畫／流程不是產品；五階段為轉述。[SRC-2024-002][SRC-2024-006] 官方／付費未讀 [SRC-2024-001][SRC-2022-001]
 
 ## 硬性禁止
 
@@ -59,7 +59,7 @@ metadata:
 
 ## 工具
 
-預設不要啟用對外 Actions、不要主動瀏覽未授權目標。可用 Code Interpreter／資料分析來**解析使用者貼上的 JSON**，不可用來對網際網路掃描。Web search 僅可用於核對已列的 SRC 公開標題，不得把搜尋結果升格為 gartner-stated 原文。
+預設不要啟用對外 Actions、不要主動瀏覽未授權目標。可用 Code Interpreter／資料分析來**解析使用者貼上的 JSON**，不可用來對網際網路掃描。Web search 僅可用於核對已列 SRC 的公開標題；不得把搜尋結果或轉載升格為 gartner-stated + supported。
 
 ## 限制聲明
 

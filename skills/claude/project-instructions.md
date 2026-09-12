@@ -10,7 +10,7 @@
 3. 禁止編造、E3/confirmed、真實 exploit、未授權掃描。
 4. 階段：S0 → S1 → S2 → S3 → S4 → S5 → S6（草案）→ S7（人類）→ S8（若有追蹤）（只建議 3D，do_not_execute=true）。
 5. 最終輸出 gac-output-1.0.0-draft JSON，必含 input_trace、rationale、confidence、evidence_type、gaps、human_approval_required。
-6. GAC 是 project-framework，不是 Gartner 官方流程。gartner-stated 引用必須附 SRC ID。
+6. GAC 是 project-framework [SRC-2026-900]，不是 Gartner 官方流程。blocked／paywalled 官方列不得標 gartner-stated+supported。3 Ds 最多 third-party/partial [SRC-2025-001]；50% 支出用 third-party [SRC-2025-003][SRC-2025-006]。
 7. 語言模型不能證實實際曝險，也不能保證阻止攻擊。
 ```
 

@@ -30,16 +30,16 @@
 - 把模型輸出當成已證實曝險或合規證書
 - 需要正式環境變更且尚未取得變更窗口／核准
 
-## 3. 可引用的公開陳述（僅限已標 `gartner-stated` 者）
+## 3. 可引用的公開陳述（對齊 `references/sources.json`）
 
-引用時必須附來源 ID。不得擴寫成「已讀 Gartner 客戶報告」：
+登錄表是唯一發號。引用時必須附來源 ID **與** 來源類型。`gartner-stated` 只表示「官方 URL 已登錄」，**不是**「已讀全文、可當 supported 原句」。`full_text_status=blocked-by-bot-check` 或 `paywalled` 時，`claims_supported` 為空，不得輸出 `gartner-stated` + `supported`，也不得寫「可引用的 gartner-stated 句子」。
 
-1. Preemptive Cybersecurity：在攻擊能夠發動或成功之前就預防與嚇阻，而不是只對已進行中的攻擊做回應。公開文章要求解決方案具備 Deny / Disrupt / Deceive。[SRC-2025-002]
-2. 此類技術使用進階 AI／ML，在威脅成形前預測並中和；能力例子包含 predictive threat intelligence、advanced deception、automated moving target defense。預測 2030 年將佔 IT 資安支出 50%，2024 年則少於 5%。[SRC-2025-001][SRC-2025-003]
-3. 2026 年十大策略科技趨勢之一。Tori Paulman 公開原句：「acting before attackers strike using AI-powered SecOps, programmatic denial and deception」；「prediction is protection」。[SRC-2025-004][SRC-2025-005][SRC-2025-006]
-4. CTEM 是持續評估資產可及性、曝險與可利用性的計畫／流程，不是單一產品；公開五階段為 scoping、discovery、prioritization、validation、mobilization。[SRC-2024-001][SRC-2022-001]
+1. **[third-party；partial]** 搜尋摘要與廠商轉述：先制是在攻擊能夠發動或成功之前預防與嚇阻，並提到 Deny / Disrupt / Deceive。官方公開文章 [SRC-2025-001] 為 `blocked-by-bot-check`。廠商展開 [SRC-2025-008]。**禁止**把 3 Ds 掛到 [SRC-2025-002]（Impact Radar G00830315，paywalled／`unverified-hypothesis`）。
+2. **[third-party；supported]** Help Net Security、Network World 已讀轉載：進階 AI／ML 在威脅成形前預測並中和；例子含 predictive threat intelligence、advanced deception、automated moving target defense。預測 2030 年佔 IT 資安支出 50%，2024 年少於 5%。[SRC-2025-003][SRC-2025-006] 官方新聞稿未讀：[SRC-2025-004]
+3. **[third-party；supported]** 轉載 2026 十大策略科技趨勢與 Tori Paulman 引句（programmatic denial and deception；prediction is protection）。[SRC-2025-005][SRC-2025-006] 官方對應 URL 未讀：[SRC-2026-001]
+4. **[third-party]** CTEM 是持續評估資產可及性、曝險與可利用性的計畫／流程，不是單一產品；五階段為轉述。[SRC-2024-002][SRC-2024-006][SRC-2022-004] 官方頁／付費報告未讀：[SRC-2024-001][SRC-2022-001]
 
-**禁止：** 把 GASG、ACIS、客戶報告內的技術雷達或成熟度模型寫成可操作標準（那些在研究導讀中為 `[unverified-hypothesis]`）。
+**禁止：** 把轉述升格為 `gartner-stated` + `supported`；把 GASG、ACIS、客戶報告技術雷達或成熟度模型寫成可操作標準（`[unverified-hypothesis]`）。
 
 ## 4. GAC 階段（對齊 process.json）
 

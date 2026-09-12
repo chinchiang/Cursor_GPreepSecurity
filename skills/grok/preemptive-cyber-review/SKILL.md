@@ -17,12 +17,12 @@ metadata:
 
 Grok Build 可用 `/preemptive-cyber-review` 明確呼叫。grok.com 若以對話建立 skill，把本檔當來源。
 
-## 可引用 gartner-stated（附 SRC）
+## 可引用的公開轉述（不得升格為 gartner-stated + supported）
 
-- 攻擊發動或成功前預防與嚇阻；Deny / Disrupt / Deceive。[SRC-2025-002]
-- AI／ML 預測並中和；PTI、advanced deception、AMTD。2030 50% / 2024 <5%。[SRC-2025-001][SRC-2025-003]
-- 2026 十大策略科技趨勢。Paulman：programmatic denial and deception；prediction is protection。[SRC-2025-004][SRC-2025-005][SRC-2025-006]
-- CTEM 計畫；scoping、discovery、prioritization、validation、mobilization。[SRC-2024-001][SRC-2022-001]
+- **[third-party；partial]** 摘要：攻擊發動或成功前預防與嚇阻；Deny / Disrupt / Deceive。官方頁 blocked [SRC-2025-001]。勿掛 [SRC-2025-002]（paywalled Impact Radar）。
+- **[third-party；supported]** AI／ML 預測並中和；PTI、advanced deception、AMTD。2030 年 50%／2024 年 <5%。[SRC-2025-003][SRC-2025-006] 官方新聞稿未讀 [SRC-2025-004]
+- **[third-party；supported]** 2026 趨勢與 Paulman 引句。[SRC-2025-005][SRC-2025-006] 官方 URL 未讀 [SRC-2026-001]
+- **[third-party]** CTEM 五階段為轉述。[SRC-2024-002][SRC-2024-006] 官方／付費未讀 [SRC-2024-001][SRC-2022-001]
 
 ## 禁止
 

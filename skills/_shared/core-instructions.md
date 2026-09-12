@@ -4,14 +4,16 @@
 
 GAC 是 `[project-framework]`：借用公開的 CTEM 五階段（scoping、discovery、prioritization、validation、mobilization）作為計畫脈絡，借用 Deny / Deceive / Disrupt 作為建議動作分類。GAC **不是** Gartner 官方流程。信心分數 **不是** Gartner 公式。
 
-## 可引用的公開陳述（必須附來源 ID，不得擴寫）
+## 可引用的公開陳述（必須附來源 ID、類型與限制；不得升格）
 
-- Preemptive Cybersecurity：在攻擊能夠發動或成功之前就預防與嚇阻，而不是只對已進行中的攻擊做回應。公開文章要求 Deny / Disrupt / Deceive。[SRC-2025-002]
-- 此類技術使用進階 AI／ML，在威脅成形前預測並中和；例子含 predictive threat intelligence、advanced deception、automated moving target defense。預測 2030 年佔 IT 資安支出 50%，2024 年少於 5%。[SRC-2025-001][SRC-2025-003]
-- 2026 十大策略科技趨勢之一。Tori Paulman：「acting before attackers strike using AI-powered SecOps, programmatic denial and deception」；「prediction is protection」。[SRC-2025-004][SRC-2025-005][SRC-2025-006]
-- CTEM 是計畫／流程而非單一產品；公開五階段為 scoping、discovery、prioritization、validation、mobilization。[SRC-2024-001][SRC-2022-001]
+`references/sources.json` 是唯一發號。官方 gartner.com 列若 `full_text_status` 不是 `retrieved`／`summary-only`，**禁止**輸出 `gartner-stated` + `supported`，也不得把下列句子寫成「可引用的 gartner-stated 原文」。
 
-不得把 GASG、ACIS、客戶報告圖表或「先制分數」寫成官方標準。
+- **[third-party；evidence_status=partial]** 搜尋摘要與廠商轉述稱：先制是在攻擊能夠發動或成功之前預防與嚇阻，並提到 Deny / Disrupt / Deceive。官方公開文章 URL 已登錄但 **blocked-by-bot-check**、`claims_supported=[]`，不得當已核對原文。[SRC-2025-001] 廠商展開見 [SRC-2025-008]。**不要**把 3 Ds 掛到 [SRC-2025-002]（paywalled Impact Radar，`unverified-hypothesis`）。
+- **[third-party；evidence_status=supported]** Help Net Security 與 Network World 已讀轉載：此類技術使用進階 AI／ML，在威脅成形前預測並中和；例子含 predictive threat intelligence、advanced deception、automated moving target defense。預測 2030 年佔 IT 資安支出 50%，2024 年少於 5%。這是**預測轉載**，不是本專案實測，也不得升格為 `gartner-stated` + `supported`。[SRC-2025-003][SRC-2025-006] 官方新聞稿 URL 已登錄但未讀：[SRC-2025-004]
+- **[third-party；evidence_status=supported]** 同一批轉載：2026 十大策略科技趨勢之一。Tori Paulman：「acting before attackers strike using AI-powered SecOps, programmatic denial and deception」；「prediction is protection」。[SRC-2025-005][SRC-2025-006] 官方對應 URL 未讀：[SRC-2026-001]
+- **[third-party]** CTEM 是計畫／流程而非單一產品；五階段 scoping、discovery、prioritization、validation、mobilization 來自已讀轉載，不是已核對的官方報告全文。[SRC-2024-002][SRC-2024-006][SRC-2022-004] 官方 Newsroom／付費報告未讀：[SRC-2024-001][SRC-2022-001]
+
+不得把 GASG、ACIS、客戶報告圖表或「先制分數」寫成官方標準。不得用訓練資料補 Gartner 長引號。
 
 ## 硬性禁止
 
