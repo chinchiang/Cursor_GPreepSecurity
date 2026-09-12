@@ -1,0 +1,82 @@
+{
+  "disclaimer": "本頁評分、權重、分堆與 3D 建議皆為本專案示範設計，不是 Gartner 官方規則。資料為合成，不代表任何真實機構。",
+  "formula": {
+    "label": "示範先制壓力分數",
+    "expression": "pressure = 100 * (0.26*critN + 0.20*unvalN + 0.16*intelN + 0.14*driftN + 0.12*privN + 0.12*(1-validateN)) * (1 - 0.35*autoN - 0.25*deceiveN)",
+    "notes": [
+      "critN：業務關鍵度 / 5",
+      "unvalN：未驗證暴露以 40 筆封頂後正規化",
+      "intelN：情報信心 / 100",
+      "driftN：控制漂移 / 100",
+      "privN：常設特權以 80 個封頂後正規化",
+      "validateN、autoN、deceiveN：0–1",
+      "分數越高表示越需要先制動員，不是成熟度分數"
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "bank",
+      "name": "北潮金服（合成）",
+      "sector": "金融核心",
+      "story": "零售支付與清算。最近情報提到針對開放 API 的憑證填充。欺騙僅覆蓋測試網段。",
+      "inputs": {
+        "criticality": 5,
+        "unvalidated": 28,
+        "intel": 72,
+        "deception": 18,
+        "drift": 41,
+        "privileges": 36,
+        "validation": 22,
+        "automation": 15
+      },
+      "assets": [
+        { "id": "PAY-CORE", "name": "支付清算叢集", "exposure": "管理面 API 對內網開放", "business": 5, "exploitability": 0.7, "reachability": 0.8, "intel": 0.75, "control": 0.35, "effort": 0.6 },
+        { "id": "OPEN-API", "name": "開放銀行閘道", "exposure": "舊版 OAuth 範圍過寬", "business": 5, "exploitability": 0.6, "reachability": 1, "intel": 0.8, "control": 0.4, "effort": 0.4 },
+        { "id": "BASTION", "name": "跳板主機", "exposure": "本機本機管理員常設", "business": 4, "exploitability": 0.5, "reachability": 0.5, "intel": 0.3, "control": 0.25, "effort": 0.3 },
+        { "id": "SIEM-GAP", "name": "日誌管線", "exposure": "API 稽核缺欄位", "business": 3, "exploitability": 0.2, "reachability": 0.3, "intel": 0.2, "control": 0.5, "effort": 0.5 }
+      ]
+    },
+    {
+      "id": "hospital",
+      "name": "海棠醫療（合成）",
+      "sector": "醫療 HIS",
+      "story": "電子病歷與檢查設備同網段。修補窗口只有週三凌晨。沒有欺騙，控制評估剛開始。",
+      "inputs": {
+        "criticality": 5,
+        "unvalidated": 14,
+        "intel": 35,
+        "deception": 0,
+        "drift": 63,
+        "privileges": 22,
+        "validation": 10,
+        "automation": 5
+      },
+      "assets": [
+        { "id": "HIS", "name": "病歷核心", "exposure": "檢查儀共用網段可達", "business": 5, "exploitability": 0.55, "reachability": 0.7, "intel": 0.3, "control": 0.2, "effort": 0.8 },
+        { "id": "VPN", "name": "遠距診療 VPN", "exposure": "舊版客戶端仍允許", "business": 4, "exploitability": 0.65, "reachability": 0.9, "intel": 0.4, "control": 0.3, "effort": 0.4 },
+        { "id": "PACS", "name": "影像儲存", "exposure": "匿名分享連結未過期", "business": 4, "exploitability": 0.5, "reachability": 0.8, "intel": 0.25, "control": 0.35, "effort": 0.3 }
+      ]
+    },
+    {
+      "id": "saas",
+      "name": "拾光雲（合成）",
+      "sector": "SaaS 多租戶",
+      "story": "多租戶控制平面已做攻擊路徑驗證。自動化修補成熟，但客戶租戶間隔離測試尚未連續化。",
+      "inputs": {
+        "criticality": 4,
+        "unvalidated": 7,
+        "intel": 48,
+        "deception": 40,
+        "drift": 18,
+        "privileges": 9,
+        "validation": 68,
+        "automation": 62
+      },
+      "assets": [
+        { "id": "CTRL", "name": "控制平面", "exposure": "CI 機器人過權", "business": 5, "exploitability": 0.45, "reachability": 0.4, "intel": 0.5, "control": 0.7, "effort": 0.35 },
+        { "id": "TENANT", "name": "租戶資料面", "exposure": "物件儲存策略例外", "business": 5, "exploitability": 0.4, "reachability": 0.35, "intel": 0.4, "control": 0.65, "effort": 0.5 },
+        { "id": "ADMIN", "name": "內部管理台", "exposure": "未強制 WebAuthn", "business": 3, "exploitability": 0.35, "reachability": 0.5, "intel": 0.3, "control": 0.55, "effort": 0.2 }
+      ]
+    }
+  ]
+}

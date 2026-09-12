@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>平台比較 · 先制型資安</title>
+  <meta name="description" content="比較 ChatGPT、Claude、Grok、GLM、DeepSeek 五個已交付平台的 Skills／系統提示形式、需求與限制。">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body data-page="platforms">
+<!--HEADER-->
+<main id="main" class="wrap">
+  <header class="page-head">
+    <p class="kicker">跨平台</p>
+    <h1>平台比較</h1>
+    <p class="lede">本專案交付範圍是 <strong>ChatGPT、Claude、Grok、GLM、DeepSeek</strong>。Cursor／Copilot／Gemini 沒有本倉庫 GAC skill，列在下方「非本專案交付範圍」。產品會改版，請以各平台最新文件與 <code>skills/platform-capabilities.md</code> 為準。</p>
+  </header>
+  <h2>本專案已交付</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>平台</th>
+        <th>支援形式</th>
+        <th>需求</th>
+        <th>限制</th>
+        <th>Skills 支援</th>
+        <th>離線／金鑰</th>
+      </tr>
+    </thead>
+    <tbody id="platform-body"></tbody>
+  </table>
+  <h2>非本專案交付範圍</h2>
+  <p class="muted">下列平台沒有本倉庫的 GAC skill／系統提示包，不要當成已安裝、已驗收的交付物。</p>
+  <table>
+    <thead>
+      <tr>
+        <th>平台</th>
+        <th>支援形式</th>
+        <th>需求</th>
+        <th>限制</th>
+        <th>Skills 支援</th>
+        <th>離線／金鑰</th>
+      </tr>
+    </thead>
+    <tbody id="platform-out-of-scope"></tbody>
+  </table>
+  <h2>已交付平台安裝摘要</h2>
+  <div id="platform-notes" class="tile-grid"></div>
+  <p><a href="guide.html">改為依平台切換的逐步教學</a></p>
+</main>
+<!--FOOTER-->
+<script src="js/app.js" defer></script>
+</body>
+</html>

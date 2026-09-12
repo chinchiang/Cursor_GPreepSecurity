@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>方法論導覽 · 先制型資安</title>
+  <meta name="description" content="先制型資安定義、來源、流程與概念關係。">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body data-page="methodology">
+<!--HEADER-->
+<main id="main" class="wrap">
+  <header class="page-head">
+    <p class="kicker">方法論導覽</p>
+    <h1>定義、流程、關係</h1>
+    <p class="lede">公開可見的骨架是 CTEM 與 Deny／Deceive／Disrupt。本專案可執行流程是 <strong>GPreep Analysis Cycle（GAC）</strong>，屬 project-framework，<strong>不是 Gartner 官方流程</strong>。完整論述見<a href="research.html">研究全文</a>。</p>
+  </header>
+  <nav class="chip-row" aria-label="本頁章節">
+    <a class="chip" href="#definitions">定義</a>
+    <a class="chip" href="#process">流程</a>
+    <a class="chip" href="#relations">概念關係</a>
+    <a class="chip" href="#radar">雷達技術</a>
+  </nav>
+
+  <section id="definitions">
+    <h2>定義</h2>
+    <p class="muted">工作定義與公開轉述並列。信心寫在每張卡片上。</p>
+    <div id="definition-list" class="tile-grid"></div>
+  </section>
+
+  <section id="process">
+    <h2>流程：GAC 與 CTEM</h2>
+    <p>若已同步 <code>research/03-analysis-process.md</code>，下列卡片會改為 GAC 階段。CTEM 五階段仍是公開計畫脈絡；GAC 借用它，但切分與輸出是本專案設計。</p>
+    <div id="process-flow" class="flow"></div>
+  </section>
+
+  <section id="relations">
+    <h2>概念關係</h2>
+    <ul id="relation-list" class="map"></ul>
+  </section>
+
+  <section id="radar">
+    <h2>公開轉載中讀到的雷達技術</h2>
+    <p class="muted">Gartner Impact Radar（G00830315）共 11 項。此表只列本專案已讀到公開轉載的項目，其餘待補。</p>
+    <table>
+      <thead>
+        <tr><th>名稱</th><th>主題</th><th>本專案摘要</th></tr>
+      </thead>
+      <tbody id="radar-list"></tbody>
+    </table>
+  </section>
+</main>
+<!--FOOTER-->
+<script src="js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inputs／Outputs · 先制型資安</title>
+  <meta name="description" content="依階段、必要性、使用對象篩選先制型資安的輸入與輸出。">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body data-page="io">
+<!--HEADER-->
+<main id="main" class="wrap">
+  <header class="page-head">
+    <p class="kicker">對照表</p>
+    <h1>Inputs／Outputs</h1>
+    <p class="lede">優先同步 <code>research/data/inputs.json</code> 與 <code>outputs.json</code>（GAC／project-framework）。可依階段、必要性與使用對象篩選。</p>
+  </header>
+  <div class="filters" role="search">
+    <label>類型
+      <select id="filter-kind">
+        <option value="all">全部</option>
+        <option value="input">Input</option>
+        <option value="output">Output</option>
+      </select>
+    </label>
+    <label>階段
+      <select id="filter-stage">
+        <option value="all">全部</option>
+      </select>
+    </label>
+    <label>必要性
+      <select id="filter-necessity">
+        <option value="all">全部</option>
+      </select>
+    </label>
+    <label>使用對象
+      <select id="filter-audience">
+        <option value="all">全部</option>
+      </select>
+    </label>
+    <label>關鍵字
+      <input id="filter-q" type="search" placeholder="例如 範圍聲明、特權">
+    </label>
+    <p id="io-count" class="muted" aria-live="polite"></p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>名稱</th>
+        <th>階段</th>
+        <th>必要性</th>
+        <th>使用對象</th>
+        <th>說明</th>
+      </tr>
+    </thead>
+    <tbody id="io-body"></tbody>
+  </table>
+</main>
+<!--FOOTER-->
+<script src="js/app.js" defer></script>
+</body>
+</html>

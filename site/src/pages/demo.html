@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>案例互動示範 · 先制型資安</title>
+  <meta name="description" content="以四個合成基準案例演示 CASE-COMPLETE、CASE-GAP、CASE-CONFLICT、CASE-UNTRUSTED-DOC。結果為本專案示範設計。">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body data-page="demo">
+<!--HEADER-->
+<main id="main" class="wrap">
+  <header class="page-head">
+    <p class="kicker">合成資料 · 基準案例</p>
+    <h1>案例互動示範</h1>
+    <div class="banner">
+      <strong>本專案示範設計：</strong>本頁規則、信心分數與 3 Ds 建議屬 <strong>GPreep Analysis Cycle（GAC）／project-framework</strong>，<strong>不是 Gartner 官方規則</strong>。機構、CVE、主機皆為合成（<code>northwind-synth.test</code>）。按「執行示範規則」後的輸出會標成<strong>模擬結果</strong>。研究正文見 <a href="research-06-case-study.html">06 案例</a>。
+    </div>
+  </header>
+  <label>選擇基準案例
+    <select id="demo-case" name="case">
+      <option value="CASE-COMPLETE">CASE-COMPLETE</option>
+      <option value="CASE-GAP">CASE-GAP</option>
+      <option value="CASE-CONFLICT">CASE-CONFLICT</option>
+      <option value="CASE-UNTRUSTED-DOC">CASE-UNTRUSTED-DOC</option>
+    </select>
+  </label>
+  <div class="demo-layout">
+    <section class="panel" id="demo-summary">
+      <p>載入案例說明中…</p>
+    </section>
+    <section class="panel">
+      <h2>輸入摘要</h2>
+      <div id="demo-facts"><p>載入中…</p></div>
+      <div class="actions">
+        <button type="button" class="btn" id="demo-run">執行示範規則（模擬結果）</button>
+      </div>
+    </section>
+  </div>
+  <section class="panel" id="demo-out" aria-live="polite">
+    <p class="sim-badge">尚未執行。結果會標示為模擬結果。</p>
+  </section>
+  <section class="prose">
+    <h2>四個案例要演示什麼</h2>
+    <ul>
+      <li><strong>CASE-COMPLETE</strong>：資料足夠時產出標準輸出；信心不得標 high；3 Ds 建議不自動執行。</li>
+      <li><strong>CASE-GAP</strong>：缺漏必須降級，禁止編造內部主機或到冠軍資產的路徑。</li>
+      <li><strong>CASE-CONFLICT</strong>：五方證據同時浮出，不得用模型投票消解。</li>
+      <li><strong>CASE-UNTRUSTED-DOC</strong>：隔離含指令的偽造 PDF，不產出 exploit，不新增假來源 ID。</li>
+    </ul>
+  </section>
+</main>
+<!--FOOTER-->
+<script src="js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "gpreep-security-site",
+  "private": true,
+  "description": "Preemptive Cybersecurity interactive site",
+  "scripts": {
+    "sync": "node scripts/sync-content.js",
+    "build": "node scripts/sync-content.js && node scripts/build.js",
+    "check": "node scripts/check.js",
+    "test": "node scripts/sync-content.js && node scripts/build.js && node scripts/check.js",
+    "preview": "node scripts/preview.js"
+  }
+}

@@ -1,0 +1,630 @@
+{
+  "project": {
+    "nameZh": "先制型資安",
+    "nameEn": "GPreep Security",
+    "tagline": "把公開的 Gartner 先制型資安概念，編成可導覽方法論、可篩選 Inputs／Outputs，以及可安裝的 Skills。",
+    "disclaimer": "本站整理公開二手來源與本專案工作定義。示範評分與互動權重為本專案示範設計，不是 Gartner 官方規則。"
+  },
+  "definitions": [
+    {
+      "id": "pcs",
+      "term": "Preemptive Cybersecurity",
+      "termZh": "先制型資安",
+      "source": "Gartner 趨勢敘述的公開二手整理",
+      "text": "在威脅具體化前，以預測、驗證與政策內自動化動作中和攻擊路徑的技術與營運取徑。",
+      "status": "待驗證原文"
+    },
+    {
+      "id": "reactive",
+      "term": "Reactive",
+      "termZh": "反應式",
+      "source": "本專案對公開對照表的整理",
+      "text": "攻擊已發生或告警已響才動作。代表技術：EDR、SIEM、事件回應。",
+      "status": "工作定義"
+    },
+    {
+      "id": "proactive",
+      "term": "Proactive",
+      "termZh": "主動式",
+      "source": "本專案對公開對照表的整理",
+      "text": "人排程的攻擊面前置作業：修補、強化、狩獵、滲透測試。",
+      "status": "工作定義"
+    },
+    {
+      "id": "predictive",
+      "term": "Predictive",
+      "termZh": "預測式",
+      "source": "本專案對公開對照表的整理",
+      "text": "用情報與模型預測可能攻擊，但預測本身不自動關閉路徑。",
+      "status": "工作定義"
+    },
+    {
+      "id": "ctem",
+      "term": "CTEM",
+      "termZh": "持續威脅暴露管理",
+      "source": "Gartner CTEM 公開說明（IBM、廠商轉述）",
+      "text": "持續評估資產可達性、暴露與可利用性的計畫。五階段：Scope、Discover、Prioritize、Validate、Mobilize。不是產品名稱。",
+      "status": "高（階段名稱公開穩定）"
+    },
+    {
+      "id": "pem",
+      "term": "PEM",
+      "termZh": "先制暴露管理",
+      "source": "Gartner Impact Radar 公開轉載 G00830315",
+      "text": "以 AI、智能模擬與分析加速 CTEM 的發現、高準度驗證或處置。是取徑，不是獨立產品類別。",
+      "status": "中（有公開轉載定義）"
+    },
+    {
+      "id": "three-ds",
+      "term": "Three Ds",
+      "termZh": "拒絕／欺騙／打斷",
+      "source": "IONIX、Zynap 等二手整理",
+      "text": "Deny 關閉路徑、Deceive 部署受控假資產與移動目標、Disrupt 在攻擊鏈早期打斷。",
+      "status": "待驗證原文用字"
+    }
+  ],
+  "process": [
+    {
+      "id": "gac-auth",
+      "stage": "GAC-AUTH",
+      "nameZh": "授權與安全邊界",
+      "intent": "確認委託範圍、禁止真實 exploit、標示不可信文件。GAC 是本專案 project-framework。",
+      "actions": [
+        "讀授權聲明",
+        "拒絕未授權測試",
+        "記錄不可信片段"
+      ]
+    },
+    {
+      "id": "scope",
+      "stage": "GAC-SCOPE",
+      "nameZh": "定範圍",
+      "intent": "用業務結果決定本週期要看的服務、資料與身份，而不是掃完整網段。",
+      "actions": [
+        "寫範圍聲明",
+        "列出納入與排除理由",
+        "對齊法規與資料駐留"
+      ]
+    },
+    {
+      "id": "discover",
+      "stage": "Discover",
+      "nameZh": "發現",
+      "intent": "列舉漏洞、錯誤組態、暴露服務、過期憑證與過度授權，並去重。",
+      "actions": [
+        "匯入多來源清冊",
+        "去重與資產對齊",
+        "標發現時間與來源"
+      ]
+    },
+    {
+      "id": "prioritize",
+      "stage": "Prioritize",
+      "nameZh": "排序",
+      "intent": "依可利用性、可達性、業務衝擊與情報排序，而不是只看 CVSS。",
+      "actions": [
+        "套用組織政策或示範權重",
+        "分堆必做／待驗證／可延",
+        "記錄加權理由"
+      ]
+    },
+    {
+      "id": "validate",
+      "stage": "Validate",
+      "nameZh": "驗證",
+      "intent": "確認高優先暴露是否真的開著。只用安全仿真與控制評估。",
+      "actions": [
+        "AEV／控制評估",
+        "標已驗證或偽陽性",
+        "留下證據摘要"
+      ]
+    },
+    {
+      "id": "mobilize",
+      "stage": "Mobilize",
+      "nameZh": "動員",
+      "intent": "修復、補償、欺騙或打斷，並安排回測。",
+      "actions": [
+        "開動員單",
+        "對到 3D",
+        "回寫殘餘風險"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "業務結果",
+      "to": "CTEM Scope",
+      "note": "範圍由要保護的結果決定"
+    },
+    {
+      "from": "CTEM Discover",
+      "to": "暴露清單",
+      "note": "多來源去重"
+    },
+    {
+      "from": "PTI",
+      "to": "CTEM Prioritize",
+      "note": "情報降低噪音"
+    },
+    {
+      "from": "ASCA / AAE",
+      "to": "CTEM Validate",
+      "note": "控制與仿真驗證"
+    },
+    {
+      "from": "CTEM Mobilize",
+      "to": "3D 動作",
+      "note": "Deny／Deceive／Disrupt"
+    },
+    {
+      "from": "PEM",
+      "to": "CTEM 全週期",
+      "note": "加速而非取代計畫"
+    },
+    {
+      "from": "Skills",
+      "to": "各階段產出",
+      "note": "把方法論變成可執行提示"
+    }
+  ],
+  "radarTech": [
+    {
+      "id": "deception",
+      "name": "Advanced Cyber Deception",
+      "theme": "營運",
+      "summary": "自動部署並依攻擊者互動調整的欺騙元件，用來預警與誤導。"
+    },
+    {
+      "id": "asca",
+      "name": "Automated Security Control Assessment",
+      "theme": "營運",
+      "summary": "持續評估控制組態，找出漂移與無效控制。"
+    },
+    {
+      "id": "pti",
+      "name": "Predictive Threat Intelligence",
+      "theme": "情報",
+      "summary": "預測近期可能攻擊，而不是只彙整已發生 IOC。"
+    },
+    {
+      "id": "pem",
+      "name": "Preemptive Exposure Management",
+      "theme": "營運",
+      "summary": "用 AI 與模擬加速暴露的發現、驗證與處置。"
+    },
+    {
+      "id": "obfuscation",
+      "name": "Advanced Obfuscation",
+      "theme": "基礎設施",
+      "summary": "讓程式、資料或資源對偵察與自動化工具難以理解，同時保持功能。"
+    },
+    {
+      "id": "aae",
+      "name": "Autonomous Adversarial Emulation",
+      "theme": "營運",
+      "summary": "以模型仿真對手行為，驗證防禦。本專案禁止真實 payload。"
+    },
+    {
+      "id": "precrime",
+      "name": "Cybersecurity Precrime Platforms",
+      "theme": "情報",
+      "summary": "嘗試在犯罪發生前預測並阻止。公開文獻亦記錄偏差與誤報風險。"
+    },
+    {
+      "id": "ssds",
+      "name": "Secure Software-Defined Storage",
+      "theme": "基礎設施",
+      "summary": "以軟體定義儲存強化資料層控制。細節待研究補齊。"
+    }
+  ],
+  "io": [
+    {
+      "id": "in-scope-biz",
+      "name": "業務結果與風險胃口",
+      "kind": "input",
+      "stage": "Scope",
+      "necessity": "必要",
+      "audience": "主管／CISO",
+      "description": "本週期要保護的業務結果，例如清算不可中斷、病歷可用性。"
+    },
+    {
+      "id": "in-scope-map",
+      "name": "服務與資料地圖",
+      "kind": "input",
+      "stage": "Scope",
+      "necessity": "必要",
+      "audience": "架構／業務",
+      "description": "服務、資料分級、第三方依賴、駐留地。"
+    },
+    {
+      "id": "out-scope-stmt",
+      "name": "範圍聲明",
+      "kind": "output",
+      "stage": "Scope",
+      "necessity": "必要",
+      "audience": "全團隊",
+      "description": "納入、排除與理由。沒有這份文件，後續掃描沒有邊界。"
+    },
+    {
+      "id": "in-disc-easm",
+      "name": "外部攻擊面與雲端姿勢",
+      "kind": "input",
+      "stage": "Discover",
+      "necessity": "必要",
+      "audience": "暴露管理",
+      "description": "EASM、CSPM、公開 DNS、憑證透明度。"
+    },
+    {
+      "id": "in-disc-id",
+      "name": "身份與特權清冊",
+      "kind": "input",
+      "stage": "Discover",
+      "necessity": "必要",
+      "audience": "身份團隊",
+      "description": "目錄、常設特權、服務帳號、聯邦身份。"
+    },
+    {
+      "id": "in-disc-app",
+      "name": "應用與供應鏈清冊",
+      "kind": "input",
+      "stage": "Discover",
+      "necessity": "建議",
+      "audience": "AppSec",
+      "description": "SBOM、儲存庫、CI 權限、相依套件。"
+    },
+    {
+      "id": "out-disc-list",
+      "name": "去重暴露清單",
+      "kind": "output",
+      "stage": "Discover",
+      "necessity": "必要",
+      "audience": "暴露管理",
+      "description": "每筆含資產、類型、來源、時間。"
+    },
+    {
+      "id": "in-pri-intel",
+      "name": "預測或現行威脅情報",
+      "kind": "input",
+      "stage": "Prioritize",
+      "necessity": "建議",
+      "audience": "情報／SOC",
+      "description": "對手基礎設施、活躍利用、產業瞄準訊號。"
+    },
+    {
+      "id": "in-pri-biz",
+      "name": "資產業務關鍵度",
+      "kind": "input",
+      "stage": "Prioritize",
+      "necessity": "必要",
+      "audience": "業務／架構",
+      "description": "資產掛到哪一條業務結果。"
+    },
+    {
+      "id": "out-pri-queue",
+      "name": "分堆佇列",
+      "kind": "output",
+      "stage": "Prioritize",
+      "necessity": "必要",
+      "audience": "修復負責人",
+      "description": "必做／待驗證／可延。示範權重須標示非官方。"
+    },
+    {
+      "id": "in-val-policy",
+      "name": "驗證政策",
+      "kind": "input",
+      "stage": "Validate",
+      "necessity": "必要",
+      "audience": "安全工程／法遵",
+      "description": "允許的仿真範圍、禁止真實 exploit、第三方授權。"
+    },
+    {
+      "id": "in-val-ctrl",
+      "name": "控制組態與日誌",
+      "kind": "input",
+      "stage": "Validate",
+      "necessity": "必要",
+      "audience": "SOC／平台",
+      "description": "供 ASCA 與路徑驗證使用。"
+    },
+    {
+      "id": "out-val-ev",
+      "name": "驗證證據",
+      "kind": "output",
+      "stage": "Validate",
+      "necessity": "必要",
+      "audience": "稽核／主管",
+      "description": "已驗證、偽陽性、無法驗證、殘餘風險。"
+    },
+    {
+      "id": "in-mob-owner",
+      "name": "負責人與變更窗口",
+      "kind": "input",
+      "stage": "Mobilize",
+      "necessity": "必要",
+      "audience": "服務負責人",
+      "description": "誰能改設定、何時能改。"
+    },
+    {
+      "id": "in-mob-auto",
+      "name": "自動化權限邊界",
+      "kind": "input",
+      "stage": "Mobilize",
+      "necessity": "建議",
+      "audience": "平台／SRE",
+      "description": "哪些 Deny／Disrupt 可自動，哪些要人工核准。"
+    },
+    {
+      "id": "out-mob-ticket",
+      "name": "動員單與 3D 紀錄",
+      "kind": "output",
+      "stage": "Mobilize",
+      "necessity": "必要",
+      "audience": "全團隊",
+      "description": "動作、類型、結果、回測日。"
+    },
+    {
+      "id": "out-mob-residual",
+      "name": "殘餘風險與未完成項",
+      "kind": "output",
+      "stage": "Mobilize",
+      "necessity": "必要",
+      "audience": "主管／稽核",
+      "description": "週期結束仍開著的暴露與接受理由。"
+    },
+    {
+      "id": "in-pti-feed",
+      "name": "PTI 預測饋送",
+      "kind": "input",
+      "stage": "Prioritize",
+      "necessity": "選用",
+      "audience": "情報",
+      "description": "可缺。缺了仍可依業務與可利用性排序。"
+    },
+    {
+      "id": "out-deceive",
+      "name": "欺騙資產部署清單",
+      "kind": "output",
+      "stage": "Mobilize",
+      "necessity": "選用",
+      "audience": "偵防工程",
+      "description": "誘餌、合成憑證、覆蓋的網段。"
+    }
+  ],
+  "platforms": [
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "form": "Custom GPT 指示或 Skills（若帳號已開放）",
+      "install": "把技能全文貼進 GPT instructions，或依 OpenAI Skills 目錄安裝。",
+      "needs": "ChatGPT 帳號。不必把金鑰寫進本站。",
+      "limits": "自訂 GPT 可能外呼；本專案技能要求關閉不必要動作。",
+      "offline": "需連線。",
+      "skillSupport": "已交付（SKILL.md／Custom GPT／Project）",
+      "copy": "可複製全文",
+      "notes": "以倉庫 skills/chatgpt 為準。Free／Plus 是否有 Skills 待帳號實測。",
+      "delivery": "delivered"
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "form": "Claude Code Skills 或 Project 指示",
+      "install": "Claude Code 使用技能目錄；claude.ai 可把正文貼進 Project instructions。",
+      "needs": "Anthropic 帳號。示範不需金鑰。",
+      "limits": "網頁 Project 長度有限；不要貼真實資產清單。",
+      "offline": "網頁需連線；Claude Code 視本機設定。",
+      "skillSupport": "已交付（SKILL.md／Project／API）",
+      "copy": "可複製為指示或 SKILL.md",
+      "notes": "以倉庫 skills/claude 為準。",
+      "delivery": "delivered"
+    },
+    {
+      "id": "grok",
+      "name": "Grok",
+      "form": "系統提示與 SKILL.md",
+      "install": "見 skills/grok/install.md（建置時同步進教學頁）。",
+      "needs": "xAI／Grok 介面或 API。示範不需金鑰。",
+      "limits": "系統提示長度與工具權限依產品而變。",
+      "offline": "通常需連線。",
+      "skillSupport": "已交付（SKILL.md／系統提示／API）",
+      "copy": "可複製 SKILL.md 與 system-prompt",
+      "notes": "以倉庫 skills/grok 為準。",
+      "delivery": "delivered"
+    },
+    {
+      "id": "glm",
+      "name": "GLM",
+      "form": "智能體 System Prompt／API（無原生 SKILL.md）",
+      "install": "見 skills/glm/install.md。",
+      "needs": "智譜 GLM 對話或 API。",
+      "limits": "目錄與觸發方式待產品文件核對。",
+      "offline": "需連線。",
+      "skillSupport": "已交付（系統提示等效，非 SKILL.md）",
+      "copy": "可複製系統提示",
+      "notes": "以倉庫 skills/glm 為準。智譜沒有經官方證實的 Agent Skills 標準。",
+      "delivery": "delivered"
+    },
+    {
+      "id": "deepseek",
+      "name": "DeepSeek",
+      "form": "系統提示／API／對話工作流（無原生 SKILL.md）",
+      "install": "見 skills/deepseek/install.md。",
+      "needs": "DeepSeek 對話或 API。",
+      "limits": "技能熱載格式可能與 Cursor 不同。",
+      "offline": "需連線。",
+      "skillSupport": "已交付（系統提示等效；V4 家族待驗證）",
+      "copy": "可複製系統提示",
+      "notes": "以倉庫 skills/deepseek 為準。V4 是家族不是單一凍結 ID；chat.deepseek.com 畫面名稱待帳號驗證。",
+      "delivery": "delivered"
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "form": "專案 Skills（SKILL.md）與 Agent",
+      "install": "把技能目錄放到 .cursor/skills/ 或使用者技能目錄，於 Agent 對話以 / 或自動觸發。",
+      "needs": "Cursor 桌面或 Cloud Agent；可讀專案檔。",
+      "limits": "技能會進模型上下文，勿放機密。Cloud Agent 權限由平台強制。",
+      "offline": "可用，不必外呼 API。",
+      "skillSupport": "非本專案交付範圍",
+      "copy": "可一鍵複製 SKILL.md",
+      "notes": "本倉庫沒有此平台的 GAC skill。僅作能力對照，不要當成已安裝包。",
+      "delivery": "out-of-scope"
+    },
+    {
+      "id": "copilot",
+      "name": "GitHub Copilot",
+      "form": "Copilot Chat 自訂指示／agent skills（視方案）",
+      "install": "倉庫層 instructions 或技能檔（依 GitHub 當前文件）。",
+      "needs": "GitHub 帳號與 Copilot 授權。",
+      "limits": "企業政策可能阻擋自訂技能；勿提交機密。",
+      "offline": "通常需連線。",
+      "skillSupport": "非本專案交付範圍",
+      "copy": "可複製為指示",
+      "notes": "本倉庫沒有此平台的 GAC skill。僅作能力對照，不要當成已安裝包。",
+      "delivery": "out-of-scope"
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "form": "Gems 或系統指示",
+      "install": "建立 Gem，貼上技能正文與限制清單。",
+      "needs": "Google 帳號。",
+      "limits": "長文可能被截斷；請拆成多個 Gem。",
+      "offline": "需連線。",
+      "skillSupport": "非本專案交付範圍",
+      "copy": "可複製全文",
+      "notes": "本倉庫沒有此平台的 GAC skill。僅作能力對照，不要當成已安裝包。",
+      "delivery": "out-of-scope"
+    }
+  ],
+  "guides": {
+    "chatgpt": {
+      "title": "ChatGPT",
+      "steps": [
+        "見 skills/chatgpt/install.md。Business／Enterprise 等方案可上傳 Agent Skill。",
+        "或把 gpt-instructions.md 貼進 Custom GPT，關閉不必要 Actions。",
+        "示範用合成案例，不要填雲端金鑰。"
+      ]
+    },
+    "claude": {
+      "title": "Claude",
+      "steps": [
+        "見 skills/claude/install.md。claude.ai 上傳 ZIP，或 Claude Code 讀 .claude/skills/。",
+        "也可把 project-instructions.md 貼進 Project。",
+        "示範用合成案例，不要填雲端金鑰。"
+      ]
+    },
+    "grok": {
+      "title": "Grok",
+      "steps": [
+        "見 skills/grok/install.md。Grok Build 讀 .grok/skills/ 的 SKILL.md。",
+        "或使用 system-prompt.md。",
+        "示範用合成案例，不要填雲端金鑰。"
+      ]
+    },
+    "glm": {
+      "title": "GLM",
+      "steps": [
+        "見 skills/glm/install.md。此平台無原生 SKILL.md。",
+        "把 agent-system-prompt.md 貼進智能體 System Prompt 或 API system 角色。",
+        "示範用合成案例，不要把金鑰寫進提示。"
+      ]
+    },
+    "deepseek": {
+      "title": "DeepSeek",
+      "steps": [
+        "見 skills/deepseek/install.md 與 VERSION-STATUS.md。此平台無原生 SKILL.md。",
+        "API 預設 deepseek-flash（V4.1-Flash）。deepseek-v4-pro 路由待驗證。",
+        "網頁對話畫面模型名待帳號驗證。不要把金鑰寫進提示。"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "g-radar",
+      "title": "Emerging Tech Impact Radar: Preemptive Cybersecurity",
+      "org": "Gartner",
+      "idCode": "G00830315",
+      "datePublished": "2025-10-07",
+      "dateAccessed": "2026-09-12",
+      "url": "https://simspace.com/wp-content/uploads/2026/04/Emerging_Tech_Impact_830315_ndx.pdf",
+      "kind": "公開轉載 PDF（非本專案託管原文庫）",
+      "confidence": "中",
+      "usedFor": "PCS 定義、雷達技術定義、PEM／ASCA／PTI／AAE",
+      "limit": "轉載完整性與授權範圍待確認；未在 Gartner 官網登入核對。"
+    },
+    {
+      "id": "zynap",
+      "title": "Preemptive Cybersecurity: What Gartner Means and Why It Matters",
+      "org": "Zynap",
+      "idCode": "",
+      "datePublished": "2026",
+      "dateAccessed": "2026-09-12",
+      "url": "https://www.zynap.com/blog/preemptive-cybersecurity/",
+      "kind": "二手轉述（含標示經許可的 Gartner 引句）",
+      "confidence": "中",
+      "usedFor": "四種姿勢、3D、五能力清單、支出預測轉述",
+      "limit": "廠商部落格，五能力清單可能與雷達 11 項不一致。"
+    },
+    {
+      "id": "ionix",
+      "title": "Deceive, Disrupt, and Deny: The 3 D’s of Preemptive Cybersecurity",
+      "org": "IONIX",
+      "idCode": "",
+      "datePublished": "",
+      "dateAccessed": "2026-09-12",
+      "url": "https://www.ionix.io/guides/what-is-preemptive-cybersecurity/deceive-disrupt-and-deny-the-3-ds-of-preemptive-cybersecurity/",
+      "kind": "二手整理",
+      "confidence": "中",
+      "usedFor": "3D 操作解釋",
+      "limit": "行銷頁，待原文核對用字順序與範圍。"
+    },
+    {
+      "id": "ibm-ctem",
+      "title": "What Is Continuous Threat Exposure Management (CTEM)?",
+      "org": "IBM",
+      "idCode": "",
+      "datePublished": "",
+      "dateAccessed": "2026-09-12",
+      "url": "https://www.ibm.com/think/topics/ctem",
+      "kind": "二手／百科式整理",
+      "confidence": "中高（五階段公開穩定）",
+      "usedFor": "CTEM 五階段",
+      "limit": "非 Gartner 原文。"
+    },
+    {
+      "id": "splunk",
+      "title": "Preemptive Cybersecurity in 2026: How It Works",
+      "org": "Splunk",
+      "idCode": "",
+      "datePublished": "2026",
+      "dateAccessed": "2026-09-12",
+      "url": "https://www.splunk.com/en_us/blog/learn/preemptive-cybersecurity.html",
+      "kind": "二手整理",
+      "confidence": "低至中",
+      "usedFor": "大眾化解釋、部分預測數字（35% by 2028）",
+      "limit": "與 Zynap 轉述的 2030／50% 數字不同份、勿混引。"
+    },
+    {
+      "id": "zest",
+      "title": "Understanding Preemptive Exposure Management and Why it Matters",
+      "org": "Zest Security",
+      "idCode": "",
+      "datePublished": "2025",
+      "dateAccessed": "2026-09-12",
+      "url": "https://www.zestsecurity.io/blog/understanding-preemptive-exposure-management-and-why-it-matters",
+      "kind": "二手（提及 Gartner 2025 emerging tech 報告）",
+      "confidence": "中",
+      "usedFor": "PEM 不是獨立產品類別的轉述",
+      "limit": "廠商被點名，敘述可能偏產品。"
+    }
+  ],
+  "pending": [
+    "gartner.com 被 bot／Cloudflare 擋住，官方列 claims_supported 必須為空，不得升格為 gartner-stated supported",
+    "DeepSeek V4 家族別名、chat.deepseek.com 畫面模型名、changelog 與首頁路由仍待帳號驗證",
+    "Impact Radar 其餘未列入的技術條目與付費報告全文",
+    "各平台 Skills 選單實際標籤待登入實測（本環境無產品帳號）",
+    "本整合代理不得 push／部署；GitHub Pages 子路徑待有權限的主代理發布"
+  ],
+  "demoRuleNote": "以下權重、分堆與建議規則皆為本專案示範設計，不是 Gartner 官方規則，也不得寫進正式風險報告冒充官方分數。"
+}
