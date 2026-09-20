@@ -1,4 +1,4 @@
-# Cursor_MultiAgent
+# Cursor_GPreepSecurity
 
 ## 專案協調／目錄責任
 
@@ -110,16 +110,16 @@ npm run preview # 本機靜態預覽
 3. 本站不是前端路由器 SPA。
 4. 整合代理與子代理**不得** push 或部署。由主代理對 `gpreep` 遠端發布。
 
-建議 workflow 概念（根目錄 CI 由主代理建立）：
+部署流程：`.github/workflows/pages.yml`。
 
-```yaml
-- run: node site/scripts/sync-content.js && node site/scripts/build.js
-- uses: peaceiris/actions-gh-pages@v4
-  with:
-    publish_dir: site/dist
-```
+- GitHub **Settings → Pages → Source** 選擇 **GitHub Actions**。
+- 發布分支為 `cursor/preemptive-cybersecurity-128d`；網站內容或 workflow 更新時自動執行，也可使用 **Run workflow** 手動重建。
+- 先驗證四個基準案例與契約，再執行 `cd site && npm test`；任何檢查失敗都不會進入部署。
+- PR 只建置與驗證，不發布。部署 job 只取得 `pages: write`、`id-token: write`，不需要 PAT 或 repository 寫入權。
+- 只將建置後的 `site/dist/` 上傳為 Pages artifact；不提交產物、不發布 repository 根目錄或 `docs/`。
+- 發布後自動檢查首頁、CSS、JavaScript 與資料 JSON 的 HTTP 回應。
 
-若 Pages 來源是 `docs/` 或 `gh-pages` 分支，請把 `dist/` 內容放到該發行根，而不是把整個 `site/` 原始碼丟上去。
+預定網站網址：<https://chinchiang.github.io/Cursor_GPreepSecurity/>。實際發布結果以 Actions 的部署紀錄及公開網站為準；本機測試通過不代表已上線。
 
 ---
 

@@ -1,0 +1,73 @@
+name: Build and deploy Pages
+
+on:
+  push:
+    branches: [cursor/preemptive-cybersecurity-128d]
+    paths:
+      - '.github/workflows/pages.yml'
+      - 'site/**'
+      - 'research/**'
+      - 'references/**'
+      - 'skills/**'
+      - 'examples/**'
+      - 'docs/contracts/**'
+  pull_request:
+    branches: [cursor/preemptive-cybersecurity-128d]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Validate contracts and baseline cases
+        run: python3 examples/validate_contract.py
+      - name: Build and check website
+        working-directory: site
+        run: npm test
+      - name: Upload tested website
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/cursor/preemptive-cybersecurity-128d'
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: site/dist
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/cursor/preemptive-cybersecurity-128d'
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy tested artifact
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+      - name: Verify public endpoints
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          for path in index.html css/main.css js/app.js data/site-data.json; do
+            curl --fail --silent --show-error --location \
+              --retry 5 --retry-all-errors --retry-delay 5 --max-time 30 \
+              --output /dev/null "${PAGE_URL%/}/$path"
+          done
