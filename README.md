@@ -119,7 +119,7 @@ npm run preview # 本機靜態預覽
 - 只將建置後的 `site/dist/` 上傳為 Pages artifact；不提交產物、不發布 repository 根目錄或 `docs/`。
 - 發布後自動檢查首頁、CSS、JavaScript 與資料 JSON 的 HTTP 回應。
 
-預定網站網址：<https://chinchiang.github.io/Cursor_GPreepSecurity/>。實際發布結果以 Actions 的部署紀錄及公開網站為準；本機測試通過不代表已上線。
+網站網址：<https://chinchiang.github.io/Cursor_GPreepSecurity/>。2026-09-20 已完成首次發布，驗收與限制見 [部署紀錄](qa/deployment-2026-09-20.md)。後續發布結果以 Actions 紀錄及公開網站為準；本機測試通過不代表已上線。
 
 ---
 
